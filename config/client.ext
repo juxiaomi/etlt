@@ -1,0 +1,13 @@
+{
+  "name": "client",
+  "skip": 0,
+  "columns": [
+    "client_id",
+    "client_name",
+    "open_org",
+    "field_1",
+    "field_2"
+  ],
+  "delim": ",",
+  "dataSource": "client.del"
+}

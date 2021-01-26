@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.etlt.expression.TestVariable" time="0.004" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.class.path" value="C:\Users\juxiaomi\code\org.etlt\etlt-expression\target\test-classes;C:\Users\juxiaomi\code\org.etlt\etlt-expression\target\classes;C:\Users\juxiaomi\.m2\repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.0-rc1\jackson-databind-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.0-rc1\jackson-annotations-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.0-rc1\jackson-core-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\juxiaomi\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\juxiaomi\AppData\Local\Temp\surefire7435680721179193628\surefirebooter3179521798926143501.jar C:\Users\juxiaomi\AppData\Local\Temp\surefire7435680721179193628 2021-01-26T20-55-16_466-jvmRun1 surefire4861249346390014627tmp surefire_0333798899420653384tmp"/>
+    <property name="surefire.test.class.path" value="C:\Users\juxiaomi\code\org.etlt\etlt-expression\target\test-classes;C:\Users\juxiaomi\code\org.etlt\etlt-expression\target\classes;C:\Users\juxiaomi\.m2\repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.0-rc1\jackson-databind-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.0-rc1\jackson-annotations-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.0-rc1\jackson-core-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\juxiaomi\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\juxiaomi"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_201\jre"/>
+    <property name="basedir" value="C:\Users\juxiaomi\code\org.etlt\etlt-expression"/>
+    <property name="file.separator" value="\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\juxiaomi\AppData\Local\Temp\surefire7435680721179193628\surefirebooter3179521798926143501.jar"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_201\jre\classes"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_201-b09"/>
+    <property name="user.name" value="juxiaomi"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\endorsed"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="GBK"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\juxiaomi\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\juxiaomi\AppData\Local\Temp\"/>
+    <property name="java.version" value="1.8.0_201"/>
+    <property name="user.dir" value="C:\Users\juxiaomi\code\org.etlt\etlt-expression"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\tools\Cmder\bin;C:\tools\Cmder\vendor\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\IBM\MQ\java\lib;C:\Program Files\IBM\MQ\java\lib64;C:\app\oracle\product\12.1.0\client_1\bin;C:\app\oracle\product\12.1.0\dbhome_1\bin;C:\app\oracle\product\12.1.0\dbhome_3\bin;C:\app\oracle\product\12.1.0\dbhome_2\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_201\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\IBM\MQ\bin64;C:\Program Files\IBM\MQ\bin;C:\Program Files\IBM\MQ\tools\c\samples\bin64;C:\Program Files\IBM\MQ\tools\c\samples\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\Subversion\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\OpenJDK\jdk-15.0.1\bin;C:\tools\flutter\bin;C:\Program Files\MariaDB 10.5\bin;C:\Users\juxiaomi\AppData\Local\Microsoft\WindowsApps;C:\tools\Cmder;C:\ProgramData\chocolatey\lib\elasticsearch\tools\elasticsearch-6.7.1\bin;C:\Program Files\node;C:\Program Files\JetBrains\IntelliJ IDEA 10.0\bin;C:\Users\juxiaomi\AppData\Local\Pandoc\;C:\tools\Cmder\vendor\git-for-windows\cmd;C:\tools\Cmder\vendor\git-for-windows\mingw64\bin;C:\tools\Cmder\vendor\git-for-windows\usr\bin;C:\tools\Cmder;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.201-b09"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="testOperators" classname="org.etlt.expression.TestVariable" time="0"/>
+</testsuite>

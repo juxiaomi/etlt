@@ -1,0 +1,6 @@
+{
+  "name": "module-all",
+  "extractors": ["client"],
+  "loaders": ["*"],
+  "mapping": "mapping.json"
+}

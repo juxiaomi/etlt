@@ -1,0 +1,13 @@
+{
+  "userDefined": {
+    "concat": "org.etlt.op.ud.Concat",
+    "subString": "org.etlt.op.ud.SubString",
+    "mapping": "org.etlt.op.ud.Mapping",
+    "currency": "org.etlt.op.ud.Currency",
+    "leftCurrency": "org.etlt.op.ud.LeftCurrency",
+    "rightCurrency": "org.etlt.op.ud.RightCurrency",
+    "leftAmount": "org.etlt.op.ud.LeftAmount",
+    "rightAmount": "org.etlt.op.ud.RightAmount",
+    "divide": "org.etlt.op.ud.Divide"
+  }
+}
