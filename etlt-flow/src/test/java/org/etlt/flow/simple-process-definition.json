@@ -1,0 +1,25 @@
+{	
+	"name": "simple-process-definition",
+	"nodes":
+	[
+		{"name": "START",
+		"type": "START",
+		"next" : "input1"},
+		{"name": "input1",
+		"type": "INPUT",
+		"source": "/tmp/client.txt",
+		"previous": "START",
+		"next": "output1"
+		},
+		{"name": "output1",
+		"type": "OUTPUT",
+		"target": "/tmp/client-output.txt",
+		"previous": "input1",
+		"next": "END"
+		},
+		{"name": "END",
+		"type": "END",
+		"previous" : "output1"}
+	]
+	
+}

@@ -1,0 +1,28 @@
+{
+  "clientStatus": {
+    "U": "03",
+    "S": "02"
+  },
+  "channel": {
+    "105": "CT1",
+    "204": "PC1"
+  },
+  "checkFlag": {
+    "C": "1",
+    "K": "2"
+  },
+  "accountStatus": {
+    "D": "2",
+    "I": "1",
+    "N": "1"
+  },
+  "direction": {
+    "B": "B",
+    "O": "S"
+  },
+  "orderMode": {
+    "0": "P",
+    "1": "S",
+    "2": "O"
+  }
+}
