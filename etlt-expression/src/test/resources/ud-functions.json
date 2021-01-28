@@ -1,5 +1,5 @@
 {
   "userDefined": {
-    "concat": "org.etlt.expression.ud.Concat"
+    "concat1": "org.etlt.expression.ud.Concat"
   }
 }

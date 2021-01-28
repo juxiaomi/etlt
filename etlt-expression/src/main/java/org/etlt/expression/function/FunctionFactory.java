@@ -71,7 +71,7 @@ public class FunctionFactory implements FunctionExecutor {
             Set<String> names = udFunctions.keySet();
             for (String name : names) {
                 String functionName = toUpper(name);
-                Class clazz = udFunctions.get(functionName);
+                Class clazz = udFunctions.get(name);
                 if (clazz.isAssignableFrom(FunctionActor.class)) {
                     throw new IllegalExpressionException("user defined class is not a FunctionActor: " + clazz.getName());
                 }
@@ -80,7 +80,7 @@ public class FunctionFactory implements FunctionExecutor {
                     checkExist(functionName);
                     this.functionInvokerMap.put(functionName, new FunctionInvoker(functionActor));
                 } catch (Exception e) {
-                    throw new IllegalExpressionException("user defined class is not a FunctionActor or cannot be instantiated: " + clazz.getName());
+                    throw new IllegalExpressionException("user defined class is not a FunctionActor or cannot be instantiated: " + clazz.getName(), e);
                 }
             }
         }

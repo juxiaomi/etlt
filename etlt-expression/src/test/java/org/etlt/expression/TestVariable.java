@@ -96,25 +96,25 @@ public class TestVariable {
 
         List<String> expressions = new ArrayList<String>();
         //$CONTAINS
-        expressions.add("$CONTAINS(vString1 ,'abc')");
-        expressions.add("$CONTAINS(vString2 ,'abc')");
+        expressions.add("CONTAINS(vString1 ,'abc')");
+        expressions.add("CONTAINS(vString2 ,'abc')");
         //$STARTSWITH
-        expressions.add("$STARTSWITH(vString2 ,'abc')");
-        expressions.add("$STARTSWITH(vString3 ,'abc')");
+        expressions.add("STARTSWITH(vString2 ,'abc')");
+        expressions.add("STARTSWITH(vString3 ,'abc')");
         //$ENDSWITH
-        expressions.add("$ENDSWITH(vString2 ,'abc')");
-        expressions.add("$ENDSWITH(vString3 ,'bcc')");
+        expressions.add("ENDSWITH(vString2 ,'abc')");
+        expressions.add("ENDSWITH(vString3 ,'bcc')");
         //$CALCDATE
-        expressions.add("$CALCDATE(vDate,1,1,1,1,1,1)");
-        expressions.add("$CALCDATE(vDate,0,0,0,0,0,0)");
-        expressions.add("$CALCDATE(vDate,-1,-1,-1,-1,-1,-1)");
-        expressions.add("$CALCDATE(vDate,0,0,0,0,0,60)");
-        expressions.add("$CALCDATE(vDate,0,0,0,0,60,0)");
-        expressions.add("$CALCDATE(vDate,0,0,0,24,0,0)");
-        expressions.add("$CALCDATE(vDate,0,0,31,0,0,0)");
-        expressions.add("$CALCDATE(vDate,0,12,0,0,0,0)");
+        expressions.add("CALCDATE(vDate,1,1,1,1,1,1)");
+        expressions.add("CALCDATE(vDate,0,0,0,0,0,0)");
+        expressions.add("CALCDATE(vDate,-1,-1,-1,-1,-1,-1)");
+        expressions.add("CALCDATE(vDate,0,0,0,0,0,60)");
+        expressions.add("CALCDATE(vDate,0,0,0,0,60,0)");
+        expressions.add("CALCDATE(vDate,0,0,0,24,0,0)");
+        expressions.add("CALCDATE(vDate,0,0,31,0,0,0)");
+        expressions.add("CALCDATE(vDate,0,12,0,0,0,0)");
         //$DAYEQUALS
-        expressions.add("$DAYEQUALS(vDate,[2008-01-01])");
+        expressions.add("DAYEQUALS(vDate,[2008-01-01])");
 
         //设置上下文变量
         List<Variable> variables = new ArrayList<Variable>();

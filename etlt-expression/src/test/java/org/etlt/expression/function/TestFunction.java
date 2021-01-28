@@ -8,7 +8,7 @@ public class TestFunction {
 
     @Test
     public void testUdConcat(){
-        FunctionInvoker functionInvoker = this.functionFactory.getFunction("concat");
+        FunctionInvoker functionInvoker = this.functionFactory.getFunction("concat1");
         Assert.assertNotNull(functionInvoker);
         Assert.assertEquals("abc + def", functionInvoker.invoke(null, "abc + ", "def"));
     }
