@@ -18,8 +18,8 @@ Desktop.ini
 /.idea
 
 # ignore Maven generated target folders
-target
-out
+target/
+out/
 
 # ignore IDE(eclipse, IDEA) files
 .project
