@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.etlt.expression.TestFunction
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.149 s <<< FAILURE! - in org.etlt.expression.TestFunction
-testUdFunctionConcat(org.etlt.expression.TestFunction)  Time elapsed: 0.145 s  <<< ERROR!
-org.etlt.expression.IllegalExpressionException: function "concat" wrong parameters match
-	at org.etlt.expression.TestFunction.testUdFunctionConcat(TestFunction.java:77)
-
