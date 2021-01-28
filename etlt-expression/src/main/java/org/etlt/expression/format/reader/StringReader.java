@@ -14,7 +14,7 @@ import java.io.IOException;
  * Read string type
  * @version 2.0 
  */
-public class StringTypeReader implements ElementReader {
+public class StringReader implements ElementReader {
 	public static final char START_MARK = '\'';//字符串开始标志
 	public static final char END_MARK = '\'';//字符串结束标志
 	

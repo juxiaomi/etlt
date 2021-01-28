@@ -18,7 +18,7 @@
     <property name="user.country" value="CN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\juxiaomi\AppData\Local\Temp\surefire7435680721179193628\surefirebooter3179521798926143501.jar C:\Users\juxiaomi\AppData\Local\Temp\surefire7435680721179193628 2021-01-26T20-55-16_466-jvmRun1 surefire4861249346390014627tmp surefire_0333798899420653384tmp"/>
+    <property name="sun.java.command" value="C:\Users\juxiaomi\AppData\Local\Temp\surefire7337199683162299615\surefirebooter8243351572711189569.jar C:\Users\juxiaomi\AppData\Local\Temp\surefire7337199683162299615 2021-01-26T21-13-28_110-jvmRun1 surefire1966165701279855030tmp surefire_03393387343700345133tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\juxiaomi\code\org.etlt\etlt-expression\target\test-classes;C:\Users\juxiaomi\code\org.etlt\etlt-expression\target\classes;C:\Users\juxiaomi\.m2\repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.0-rc1\jackson-databind-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.0-rc1\jackson-annotations-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.0-rc1\jackson-core-2.12.0-rc1.jar;C:\Users\juxiaomi\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\juxiaomi\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\juxiaomi"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\juxiaomi\AppData\Local\Temp\surefire7435680721179193628\surefirebooter3179521798926143501.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\juxiaomi\AppData\Local\Temp\surefire7337199683162299615\surefirebooter8243351572711189569.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_201\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="testLiteral" classname="org.etlt.expression.TestLiteral" time="0"/>
+  <testcase name="testLiteral" classname="org.etlt.expression.TestLiteral" time="0.001"/>
 </testsuite>

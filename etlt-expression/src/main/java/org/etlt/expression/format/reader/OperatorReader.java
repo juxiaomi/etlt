@@ -15,7 +15,7 @@ import java.util.Set;
  * Read operator type
  * @version 2.0 
  */
-public class OperatorTypeReader implements ElementReader {
+public class OperatorReader implements ElementReader {
 	
 private static final Set<String> OPERATOR_WORDS = new HashSet<String>();
 	
@@ -87,7 +87,7 @@ private static final Set<String> OPERATOR_WORDS = new HashSet<String>();
 				return new Element(sb.toString(), index,
 						Element.ElementType.OPERATOR);
 			}
-			if (VariableTypeReader.STOP_CHAR.indexOf(c) >= 0) {//单词停止符
+			if (VariableReader.STOP_CHAR.indexOf(c) >= 0) {//单词停止符
 				throw new IllegalExpressionException("不是有效的运算符：" + sb.toString());
 			}
 		}
@@ -119,7 +119,7 @@ private static final Set<String> OPERATOR_WORDS = new HashSet<String>();
 				if (isOperatorWord(sb.toString())) {
 					return true;
 				}
-				if (VariableTypeReader.STOP_CHAR.indexOf(c) >= 0) {//单词停止符
+				if (VariableReader.STOP_CHAR.indexOf(c) >= 0) {//单词停止符
 					return false;
 				}
 				

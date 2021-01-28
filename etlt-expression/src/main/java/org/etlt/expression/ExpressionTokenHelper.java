@@ -1,6 +1,6 @@
 package org.etlt.expression;
 
-import org.etlt.expression.format.reader.StringTypeReader;
+import org.etlt.expression.format.reader.StringReader;
 import org.etlt.expression.op.Operator;
 
 /**
@@ -79,7 +79,7 @@ public class ExpressionTokenHelper {
 	
 	public static boolean isString(String s){
 		if(s != null && s.length() > 1){
-			return (s.charAt(0) == StringTypeReader.START_MARK);
+			return (s.charAt(0) == StringReader.START_MARK);
 		}else {
 			return false;
 		}		

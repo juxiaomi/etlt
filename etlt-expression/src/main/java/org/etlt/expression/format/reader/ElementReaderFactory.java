@@ -29,20 +29,25 @@ public class ElementReaderFactory {
 		if (b != -1) {
 			char c = (char)b;
 			try{	
-				if (c == StringTypeReader.START_MARK) {//"开头，构造字符串读取器
-					return StringTypeReader.class.newInstance();
-				} else if (c == DateTypeReader.START_MARK) {//[开头，构造日期读取器
-					return DateTypeReader.class.newInstance();
-				} else if (c == FunctionTypeReader.START_MARK) {//$开头，构造函数读取器
-					return FunctionTypeReader.class.newInstance();
-				} else if (SplitorTypeReader.SPLITOR_CHAR.indexOf(c) >= 0) {//如果是分隔符，构造分隔符读取器
-					return SplitorTypeReader.class.newInstance();
-				} else if (NumberTypeReader.NUMBER_CHARS.indexOf(c) >= 0) {//以数字开头，构造数字类型读取器
-					return NumberTypeReader.class.newInstance();
-				} else if (OperatorTypeReader.isOperatorStart(reader)) {//如果前缀是运算符，构造运算符读取器
-					return OperatorTypeReader.class.newInstance();
+				if (c == StringReader.START_MARK) {//"开头，构造字符串读取器
+					return new StringReader();
+				} else if (c == DateReader.START_MARK) {//[开头，构造日期读取器 // todo: should be deprecated
+					return DateReader.class.newInstance();
+				}
+				//$开头，构造函数读取器// todo: function should like functionName(), identified by ()
+				/*
+				else if (c == FunctionReader.START_MARK) {
+					return FunctionReader.class.newInstance();
+				}
+				 */
+				else if (SplitorReader.SPLITOR_CHAR.indexOf(c) >= 0) {//如果是分隔符，构造分隔符读取器
+					return new SplitorReader();
+				} else if (NumberReader.NUMBER_CHARS.indexOf(c) >= 0) {//以数字开头，构造数字类型读取器
+					return new NumberReader();
+				} else if (OperatorReader.isOperatorStart(reader)) {//如果前缀是运算符，构造运算符读取器
+					return new OperatorReader();
 				} else {
-					return VariableTypeReader.class.newInstance();//否则构造一个变量读取器
+					return new VariableReaderV2();//否则构造一个变量读取器
 				}
 			} catch (Exception e) {
 				throw new IllegalExpressionException(e);

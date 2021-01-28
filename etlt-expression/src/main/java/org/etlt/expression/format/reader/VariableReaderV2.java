@@ -9,30 +9,40 @@ import org.etlt.expression.format.ExpressionReader;
 import java.io.IOException;
 
 /**
- * read variable name
- * @version 2.0 
+ * read a variable or a function
+ * @version 2.1
  */
-public class VariableTypeReader implements ElementReader {
+public class VariableReaderV2 implements ElementReader {
 
-	public static final String STOP_CHAR = "+-*/%^<>=&|!?:#$(),[]'\" \r\n\t";//词段的结束符
-	
+	public static final String STOP_CHAR = "+-*/%^<>=&|!?:#$),[]'\" \r\n\t";//end char of variable, without (, if ( found, it's a function
+
+	public static final char IDENTIFIER_CHAR_OF_FUNCTION = '(';//函数
+
 	public static final String TRUE_WORD = "true";
 	public static final String FALSE_WORD = "false";
-	
+	@Deprecated
 	public static final String NULL_WORD = "null";
+
+	private ElementType elementType = ElementType.VARIABLE;
 	/**
 	 * 
-	 * @param sr
+	 * @param reader
 	 * @return
 	 */
-	private String readWord(ExpressionReader sr) throws  IOException {
+	private String readWord(ExpressionReader reader) throws  IOException {
 		StringBuffer sb = new StringBuffer();
 		boolean readStart = true;
 		int b = -1;
-		while ((b = sr.read()) != -1) {
+		while ((b = reader.read()) != -1) {
+			elementType = ElementType.VARIABLE;
 			char c = (char)b;
+			if(c == IDENTIFIER_CHAR_OF_FUNCTION){// function found
+				elementType = ElementType.FUNCTION;
+				reader.reset();
+				return sb.toString();
+			}
 			if (STOP_CHAR.indexOf(c) >= 0 && !readStart) {//单词停止符,并且忽略第一个字符
-				sr.reset();
+				reader.reset();
 				return sb.toString();
 			}
 			if (!Character.isJavaIdentifierPart(c) && c != '.') {// only support java identifier character or .
@@ -45,7 +55,7 @@ public class VariableTypeReader implements ElementReader {
 				readStart = false;
 			}
 			sb.append(c);
-			sr.mark(0);
+			reader.mark(0);
 		}
 		return sb.toString();
 	}
@@ -59,7 +69,7 @@ public class VariableTypeReader implements ElementReader {
 		} else if (NULL_WORD.equals(word)) {
 			return new Element(word, index, ElementType.NULL);
 		} else {
-			return new Element(word, index, ElementType.VARIABLE);
+			return new Element(word, index, elementType);
 		}
 	}
 	

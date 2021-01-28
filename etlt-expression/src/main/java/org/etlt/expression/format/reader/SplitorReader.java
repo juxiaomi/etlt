@@ -13,7 +13,7 @@ import java.io.IOException;
  * Read separator type
  * @version 2.0 
  */
-public class SplitorTypeReader implements ElementReader {
+public class SplitorReader implements ElementReader {
 
 	public static final String SPLITOR_CHAR ="(),";//所有分割符
 	

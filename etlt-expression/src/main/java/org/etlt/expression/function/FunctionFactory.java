@@ -54,9 +54,10 @@ public class FunctionFactory implements FunctionExecutor {
 
     @Override
     public FunctionInvoker getFunction(String functionName) {
-        FunctionInvoker functionInvoker = this.functionInvokerMap.get(functionName);
+        String _functionName = toUpper(functionName);
+        FunctionInvoker functionInvoker = this.functionInvokerMap.get(_functionName);
         if (functionInvoker == null) {
-            throw new IllegalExpressionException("function not found: " + functionName);
+            throw new IllegalExpressionException("function not found: " + _functionName);
         }
         return functionInvoker;
     }
@@ -69,14 +70,15 @@ public class FunctionFactory implements FunctionExecutor {
             Map<String, Class> udFunctions = this.setting.getUserDefined();
             Set<String> names = udFunctions.keySet();
             for (String name : names) {
-                Class clazz = udFunctions.get(name);
+                String functionName = toUpper(name);
+                Class clazz = udFunctions.get(functionName);
                 if (clazz.isAssignableFrom(FunctionActor.class)) {
                     throw new IllegalExpressionException("user defined class is not a FunctionActor: " + clazz.getName());
                 }
                 try {
                     FunctionActor functionActor = (FunctionActor) clazz.getDeclaredConstructor(null).newInstance();
-                    checkExist(name);
-                    this.functionInvokerMap.put(name, new FunctionInvoker(functionActor));
+                    checkExist(functionName);
+                    this.functionInvokerMap.put(functionName, new FunctionInvoker(functionActor));
                 } catch (Exception e) {
                     throw new IllegalExpressionException("user defined class is not a FunctionActor or cannot be instantiated: " + clazz.getName());
                 }
@@ -96,8 +98,9 @@ public class FunctionFactory implements FunctionExecutor {
             if (Modifier.isPublic(method.getModifiers())) {
                 FunctionEnabled function = method.getAnnotation(FunctionEnabled.class);
                 if (function != null) {
-                    checkExist(function.value());
-                    this.functionInvokerMap.put(function.value(), new FunctionInvoker(method, instance));
+                    String functionName = toUpper(function.value());
+                    checkExist(functionName);
+                    this.functionInvokerMap.put(functionName, new FunctionInvoker(method, instance));
                 }
             }
         }
@@ -109,7 +112,12 @@ public class FunctionFactory implements FunctionExecutor {
      * @param functionName
      */
     protected void checkExist(String functionName) {
-        if (this.functionInvokerMap.containsKey(functionName))
-            throw new IllegalStateException("function exists: " + functionName);
+        String _functionName = toUpper(functionName);
+        if (this.functionInvokerMap.containsKey(_functionName))
+            throw new IllegalStateException("function exists: " + _functionName);
+    }
+
+    private String toUpper(String functionName){
+        return functionName.toUpperCase();
     }
 }

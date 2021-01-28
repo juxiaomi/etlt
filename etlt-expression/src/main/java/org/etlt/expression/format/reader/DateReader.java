@@ -14,7 +14,7 @@ import java.io.StringReader;
  * 读取时间类型
  * @version 2.0 
  */
-public class DateTypeReader implements ElementReader {
+public class DateReader implements ElementReader {
 	public static final char START_MARK = '[';//时间开始标志
 	public static final char END_MARK = ']';//时间结束标志
 	

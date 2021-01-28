@@ -15,7 +15,7 @@ import org.etlt.expression.datameta.Reference;
 import org.etlt.expression.datameta.Variable;
 import org.etlt.expression.datameta.BaseDataMeta.DataType;
 import org.etlt.expression.format.ExpressionParser;
-import org.etlt.expression.format.reader.StringTypeReader;
+import org.etlt.expression.format.reader.StringReader;
 import org.etlt.expression.function.FunctionExecution;
 import org.etlt.expression.function.FunctionExecutor;
 import org.etlt.expression.op.Operator;
@@ -728,7 +728,7 @@ public class ExpressionExecutor {
                     expressionText.append(c.getDataValueText()).append(" ");
 
                 } else if (BaseDataMeta.DataType.DATATYPE_STRING == c.getDataType()) {
-                    expressionText.append(StringTypeReader.START_MARK).append(c.getDataValueText()).append("' ");
+                    expressionText.append(StringReader.START_MARK).append(c.getDataValueText()).append("' ");
 
                 }
 
@@ -799,7 +799,7 @@ public class ExpressionExecutor {
                     throw new IllegalExpressionException("非法的转义符\"" + expChars[i] + "\" ，位置：" + i);
                 }
 
-            } else if (StringTypeReader.START_MARK == expChars[i]) {//读入'"'
+            } else if (StringReader.START_MARK == expChars[i]) {//读入'"'
                 if (status == 0) {
                     status = 2;//进入字符串
                     tokenBuffer.append(expChars[i]);

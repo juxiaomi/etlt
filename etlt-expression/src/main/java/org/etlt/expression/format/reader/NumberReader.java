@@ -13,7 +13,7 @@ import java.io.IOException;
  * Read numeric type
  * @version 2.0 
  */
-public class NumberTypeReader implements ElementReader {
+public class NumberReader implements ElementReader {
 	public static final String NUMBER_CHARS = "01234567890.";//表示数值的字符
 	public static final String LONG_MARKS = "lL";//long的结尾标志
 	public static final String FLOAT_MARKS = "fF";//float的结尾标志
