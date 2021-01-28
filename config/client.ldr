@@ -6,9 +6,9 @@
     "client_id=client.client_id",
     "client_name=client.client_name",
     "open_org=client.open_org",
-    "field=$concat(client.field_1,client.field_2)",
-    "field1=$subString(client.client_id,0,3)",
-    "field2=$mapping('channel','105')"
+    "field=concat(client.field_1,client.field_2)",
+    "field1=subString(client.client_id,0,3)",
+    "field2=mapping('channel','105')"
   ],
   "delim": ",",
   "target": "client.del"

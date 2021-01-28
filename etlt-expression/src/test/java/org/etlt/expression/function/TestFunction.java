@@ -15,7 +15,7 @@ public class TestFunction {
 
     @Test
     public void testInnerConcat(){
-        FunctionInvoker functionInvoker = this.functionFactory.getFunction("CONCAT");
+        FunctionInvoker functionInvoker = this.functionFactory.getFunction("CONCAT0");
         Assert.assertNotNull(functionInvoker);
         Assert.assertEquals("abc + def", functionInvoker.invoke(null, "abc + ", "def"));
     }

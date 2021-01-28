@@ -80,7 +80,7 @@ public class FunctionFactory implements FunctionExecutor {
                     checkExist(functionName);
                     this.functionInvokerMap.put(functionName, new FunctionInvoker(functionActor));
                 } catch (Exception e) {
-                    throw new IllegalExpressionException("user defined class is not a FunctionActor or cannot be instantiated: " + clazz.getName(), e);
+                    throw new IllegalExpressionException("user defined function initialization failed: " + clazz.getName(), e);
                 }
             }
         }

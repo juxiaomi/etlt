@@ -20,7 +20,7 @@ public class StringFunctions {
      * @param s1
      * @return
      */
-    @FunctionEnabled("CONCAT")
+    @FunctionEnabled("CONCAT0")
     public String concat(String s1, String s2) {
         StringBuilder sb = new StringBuilder();
         sb.append(s1).append(s2);
