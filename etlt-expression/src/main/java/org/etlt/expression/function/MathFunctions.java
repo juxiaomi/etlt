@@ -6,7 +6,7 @@ package org.etlt.expression.function;
  */
 public class MathFunctions {
 
-    @FunctionEnabled("MAX")
+    @FunctionEnabled(value = "abs", help = "get absolute value of the input number")
     public Object max(Object ... args){
         return null;
     }

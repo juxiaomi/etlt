@@ -12,4 +12,4 @@ this project has two workable modules:
     this module depends on etlt-expression
 
 ##contact me  
-[contact me using mail](juxiaomi@hotmail.com)
+[contact me using mail](mailto:juxiaomi@hotmail.com)
