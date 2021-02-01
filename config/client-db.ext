@@ -1,0 +1,11 @@
+{
+  "name": "client",
+  "type": "DATA_BASE",
+  "skip": 0,
+  "dql":"select * from person",
+  "dataSource": {
+    "url": "jdbc:h2:tcp://localhost:9092/~/ecifprd;SCHEMA=ecifprd",
+    "user": "ecifprduser",
+    "password": "ecifprduser"
+  }
+}

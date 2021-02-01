@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "type": "FILE",
   "skip": 0,
   "columns": [
     "client_id",
@@ -10,4 +11,5 @@
   ],
   "delim": ",",
   "dataSource": "client.del"
+  }
 }

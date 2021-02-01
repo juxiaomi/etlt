@@ -3,6 +3,7 @@ package org.etlt.job;
 import org.etlt.SettingReader;
 import org.etlt.extract.Extractor;
 import org.etlt.extract.ExtractorSetting;
+import org.etlt.extract.FileExtractSetting;
 import org.etlt.extract.FileExtractor;
 import org.etlt.load.FileLoader;
 import org.etlt.load.LoadSetting;
@@ -148,7 +149,7 @@ public class JobContext implements VariableContext {
 
     protected FileExtractor readExtractor(String extractSetting) throws IOException {
         ExtractorSetting extractorSetting = this.reader.read(new File(this.configDirectory, extractSetting), ExtractorSetting.class);
-        return new FileExtractor(extractorSetting);
+        return new FileExtractor((FileExtractSetting) extractorSetting);
     }
 
     protected List<Loader> readLoaders(String[] loaderSettings) throws IOException {

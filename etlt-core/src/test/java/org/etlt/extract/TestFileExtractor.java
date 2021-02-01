@@ -22,7 +22,7 @@ public class TestFileExtractor {
         File file = new File(settingPath);
         if (file.exists()) {
             ExtractorSetting setting = settingReader.read(settingPath, ExtractorSetting.class);
-            extractor = new FileExtractor(setting);
+            extractor = new FileExtractor((FileExtractSetting) setting);
         }
     }
 

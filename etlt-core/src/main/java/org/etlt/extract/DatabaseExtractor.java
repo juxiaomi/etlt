@@ -2,19 +2,22 @@ package org.etlt.extract;
 
 import org.etlt.job.JobContext;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public class FileExtractor extends Extractor {
-    final FileExtractSetting setting;
+//todo
+public class DatabaseExtractor extends Extractor {
+    final DatabaseExtractSetting setting;
 
     private BufferedReader reader = null;
 
     private int skip = 0;
 
-    public FileExtractor(FileExtractSetting setting) {
+    public DatabaseExtractor(DatabaseExtractSetting setting) {
         this.setting = setting;
         this.setName(setting.getName());
     }
@@ -24,7 +27,7 @@ public class FileExtractor extends Extractor {
         try {
             if (reader == null) {
                 //use file existed in job config directory
-                reader = new BufferedReader(new FileReader(new File(context.getConfigDirectory(), setting.getDataSource())));
+                reader = new BufferedReader(new FileReader(new File(context.getConfigDirectory(), setting.getDataSource().getUrl())));
             }
             String text = reader.readLine();
 
@@ -56,11 +59,6 @@ public class FileExtractor extends Extractor {
 
     private Map<String, String> parse(String text) {
         Map<String, String> result = new HashMap<>();
-        String columns[] = text.split(this.setting.getDelim());
-        List<String> columnNames = setting.getColumns();
-        for (int i = 0; i < columns.length; i++) {
-            result.put(columnNames.get(i), columns[i]);
-        }
         return result;
     }
 }
