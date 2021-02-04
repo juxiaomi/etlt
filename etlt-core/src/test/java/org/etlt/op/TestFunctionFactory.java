@@ -56,12 +56,6 @@ public class TestFunctionFactory {
         FunctionInvoker function = functionFactory.getFunction("subString");
         Assert.assertNotNull(function);
         String s1= "0123456789";
-        try {
-            function.invoke(this.context,s1);
-        }catch (Exception e){
-            Assert.assertTrue(e instanceof IllegalArgumentException);
-        }
-
         Assert.assertEquals("123456789",function.invoke(this.context,s1, 1));
         Assert.assertEquals("1234",function.invoke(this.context, s1, 1, 5));
     }

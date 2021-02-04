@@ -1,0 +1,13 @@
+{
+  "name": "client_db",
+  "type": "DATA_BASE",
+  "ds":"client_db",
+  "columns": [
+    "PROP_SCOPE=client_db.PROP_SCOPE + '1'",
+    "PROP_NAME=client_db.PROP_NAME",
+    "PROP_VALUE=concat(concat(client_db.PROP_SCOPE,'.', client_db.PROP_NAME), '=', client_db.PROP_VALUE)",
+    "PROP_REMARK='UNSET'"
+  ],
+  "dml": "INSERT INTO T_PROPS VALUES(?, ?, ?, ?,current_timestamp())",
+  "datasourceRef": "h2datasource"
+}

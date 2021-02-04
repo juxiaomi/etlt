@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "type": "FILE",
   "usingBanner":"true",
   "ds":"client",
   "columns": [

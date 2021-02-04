@@ -1,5 +1,9 @@
 package org.etlt.load;
 
+import org.etlt.extract.DatabaseExtractSetting;
+import org.etlt.extract.DatabaseExtractor;
+import org.etlt.extract.FileExtractSetting;
+import org.etlt.extract.FileExtractor;
 import org.etlt.job.JobContext;
 
 public abstract class Loader {
@@ -20,5 +24,14 @@ public abstract class Loader {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static Loader createLoader(LoadSetting setting){
+        if(setting instanceof FileLoaderSetting){
+            return new FileLoader((FileLoaderSetting)setting);
+        }else if(setting instanceof DatabaseLoaderSetting){
+            return new DatabaseLoader((DatabaseLoaderSetting) setting);
+        }
+        throw new IllegalArgumentException("unsupported loader setting: " + setting.getName());
     }
 }

@@ -54,8 +54,8 @@ public class FileExtractor extends Extractor {
         }
     }
 
-    private Map<String, String> parse(String text) {
-        Map<String, String> result = new HashMap<>();
+    private Map<String, Object> parse(String text) {
+        Map<String, Object> result = new HashMap<>();
         String columns[] = text.split(this.setting.getDelim());
         List<String> columnNames = setting.getColumns();
         for (int i = 0; i < columns.length; i++) {

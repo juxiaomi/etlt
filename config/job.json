@@ -1,6 +1,19 @@
 {
   "name": "module-all",
-  "extractors": ["client"],
-  "loaders": ["*"],
-  "mapping": "mapping.json"
+  "extractors": [
+    "client",
+    "client_db"
+  ],
+  "loaders": [
+    "*"
+  ],
+  "mapping": "mapping.json",
+  "parameters": {
+    "h2datasource": {
+      "className": "org.h2.Driver",
+      "url": "jdbc:h2:tcp://localhost:9092/~/ecifprd;SCHEMA=ecifprd",
+      "user": "ecifprduser",
+      "password": "ecifprduser"
+    }
+  }
 }

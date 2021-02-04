@@ -28,7 +28,7 @@ public class JobContext implements VariableContext {
     public static final String EXTRACTOR_SUFFIX = ".ext";
     private static final String LOADER_SUFFIX = ".ldr";
 
-    private final Map<String, Map<String, String>> data = new HashMap<>();
+    private final Map<String, Map<String, Object>> data = new HashMap<>();
 
     private final File configDirectory;
 
@@ -54,7 +54,7 @@ public class JobContext implements VariableContext {
         return this.data.containsKey(entity);
     }
 
-    public String getValue(String entity, String column) {
+    public Object getValue(String entity, String column) {
         if (isExist(entity)) {
             return this.data.get(entity).get(column);
         }
@@ -78,7 +78,7 @@ public class JobContext implements VariableContext {
         return cmap.get(key.trim());
     }
 
-    public void setEntity(String entity, Map<String, String> data) {
+    public void setEntity(String entity, Map<String, Object> data) {
         this.data.put(entity, data);
     }
 
@@ -147,9 +147,9 @@ public class JobContext implements VariableContext {
         return extractors;
     }
 
-    protected FileExtractor readExtractor(String extractSetting) throws IOException {
+    protected Extractor readExtractor(String extractSetting) throws IOException {
         ExtractorSetting extractorSetting = this.reader.read(new File(this.configDirectory, extractSetting), ExtractorSetting.class);
-        return new FileExtractor((FileExtractSetting) extractorSetting);
+        return Extractor.createExtractor(extractorSetting);
     }
 
     protected List<Loader> readLoaders(String[] loaderSettings) throws IOException {
@@ -163,9 +163,9 @@ public class JobContext implements VariableContext {
         return extractors;
     }
 
-    protected FileLoader readLoader(String loadSetting) throws IOException {
+    protected Loader readLoader(String loadSetting) throws IOException {
         LoadSetting loadSetting1 = this.reader.read(new File(this.configDirectory, loadSetting), LoadSetting.class);
-        return new FileLoader(loadSetting1);
+        return Loader.createLoader(loadSetting1);
     }
 
     public Extractor getExtractor(String name) {
@@ -180,6 +180,12 @@ public class JobContext implements VariableContext {
         return new ArrayList<Loader>(this.loaders.values());
     }
 
+    public Object getParameter(String name){
+        Object result = this.jobSetting.getParameters().get(name);
+        if(result == null)
+            throw new IllegalArgumentException("parameter not found: " + name);
+        return result;
+    }
     /**
      * @param name entity.column
      * @return

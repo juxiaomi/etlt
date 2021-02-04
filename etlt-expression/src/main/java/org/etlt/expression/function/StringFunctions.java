@@ -17,14 +17,29 @@ public class StringFunctions {
 
     /**
      * concat all strings
-     * @param s1
      * @return
      */
-    @FunctionEnabled("CONCAT0")
-    public String concat(String s1, String s2) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(s1).append(s2);
-        return sb.toString();
+    @FunctionEnabled("CONCAT")
+    public String concat(Object... args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("concat need at least 2 arguments.");
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object object : args) {
+            stringBuilder.append(String.valueOf(object));
+        }
+        return stringBuilder.toString();
+    }
+
+    @FunctionEnabled("subString")
+    public String subString(Object... args) {
+        String s1 = args[0].toString();
+        int from = Integer.parseInt(args[1].toString());
+        if(args.length > 2){
+            int to = Integer.parseInt(args[2].toString());
+            return s1.substring(from, to);
+        }else
+            return s1.substring(from);
     }
 
     /**
@@ -35,9 +50,6 @@ public class StringFunctions {
      */
     @FunctionEnabled("STARTSWITH")
     public boolean startsWith(String str1, String str2) {
-        if (str1 == null || str2 == null) {
-            throw new NullPointerException("函数\"STARTSWITH\"参数为空");
-        }
         return str1.startsWith(str2);
     }
 
@@ -49,60 +61,8 @@ public class StringFunctions {
      */
     @FunctionEnabled("ENDSWITH")
     public boolean endsWith(String str1, String str2) {
-        if (str1 == null || str2 == null) {
-            throw new NullPointerException("函数\"ENDSWITH\"参数为空");
-        }
         return str1.endsWith(str2);
     }
 
-    /**
-     * 日期计算
-     * @param date 原始的日期
-     * @param years 年份偏移量
-     * @param months 月偏移量
-     * @param days 日偏移量
-     * @param hours 小时偏移量
-     * @param minutes 分偏移量
-     * @param seconds 秒偏移量
-     * @return 偏移后的日期
-     */
-    @FunctionEnabled("CALCDATE")
-    public Date calcDate(Date date, int years, int months, int days, int hours, int minutes, int seconds) {
-        if (date == null) {
-            throw new NullPointerException("函数\"CALCDATE\"参数为空");
-        }
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        calendar.add(Calendar.YEAR, years);
-        calendar.add(Calendar.MONTH, months);
-        calendar.add(Calendar.DAY_OF_MONTH, days);
-        calendar.add(Calendar.HOUR, hours);
-        calendar.add(Calendar.MINUTE, minutes);
-        calendar.add(Calendar.SECOND, seconds);
-        return calendar.getTime();
-    }
-
-    /**
-     * 获取系统当前时间
-     * @return
-     */
-    @FunctionEnabled("SYSDATE")
-    public Date sysDate() {
-        return new Date();
-    }
-
-    /**
-     * 日期相等比较，精确到天
-     * @param date1
-     * @param date2
-     * @return
-     */
-    @FunctionEnabled("DAYEQUALS")
-    public boolean dayEquals(Date date1, Date date2) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dayOfDate1 = sdf.format(date1);
-        String dayOfDate2 = sdf.format(date2);
-        return dayOfDate1.equals(dayOfDate2);
-    }
 
 }

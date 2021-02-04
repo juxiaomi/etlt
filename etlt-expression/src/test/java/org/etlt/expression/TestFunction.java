@@ -60,7 +60,7 @@ public class TestFunction {
 	@Test
     public void testInnerFunctionSysdate() throws Exception {
         ExpressionExecutor expressionExecutor = getExpressionCompiler().getExpressionExecutor();
-        String expression = "SYSDATE()";
+        String expression = "DATE()";
         List<ExpressionToken> parsedList = expressionExecutor.analyze(expression);
         List<ExpressionToken> compiledList = expressionExecutor.compile(parsedList, null);
         Assert.assertTrue(expressionExecutor.execute(compiledList).toJavaObject() instanceof Date);
@@ -69,13 +69,13 @@ public class TestFunction {
     @Test
     public void testUdFunctionConcat() throws Exception {
         ExpressionExecutor expressionExecutor = getExpressionCompiler().getExpressionExecutor();
-        String expression = "concat1('123','456', someObject)";
+        String expression = "concat('123','456', someObject)";
         List<ExpressionToken> parsedList = expressionExecutor.analyze(expression);
         List<ExpressionToken> compiledList = expressionExecutor.compile(parsedList, null);
         DefaultVariableContext context = new DefaultVariableContext();
         context.setData("someObject", "unknown");
         Assert.assertEquals("123456unknown", expressionExecutor.execute(compiledList, context).toJavaObject());
-        expression = "CONCAT0('123',CONCAT0('456', '789'))";
+        expression = "CONCAT('123',CONCAT('456', '789'))";
         Assert.assertEquals("123456789", getExpressionCompiler().evaluate(expression));
     }
 

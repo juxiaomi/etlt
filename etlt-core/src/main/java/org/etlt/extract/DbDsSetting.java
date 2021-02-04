@@ -2,11 +2,21 @@ package org.etlt.extract;
 
 public class DbDsSetting {
 
+    private String className;
+
     private String url;
 
     private String user ;
 
     private String password;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public String getUrl() {
         return url;

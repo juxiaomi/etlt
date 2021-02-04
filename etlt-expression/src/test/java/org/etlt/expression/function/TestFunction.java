@@ -10,14 +10,14 @@ public class TestFunction {
 
     @Test
     public void testUdConcat(){
-        FunctionInvoker functionInvoker = this.functionFactory.getFunction("concat1");
+        FunctionInvoker functionInvoker = this.functionFactory.getFunction("concat");
         Assert.assertNotNull(functionInvoker);
         Assert.assertEquals("abc + def", functionInvoker.invoke(null, "abc + ", "def"));
     }
 
     @Test
     public void testInnerStringFunctions(){
-        FunctionInvoker functionInvoker = this.functionFactory.getFunction("CONCAT0");
+        FunctionInvoker functionInvoker = this.functionFactory.getFunction("CONCAT");
         Assert.assertNotNull(functionInvoker);
         Assert.assertEquals("abc + def", functionInvoker.invoke(null, "abc + ", "def"));
     }

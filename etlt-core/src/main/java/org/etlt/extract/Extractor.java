@@ -25,4 +25,13 @@ public abstract class Extractor {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static Extractor createExtractor(ExtractorSetting setting){
+        if(setting instanceof FileExtractSetting){
+            return new FileExtractor((FileExtractSetting)setting);
+        }else if(setting instanceof DatabaseExtractSetting){
+            return new DatabaseExtractor((DatabaseExtractSetting) setting);
+        }
+        throw new IllegalArgumentException("unsupported extractor setting: " + setting.getName());
+    }
 }

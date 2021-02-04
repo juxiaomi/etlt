@@ -1,7 +1,5 @@
 {
   "userDefined": {
-    "concat": "org.etlt.op.ud.Concat",
-    "subString": "org.etlt.op.ud.SubString",
     "mapping": "org.etlt.op.ud.Mapping",
     "currency": "org.etlt.op.ud.Currency",
     "leftCurrency": "org.etlt.op.ud.LeftCurrency",

@@ -5,6 +5,7 @@ import org.etlt.SettingValidationException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 public class JobSetting implements SettingCheck {
 
@@ -15,6 +16,8 @@ public class JobSetting implements SettingCheck {
     private List<String> loaders;
 
     private String mapping;
+
+    private Map<String, Object> parameters;
 
     public String getName() {
         return name;
@@ -46,6 +49,14 @@ public class JobSetting implements SettingCheck {
 
     public void setMapping(String mapping) {
         this.mapping = mapping;
+    }
+
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Map<String, Object> parameters) {
+        this.parameters = parameters;
     }
 
     @Override

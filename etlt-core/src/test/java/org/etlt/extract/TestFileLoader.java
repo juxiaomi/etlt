@@ -3,6 +3,7 @@ package org.etlt.extract;
 import org.etlt.Constants;
 import org.etlt.SettingReader;
 import org.etlt.load.FileLoader;
+import org.etlt.load.FileLoaderSetting;
 import org.etlt.load.LoadSetting;
 import org.etlt.load.Loader;
 import org.junit.Assert;
@@ -24,7 +25,7 @@ public class TestFileLoader {
         File file = new File(settingPath);
         if (file.exists()) {
             LoadSetting setting = settingReader.read(settingPath, LoadSetting.class);
-            loader = new FileLoader(setting);
+            loader = new FileLoader((FileLoaderSetting) setting);
         }
     }
     @Test

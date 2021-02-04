@@ -1,9 +1,10 @@
 {
-  "name": "client",
+  "name": "client_db",
   "type": "DATA_BASE",
   "skip": 0,
-  "dql":"select * from person",
+  "dql":"SELECT * FROM T_PROPS",
   "dataSource": {
+    "className":"org.h2.Driver",
     "url": "jdbc:h2:tcp://localhost:9092/~/ecifprd;SCHEMA=ecifprd",
     "user": "ecifprduser",
     "password": "ecifprduser"

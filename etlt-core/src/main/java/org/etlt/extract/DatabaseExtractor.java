@@ -6,59 +6,89 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-//todo
+
 public class DatabaseExtractor extends Extractor {
     final DatabaseExtractSetting setting;
 
-    private BufferedReader reader = null;
+    private Connection connection;
+
+    private PreparedStatement statement;
+
+    private ResultSet resultSet;
 
     private int skip = 0;
 
     public DatabaseExtractor(DatabaseExtractSetting setting) {
         this.setting = setting;
         this.setName(setting.getName());
+        try {
+            init();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    protected void init() throws SQLException, ClassNotFoundException {
+        DbDsSetting dbDsSetting = this.setting.getDataSource();
+        Class.forName(dbDsSetting.getClassName());
+        this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
     }
 
     @Override
     public void extract(JobContext context) {
         try {
-            if (reader == null) {
-                //use file existed in job config directory
-                reader = new BufferedReader(new FileReader(new File(context.getConfigDirectory(), setting.getDataSource().getUrl())));
-            }
-            String text = reader.readLine();
-
-            if (text != null) {
+            this.statement = this.connection.prepareStatement(this.setting.getDql());
+            if (resultSet == null)
+                resultSet = this.statement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            if (resultSet.next()) {
                 if (this.skip < this.setting.getSkip()) {
                     this.skip++;
                     extract(context);
-                } else
-                    context.setEntity(this.setting.getName(), parse(text));
-            } else {
+                } else {
+                    Map<String, Object> rowData = new HashMap<>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        rowData.put(resultSetMetaData.getColumnLabel(i), resultSet.getObject(i));
+                    }
+                    context.setEntity(this.setting.getName(), rowData);
+                }
+            }else {
                 context.removeEntity(this.setting.getName());
                 doFinish();
             }
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void doFinish() {
-        if (this.reader != null) {
+        if (this.resultSet != null) {
             try {
-                this.reader.close();
-            } catch (IOException e) {
+                this.resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (this.statement != null) {
+            try {
+                this.statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (this.connection != null) {
+            try {
+                this.connection.close();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private Map<String, String> parse(String text) {
-        Map<String, String> result = new HashMap<>();
-        return result;
-    }
 }

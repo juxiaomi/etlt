@@ -1,5 +1,6 @@
 package org.etlt.load;
 
+import org.etlt.EtltException;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
 import org.etlt.expression.ExpressionCompiler;
@@ -14,11 +15,11 @@ public class FileLoader extends Loader {
 
     public static final String NEXT_LINE = "\n";
 
-    private final LoadSetting setting;
+    private final FileLoaderSetting setting;
 
     private BufferedWriter bufferedWriter = null;
 
-    public FileLoader(LoadSetting setting) {
+    public FileLoader(FileLoaderSetting setting) {
         this.setting = setting;
         setName(setting.getName());
     }
@@ -35,6 +36,9 @@ public class FileLoader extends Loader {
                 writeBanner(bufferedWriter);
             String ds = this.setting.getDs();
             Extractor extractor = context.getExtractor(ds);
+            if(extractor == null){
+                throw new EtltException("extractor not found: " + ds);
+            }
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
                 StringBuilder sb = new StringBuilder();
