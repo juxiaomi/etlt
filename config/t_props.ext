@@ -1,5 +1,5 @@
 {
-  "name": "client_db",
+  "name": "t_props",
   "type": "DATA_BASE",
   "skip": 0,
   "dql":"SELECT * FROM T_PROPS",

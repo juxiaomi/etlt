@@ -7,10 +7,6 @@ import org.etlt.extract.DbDsSetting;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,23 +19,23 @@ public class DatabaseLoader extends Loader {
 
     private PreparedStatement statement;
 
-    private final DatabaseLoaderSetting setting;
-
     public DatabaseLoader(DatabaseLoaderSetting setting) {
-        this.setting = setting;
+        super(setting);
         setName(setting.getName());
     }
 
     protected void init(JobContext context) throws SQLException, ClassNotFoundException {
-        if(this.setting.getDataSource() == null){
-            Object ref = context.getParameter(this.setting.getDatasourceRef());
+        DatabaseLoaderSetting setting = getSetting();
+        if(setting.getDataSource() == null){
+            Object ref = context.getParameter(setting.getDatasourceRef());
             ObjectMapper mapper = new ObjectMapper();
-            this.setting.setDataSource(mapper.convertValue(ref, DbDsSetting.class));
+            setting.setDataSource(mapper.convertValue(ref, DbDsSetting.class));
         }
-        DbDsSetting dbDsSetting = this.setting.getDataSource();
+        resolveColumns(context);
+        DbDsSetting dbDsSetting = setting.getDataSource();
         Class.forName(dbDsSetting.getClassName());
         this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
-        this.statement = connection.prepareStatement(this.setting.getDml());
+        this.statement = connection.prepareStatement(setting.getDml());
     }
 
     /**
@@ -49,12 +45,10 @@ public class DatabaseLoader extends Loader {
     public void load(JobContext context) {
         try {
             init(context);
-            List<ColumnSetting> columns = this.setting.getColumns();
-            String ds = this.setting.getDs();
+            DatabaseLoaderSetting setting = getSetting();
+            List<ColumnSetting> columns = setting.getColumns();
+            String ds = setting.getDs();
             Extractor extractor = context.getExtractor(ds);
-            if (extractor == null) {
-                throw new EtltException("extractor not found: " + ds);
-            }
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
                 for (int i = 0; i< columns.size(); i++) {
@@ -66,12 +60,13 @@ public class DatabaseLoader extends Loader {
                 this.statement.execute();
             }
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new EtltException("executing loader error: " + getName(), e);
         }
     }
 
     @Override
     public void doFinish() {
+        close(statement, connection);
     }
 
 }

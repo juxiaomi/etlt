@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.etlt.extract.DatabaseExtractSetting;
 import org.etlt.extract.FileExtractSetting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonTypeInfo(
@@ -16,14 +17,16 @@ import java.util.List;
         property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = FileLoaderSetting.class, name = "FILE"),
         @JsonSubTypes.Type(value = DatabaseLoaderSetting.class, name = "DATA_BASE")})
-public class LoadSetting implements SettingCheck {
+public class LoaderSetting implements SettingCheck {
     private String name;
 
     private boolean usingBanner;
 
     private String ds;
 
-    private List<ColumnSetting> columns;
+    private boolean autoResolve = false;
+
+    private List<ColumnSetting> columns = new ArrayList<ColumnSetting>();
 
     public String getName() {
         return name;
@@ -49,6 +52,14 @@ public class LoadSetting implements SettingCheck {
         this.ds = ds;
     }
 
+    public boolean isAutoResolve() {
+        return autoResolve;
+    }
+
+    public void setAutoResolve(boolean autoResolve) {
+        this.autoResolve = autoResolve;
+    }
+
     public List<ColumnSetting> getColumns() {
         return columns;
     }
@@ -61,7 +72,7 @@ public class LoadSetting implements SettingCheck {
     public void check() {
         if(StringUtils.isBlank(getName()))
             throw new SettingValidationException("missing name.");
-        if(getColumns().size() == 0)
+        if(!isAutoResolve() && getColumns().size() == 0)
             throw new SettingValidationException("missing column definitions: " + getName());
         if(StringUtils.isBlank(getDs()))
             throw new SettingValidationException("missing ds: " + getName());

@@ -5,19 +5,10 @@ import org.etlt.SettingValidationException;
 import java.util.List;
 
 public class FileExtractSetting extends ExtractorSetting{
-    private List<String> columns;
 
     private String delim = ",";
 
     private String dataSource;
-
-    public List<String> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
-    }
 
     public String getDelim() {
         return delim;

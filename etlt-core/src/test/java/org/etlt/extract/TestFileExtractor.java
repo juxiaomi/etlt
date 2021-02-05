@@ -2,6 +2,7 @@ package org.etlt.extract;
 
 import org.etlt.Constants;
 import org.etlt.SettingReader;
+import org.etlt.job.JobContext;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,7 @@ public class TestFileExtractor {
 
     Extractor extractor;
 
+    JobContext context;
     @Before
     public void init() throws IOException {
         File file = new File(settingPath);
@@ -24,10 +26,15 @@ public class TestFileExtractor {
             ExtractorSetting setting = settingReader.read(settingPath, ExtractorSetting.class);
             extractor = new FileExtractor((FileExtractSetting) setting);
         }
+        context = new JobContext(new File(Constants.CONFIG_DIRECTORY));
+        context.init();
     }
 
     @Test
     public void testExtract() {
         Assert.assertNotNull(this.extractor);
+        extractor.init(context);
+        extractor.extract(context);
+        Assert.assertEquals("1001", context.getValue("client", "client_id"));
     }
 }

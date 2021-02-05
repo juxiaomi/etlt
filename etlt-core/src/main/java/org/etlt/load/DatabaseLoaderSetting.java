@@ -2,12 +2,25 @@ package org.etlt.load;
 
 import org.etlt.extract.DbDsSetting;
 
-public class DatabaseLoaderSetting extends LoadSetting{
+/**
+ *
+ */
+public class DatabaseLoaderSetting extends LoaderSetting{
+    private String preDml;
+
     private String dml;
 
     private String datasourceRef;
 
     private DbDsSetting dataSource;
+
+    public String getPreDml() {
+        return preDml;
+    }
+
+    public void setPreDml(String preDml) {
+        this.preDml = preDml;
+    }
 
     public String getDml() {
         return dml;

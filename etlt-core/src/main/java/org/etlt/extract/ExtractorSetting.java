@@ -7,6 +7,7 @@ import org.etlt.SettingValidationException;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,13 +19,11 @@ import java.util.List;
         @JsonSubTypes.Type(value = DatabaseExtractSetting.class, name = "DATA_BASE")})
 public class ExtractorSetting implements SettingCheck {
 
-    enum Type{
-        FILE, DATA_BASE;
-    }
-
     private String name;
 
     private int skip;
+
+    private List<String> columns = new ArrayList<String>();
 
     public String getName() {
         return name;
@@ -40,6 +39,14 @@ public class ExtractorSetting implements SettingCheck {
 
     public void setSkip(int skip) {
         this.skip = skip;
+    }
+
+    public List<String> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<String> columns) {
+        this.columns = columns;
     }
 
     @Override

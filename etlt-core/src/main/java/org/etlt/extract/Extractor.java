@@ -2,6 +2,8 @@ package org.etlt.extract;
 
 import org.etlt.job.JobContext;
 
+import java.util.List;
+
 public abstract class Extractor {
     private String name;
 
@@ -11,12 +13,22 @@ public abstract class Extractor {
      */
     public abstract void extract(JobContext context);
 
+    public abstract List<String> getColumns();
+
     /**
      * clean resources
      */
     public abstract void doFinish();
 
-//    abstract List<Map<String,String>> extractAll();
+    public void close(AutoCloseable... resources) {
+        for (AutoCloseable resource : resources) {
+            try {
+                if (resource != null)
+                    resource.close();
+            } catch (Exception e) {
+            }
+        }
+    }
 
     public String getName() {
         return name;
@@ -26,12 +38,19 @@ public abstract class Extractor {
         this.name = name;
     }
 
-    public static Extractor createExtractor(ExtractorSetting setting){
+    public static Extractor createExtractor(ExtractorSetting setting, JobContext context){
         if(setting instanceof FileExtractSetting){
-            return new FileExtractor((FileExtractSetting)setting);
+            FileExtractor extractor = new FileExtractor((FileExtractSetting)setting);
+            extractor.init(context);
+            return  extractor;
         }else if(setting instanceof DatabaseExtractSetting){
-            return new DatabaseExtractor((DatabaseExtractSetting) setting);
+            DatabaseExtractor extractor = new DatabaseExtractor((DatabaseExtractSetting) setting);
+            extractor.init(context);
+            return  extractor;
         }
         throw new IllegalArgumentException("unsupported extractor setting: " + setting.getName());
     }
+
+    public void init(JobContext context){}
+
 }

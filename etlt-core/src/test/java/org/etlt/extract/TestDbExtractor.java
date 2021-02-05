@@ -22,19 +22,18 @@ public class TestDbExtractor {
 
     @Before
     public void init() throws IOException {
-        File file = new File(settingPath);
         ExtractorSetting setting = settingReader.read(settingPath, ExtractorSetting.class);
         Assert.assertTrue(setting instanceof DatabaseExtractSetting);
         DatabaseExtractSetting databaseExtractSetting = (DatabaseExtractSetting)setting;
-        DbDsSetting dsSetting = (DbDsSetting)databaseExtractSetting.getDataSource();
-        Assert.assertEquals("ecifprduser", dsSetting.getUser());
         extractor = new DatabaseExtractor((DatabaseExtractSetting) setting);
         context = new JobContext(new File(Constants.CONFIG_DIRECTORY));
+        context.init();
     }
 
     @Test
-    public void testExtract() {
+    public void testExtract()  {
         Assert.assertNotNull(this.extractor);
+        this.extractor.init(context);
         this.extractor.extract(context);
         Assert.assertEquals("rov", context.getValue("client_db", "PROP_SCOPE"));
     }

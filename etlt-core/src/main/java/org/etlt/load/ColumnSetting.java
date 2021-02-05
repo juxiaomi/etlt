@@ -4,10 +4,18 @@ public class ColumnSetting {
 
     public static final char EQUAL = '=';
 
-    public ColumnSetting(String expression){
+    public ColumnSetting(String expression) {
         int index = expression.indexOf(EQUAL);
-        setName(expression.substring(0, index).trim());
-        setExpression(expression.substring(index + 1).trim());
+        if (index != -1) {
+            setName(expression.substring(0, index).trim());
+            setExpression(expression.substring(index + 1).trim());
+        } else
+            throw new IllegalArgumentException("expression for column setting: " + expression);
+    }
+
+    public ColumnSetting(String name, String extractorName) {
+        setName(name.trim());
+        setExpression(extractorName.trim() + "." + name.trim());
     }
 
     private String name;

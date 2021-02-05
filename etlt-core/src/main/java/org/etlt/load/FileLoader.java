@@ -1,6 +1,5 @@
 package org.etlt.load;
 
-import org.etlt.EtltException;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
 import org.etlt.expression.ExpressionCompiler;
@@ -15,12 +14,10 @@ public class FileLoader extends Loader {
 
     public static final String NEXT_LINE = "\n";
 
-    private final FileLoaderSetting setting;
-
     private BufferedWriter bufferedWriter = null;
 
     public FileLoader(FileLoaderSetting setting) {
-        this.setting = setting;
+        super(setting);
         setName(setting.getName());
     }
 
@@ -30,21 +27,20 @@ public class FileLoader extends Loader {
     @Override
     public void load(JobContext context) {
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(new File(this.setting.getTarget())));
-            List<ColumnSetting> columns = this.setting.getColumns();
-            if (this.setting.isUsingBanner())
+            resolveColumns(context);
+            FileLoaderSetting setting = getSetting();
+            bufferedWriter = new BufferedWriter(new FileWriter(new File(setting.getTarget())));
+            List<ColumnSetting> columns = setting.getColumns();
+            if (setting.isUsingBanner())
                 writeBanner(bufferedWriter);
-            String ds = this.setting.getDs();
+            String ds = setting.getDs();
             Extractor extractor = context.getExtractor(ds);
-            if(extractor == null){
-                throw new EtltException("extractor not found: " + ds);
-            }
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
                 StringBuilder sb = new StringBuilder();
                 for (ColumnSetting column : columns) {
                     Object result = expressionCompiler.evaluate(column.getExpression(), context);
-                    sb.append(String.valueOf(result)).append(this.setting.getDelim());
+                    sb.append(String.valueOf(result)).append(setting.getDelim());
                 }
                 //--remove the last character
                 if (sb.length() > 0)
@@ -70,9 +66,10 @@ public class FileLoader extends Loader {
     }
 
     protected void writeBanner(BufferedWriter writer) throws IOException {
+        FileLoaderSetting setting = getSetting();
         StringBuilder sb = new StringBuilder();
-        for (ColumnSetting column : this.setting.getColumns()) {
-            sb.append(column.getName()).append(this.setting.getDelim());
+        for (ColumnSetting column : setting.getColumns()) {
+            sb.append(column.getName()).append(setting.getDelim());
         }
         //--remove the last character
         if (sb.length() > 0)

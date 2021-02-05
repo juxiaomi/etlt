@@ -1,22 +1,42 @@
 package org.etlt.load;
 
-import org.etlt.extract.DatabaseExtractSetting;
-import org.etlt.extract.DatabaseExtractor;
-import org.etlt.extract.FileExtractSetting;
-import org.etlt.extract.FileExtractor;
+import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Loader {
 
     private String name;
 
+    private final LoaderSetting setting;
+
+    protected Loader(LoaderSetting setting) {
+        this.setting = setting;
+    }
+
+    protected <T extends LoaderSetting> T getSetting(){
+        return (T) this.setting;
+    }
     /**
      * load the data to target
+     *
      * @param context
      */
     public abstract void load(JobContext context);
 
     public abstract void doFinish();
+
+    public void close(AutoCloseable... resources) {
+        for (AutoCloseable resource : resources) {
+            try {
+                if (resource != null)
+                    resource.close();
+            } catch (Exception e) {
+            }
+        }
+    }
 
     public String getName() {
         return name;
@@ -26,10 +46,30 @@ public abstract class Loader {
         this.name = name;
     }
 
-    public static Loader createLoader(LoadSetting setting){
-        if(setting instanceof FileLoaderSetting){
-            return new FileLoader((FileLoaderSetting)setting);
-        }else if(setting instanceof DatabaseLoaderSetting){
+    protected void resolveColumns(JobContext context){
+        if(this.setting.isAutoResolve()){
+            Extractor extractor = context.getExtractor(this.setting.getDs());
+            List<ColumnSetting> columnSettings = new ArrayList<ColumnSetting>();
+            List<String> columns = extractor.getColumns();
+            for(String column : columns){
+                columnSettings.add(new ColumnSetting(column, this.setting.getDs()));
+            }
+            for(ColumnSetting userDefinedColumnSetting : columnSettings){
+                for(ColumnSetting columnSetting : this.setting.getColumns()){
+                    if(columnSetting.getName().equals(userDefinedColumnSetting.getName())){
+                        columnSetting.setExpression(userDefinedColumnSetting.getExpression());
+                    }
+                }
+            }
+            this.setting.getColumns().clear();
+            this.setting.getColumns().addAll(columnSettings);
+        }
+    }
+
+    public static Loader createLoader(LoaderSetting setting) {
+        if (setting instanceof FileLoaderSetting) {
+            return new FileLoader((FileLoaderSetting) setting);
+        } else if (setting instanceof DatabaseLoaderSetting) {
             return new DatabaseLoader((DatabaseLoaderSetting) setting);
         }
         throw new IllegalArgumentException("unsupported loader setting: " + setting.getName());

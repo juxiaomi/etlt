@@ -2,7 +2,8 @@
   "name": "module-all",
   "extractors": [
     "client",
-    "client_db"
+    "client_db",
+    "t_props"
   ],
   "loaders": [
     "*"

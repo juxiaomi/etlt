@@ -1,6 +1,7 @@
 package org.etlt.extract;
 
 import org.etlt.job.JobContext;
+import org.etlt.load.ColumnSetting;
 
 import java.io.*;
 import java.util.HashMap;
@@ -44,14 +45,13 @@ public class FileExtractor extends Extractor {
     }
 
     @Override
+    public List<String> getColumns() {
+        return this.setting.getColumns();
+    }
+
+    @Override
     public void doFinish() {
-        if (this.reader != null) {
-            try {
-                this.reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        close(reader);
     }
 
     private Map<String, Object> parse(String text) {

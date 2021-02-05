@@ -1,16 +1,17 @@
 package org.etlt.job;
 
+import org.etlt.EtltException;
 import org.etlt.SettingReader;
 import org.etlt.extract.Extractor;
 import org.etlt.extract.ExtractorSetting;
 import org.etlt.extract.FileExtractSetting;
 import org.etlt.extract.FileExtractor;
 import org.etlt.load.FileLoader;
-import org.etlt.load.LoadSetting;
 import org.etlt.load.Loader;
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.datameta.Variable;
 import org.apache.commons.lang3.StringUtils;
+import org.etlt.load.LoaderSetting;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,18 +63,17 @@ public class JobContext implements VariableContext {
     }
 
     /**
-     *
      * @param catalog
      * @param key
      * @return
      */
     public Object mapping(String catalog, String key) {
-        if(StringUtils.isBlank(catalog))
+        if (StringUtils.isBlank(catalog))
             throw new IllegalArgumentException("catalog name of mapping cannot be blank.");
-        if(StringUtils.isBlank(key))
+        if (StringUtils.isBlank(key))
             return key;
         Map cmap = ((Map) this.mapping.get(catalog));
-        if(cmap == null)
+        if (cmap == null)
             throw new IllegalArgumentException("catalog of mapping missing, check mapping configuration.");
         return cmap.get(key.trim());
     }
@@ -149,7 +149,7 @@ public class JobContext implements VariableContext {
 
     protected Extractor readExtractor(String extractSetting) throws IOException {
         ExtractorSetting extractorSetting = this.reader.read(new File(this.configDirectory, extractSetting), ExtractorSetting.class);
-        return Extractor.createExtractor(extractorSetting);
+        return Extractor.createExtractor(extractorSetting, this);
     }
 
     protected List<Loader> readLoaders(String[] loaderSettings) throws IOException {
@@ -164,12 +164,15 @@ public class JobContext implements VariableContext {
     }
 
     protected Loader readLoader(String loadSetting) throws IOException {
-        LoadSetting loadSetting1 = this.reader.read(new File(this.configDirectory, loadSetting), LoadSetting.class);
+        LoaderSetting loadSetting1 = this.reader.read(new File(this.configDirectory, loadSetting), LoaderSetting.class);
         return Loader.createLoader(loadSetting1);
     }
 
     public Extractor getExtractor(String name) {
-        return this.extractors.get(name);
+        Extractor extractor = this.extractors.get(name);
+        if (extractor == null)
+            throw new EtltException("extractor not found: " + name);
+        return extractor;
     }
 
     public Loader getLoader(String name) {
@@ -180,12 +183,13 @@ public class JobContext implements VariableContext {
         return new ArrayList<Loader>(this.loaders.values());
     }
 
-    public Object getParameter(String name){
+    public Object getParameter(String name) {
         Object result = this.jobSetting.getParameters().get(name);
-        if(result == null)
+        if (result == null)
             throw new IllegalArgumentException("parameter not found: " + name);
         return result;
     }
+
     /**
      * @param name entity.column
      * @return
@@ -193,11 +197,11 @@ public class JobContext implements VariableContext {
     @Override
     public Variable getVariable(String name) {
         int index = name.indexOf('.');
-        if(index > 0){
+        if (index > 0) {
             String catalog = name.substring(0, index);
             String key = name.substring(index + 1);
             return Variable.createVariable(name, getValue(catalog, key));
         }
-        throw new UnsupportedOperationException("unsupported name: " + name);
+        throw new IllegalArgumentException("variable not found: " + name);
     }
 }

@@ -1,0 +1,8 @@
+{
+  "name": "t_props_1",
+  "type": "DATA_BASE",
+  "ds":"t_props",
+  "autoResolve": "true",
+  "dml": "INSERT INTO T_PROPS_1 VALUES(?, ?, ?, ?,?)",
+  "datasourceRef": "h2datasource"
+}

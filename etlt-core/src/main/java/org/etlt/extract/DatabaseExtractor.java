@@ -1,11 +1,9 @@
 package org.etlt.extract;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.etlt.EtltException;
 import org.etlt.job.JobContext;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
@@ -25,39 +23,51 @@ public class DatabaseExtractor extends Extractor {
     public DatabaseExtractor(DatabaseExtractSetting setting) {
         this.setting = setting;
         this.setName(setting.getName());
+    }
+
+    @Override
+    public void init(JobContext context) {
         try {
-            init();
+            if (this.setting.getDataSource() == null) {
+                Object ref = context.getParameter(this.setting.getDatasourceRef());
+                ObjectMapper mapper = new ObjectMapper();
+                this.setting.setDataSource(mapper.convertValue(ref, DbDsSetting.class));
+            }
+            DbDsSetting dbDsSetting = this.setting.getDataSource();
+            Class.forName(dbDsSetting.getClassName());
+            this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
+            this.statement = this.connection.prepareStatement(this.setting.getDql());
+            resultSet = this.statement.executeQuery();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            if (this.setting.isAutoResolve() && getColumns().size() == 0) {
+                for (int i = 0; i < columnCount; i++) {
+                    getColumns().add(resultSetMetaData.getColumnLabel(i + 1));
+                }
+            }
         } catch (SQLException | ClassNotFoundException e) {
-            throw new IllegalStateException(e);
+            throw new EtltException("Extractor init error: " + getName(), e);
         }
     }
 
-    protected void init() throws SQLException, ClassNotFoundException {
-        DbDsSetting dbDsSetting = this.setting.getDataSource();
-        Class.forName(dbDsSetting.getClassName());
-        this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
-    }
 
     @Override
     public void extract(JobContext context) {
         try {
-            this.statement = this.connection.prepareStatement(this.setting.getDql());
-            if (resultSet == null)
-                resultSet = this.statement.executeQuery();
-            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-            int columnCount = resultSetMetaData.getColumnCount();
             if (resultSet.next()) {
                 if (this.skip < this.setting.getSkip()) {
                     this.skip++;
                     extract(context);
                 } else {
                     Map<String, Object> rowData = new HashMap<>();
-                    for (int i = 1; i <= columnCount; i++) {
-                        rowData.put(resultSetMetaData.getColumnLabel(i), resultSet.getObject(i));
+                    ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                    for (int i = 0; i < getColumns().size(); i++) {
+                        if (getColumns().contains(resultSetMetaData.getColumnLabel(i + 1)))
+                            rowData.put(getColumns().get(i), resultSet.getObject(i + 1));
                     }
                     context.setEntity(this.setting.getName(), rowData);
                 }
-            }else {
+            } else {
                 context.removeEntity(this.setting.getName());
                 doFinish();
             }
@@ -67,28 +77,13 @@ public class DatabaseExtractor extends Extractor {
     }
 
     @Override
+    public List<String> getColumns() {
+        return this.setting.getColumns();
+    }
+
+    @Override
     public void doFinish() {
-        if (this.resultSet != null) {
-            try {
-                this.resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (this.statement != null) {
-            try {
-                this.statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (this.connection != null) {
-            try {
-                this.connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        close(resultSet, statement, connection);
     }
 
 }

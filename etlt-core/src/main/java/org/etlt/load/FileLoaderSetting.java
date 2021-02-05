@@ -14,7 +14,7 @@ import java.util.List;
         property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = FileLoaderSetting.class, name = "FILE"),
         @JsonSubTypes.Type(value = DatabaseLoaderSetting.class, name = "DATA_BASE")})
-public class FileLoaderSetting extends LoadSetting {
+public class FileLoaderSetting extends LoaderSetting {
     private String name;
 
     private boolean usingBanner;
