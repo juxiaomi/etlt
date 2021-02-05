@@ -6,11 +6,11 @@ import org.etlt.expression.VariableContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FunctionFactory implements FunctionExecutor {
 
@@ -67,22 +67,28 @@ public class FunctionFactory implements FunctionExecutor {
         InputStream udConfig = getClass().getClassLoader().getResourceAsStream(CONFIGURATION);
         if (udConfig != null) {
             this.setting = reader.read(udConfig, FunctionSetting.class);
-            Map<String, Class> udFunctions = this.setting.getUserDefined();
-            Set<String> names = udFunctions.keySet();
-            for (String name : names) {
-                String functionName = toUpper(name);
-                Class clazz = udFunctions.get(name);
+            List<Class> udFunctions = this.setting.getUserDefined();
+            udFunctions.forEach((clazz) -> {
                 if (clazz.isAssignableFrom(FunctionActor.class)) {
                     throw new IllegalExpressionException("user defined class is not a FunctionActor: " + clazz.getName());
                 }
                 try {
                     FunctionActor functionActor = (FunctionActor) clazz.getDeclaredConstructor(null).newInstance();
+                    FunctionEnabled functionDesc = (FunctionEnabled) clazz.getAnnotation(FunctionEnabled.class);
+                    if (functionDesc == null) {
+                        throw new IllegalArgumentException("no FunctionEnabled annotation found: " + clazz.getName());
+                    }
+                    String functionName = toUpper(functionDesc.value());
                     checkExist(functionName);
-                    this.functionInvokerMap.put(functionName, new FunctionInvoker(functionActor));
+                    FunctionInvoker invoker = new FunctionInvoker(functionActor);
+                    invoker.setName(functionDesc.value());
+                    invoker.setHelp(functionDesc.help());
+                    this.functionInvokerMap.put(functionName, invoker);
                 } catch (Exception e) {
                     throw new IllegalExpressionException("user defined function initialization failed: " + clazz.getName(), e);
                 }
-            }
+            });
+
         }
     }
 
@@ -96,11 +102,14 @@ public class FunctionFactory implements FunctionExecutor {
         Method[] methods = instance.getClass().getMethods();
         for (Method method : methods) {
             if (Modifier.isPublic(method.getModifiers())) {
-                FunctionEnabled function = method.getAnnotation(FunctionEnabled.class);
-                if (function != null) {
-                    String functionName = toUpper(function.value());
+                FunctionEnabled functionDesc = method.getAnnotation(FunctionEnabled.class);
+                if (functionDesc != null) {
+                    String functionName = toUpper(functionDesc.value());
                     checkExist(functionName);
-                    this.functionInvokerMap.put(functionName, new FunctionInvoker(method, instance));
+                    FunctionInvoker invoker = new FunctionInvoker(method, instance);
+                    invoker.setName(functionDesc.value());
+                    invoker.setHelp(functionDesc.help());
+                    this.functionInvokerMap.put(functionName, invoker);
                 }
             }
         }
@@ -117,7 +126,11 @@ public class FunctionFactory implements FunctionExecutor {
             throw new IllegalStateException("function exists: " + _functionName);
     }
 
-    private String toUpper(String functionName){
+    private String toUpper(String functionName) {
         return functionName.toUpperCase();
+    }
+
+    public List<FunctionInvoker> getAllFunctions() {
+        return new ArrayList<FunctionInvoker>(this.functionInvokerMap.values());
     }
 }

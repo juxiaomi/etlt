@@ -2,7 +2,9 @@ package org.etlt.expression.ud;
 
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.function.FunctionActor;
+import org.etlt.expression.function.FunctionEnabled;
 
+@FunctionEnabled("concat0")
 public class Concat implements FunctionActor {
     @Override
     public Object operate(VariableContext context, Object... args) {

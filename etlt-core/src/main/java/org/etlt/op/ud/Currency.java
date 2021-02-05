@@ -2,7 +2,9 @@ package org.etlt.op.ud;
 
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.function.FunctionActor;
+import org.etlt.expression.function.FunctionEnabled;
 
+@FunctionEnabled(value = "currency", help = "get currency from currency pair")
 public class Currency implements FunctionActor {
     @Override
     public Object operate(VariableContext context, Object... args) {

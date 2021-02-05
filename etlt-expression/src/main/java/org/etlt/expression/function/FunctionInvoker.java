@@ -14,6 +14,10 @@ public class FunctionInvoker {
     private Method method;
     final private Object instance;
 
+    private String name;
+
+    private String help;
+
     public FunctionInvoker(Method method, Object instance) {
         this.method = method;
         this.instance = instance;
@@ -21,6 +25,22 @@ public class FunctionInvoker {
 
     public FunctionInvoker(FunctionActor functionActor) {
         this.instance = functionActor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHelp() {
+        return help;
+    }
+
+    public void setHelp(String help) {
+        this.help = help;
     }
 
     public Method getMethod() {

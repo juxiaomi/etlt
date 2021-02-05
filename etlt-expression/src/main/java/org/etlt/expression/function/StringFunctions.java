@@ -15,6 +15,15 @@ import java.util.GregorianCalendar;
  */
 public class StringFunctions {
 
+    @FunctionEnabled(value = "lower", help = "return lower of input string")
+    public String lower(String arg){
+        return arg.toLowerCase();
+    }
+
+    @FunctionEnabled("upper")
+    public String upper(String arg){
+        return arg.toUpperCase();
+    }
     /**
      * concat all strings
      * @return

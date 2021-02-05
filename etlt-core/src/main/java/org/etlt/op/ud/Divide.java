@@ -2,10 +2,12 @@ package org.etlt.op.ud;
 
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.function.FunctionActor;
+import org.etlt.expression.function.FunctionEnabled;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@FunctionEnabled("divide")
 public class Divide implements FunctionActor {
     @Override
     public Object operate(VariableContext context, Object... args) {

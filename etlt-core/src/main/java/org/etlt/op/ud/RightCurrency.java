@@ -1,7 +1,9 @@
 package org.etlt.op.ud;
 
 import org.etlt.expression.VariableContext;
+import org.etlt.expression.function.FunctionEnabled;
 
+@FunctionEnabled("rightCurrency")
 public class RightCurrency extends LeftCurrency {
     @Override
     public Object operate(VariableContext context, Object... args) {

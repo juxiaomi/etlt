@@ -5,15 +5,15 @@ import java.util.Map;
 
 public class FunctionSetting {
 
-    private Map<String, Class> userDefined ;
+    private List<Class> userDefined ;
 
     private List<Class> functions;
 
-    public Map<String, Class> getUserDefined() {
+    public List<Class> getUserDefined() {
         return userDefined;
     }
 
-    public void setUserDefined(Map<String, Class> userDefined) {
+    public void setUserDefined(List<Class> userDefined) {
         this.userDefined = userDefined;
     }
 

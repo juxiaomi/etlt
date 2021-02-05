@@ -1,9 +1,11 @@
 package org.etlt.op.ud;
 
+import org.etlt.expression.function.FunctionEnabled;
 import org.etlt.job.JobContext;
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.function.FunctionActor;
 
+@FunctionEnabled("mapping")
 public class Mapping implements FunctionActor {
 
     @Override
