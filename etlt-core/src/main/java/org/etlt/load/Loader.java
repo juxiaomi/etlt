@@ -19,6 +19,8 @@ public abstract class Loader {
     protected <T extends LoaderSetting> T getSetting(){
         return (T) this.setting;
     }
+
+    public abstract void preLoad(JobContext context);
     /**
      * load the data to target
      *
@@ -34,6 +36,7 @@ public abstract class Loader {
                 if (resource != null)
                     resource.close();
             } catch (Exception e) {
+                // do nothing
             }
         }
     }
@@ -48,11 +51,11 @@ public abstract class Loader {
 
     protected void resolveColumns(JobContext context){
         if(this.setting.isAutoResolve()){
-            Extractor extractor = context.getExtractor(this.setting.getDs());
+            Extractor extractor = context.getExtractor(this.setting.getExtractor());
             List<ColumnSetting> columnSettings = new ArrayList<ColumnSetting>();
             List<String> columns = extractor.getColumns();
             for(String column : columns){
-                columnSettings.add(new ColumnSetting(column, this.setting.getDs()));
+                columnSettings.add(new ColumnSetting(column, this.setting.getExtractor()));
             }
             for(ColumnSetting userDefinedColumnSetting : columnSettings){
                 for(ColumnSetting columnSetting : this.setting.getColumns()){

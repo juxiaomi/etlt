@@ -2,7 +2,7 @@
   "name": "client",
   "type": "FILE",
   "usingBanner":"true",
-  "ds":"client",
+  "extractor":"client",
   "columns": [
     "client_id=client.client_id",
     "client_name=client.client_name",

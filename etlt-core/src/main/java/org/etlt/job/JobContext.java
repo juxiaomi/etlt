@@ -1,16 +1,14 @@
 package org.etlt.job;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.etlt.EtltException;
 import org.etlt.SettingReader;
-import org.etlt.extract.Extractor;
-import org.etlt.extract.ExtractorSetting;
-import org.etlt.extract.FileExtractSetting;
-import org.etlt.extract.FileExtractor;
-import org.etlt.load.FileLoader;
-import org.etlt.load.Loader;
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.datameta.Variable;
-import org.apache.commons.lang3.StringUtils;
+import org.etlt.extract.Extractor;
+import org.etlt.extract.ExtractorSetting;
+import org.etlt.load.Loader;
 import org.etlt.load.LoaderSetting;
 
 import java.io.File;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JobContext implements VariableContext {
 
@@ -73,7 +72,7 @@ public class JobContext implements VariableContext {
         if (StringUtils.isBlank(key))
             return key;
         Map cmap = ((Map) this.mapping.get(catalog));
-        if (cmap == null)
+        if (ObjectUtils.isEmpty(cmap) )
             throw new IllegalArgumentException("catalog of mapping missing, check mapping configuration.");
         return cmap.get(key.trim());
     }
@@ -98,51 +97,50 @@ public class JobContext implements VariableContext {
 
     protected void initExtractors() throws IOException {
         List<String> extractorNames = this.jobSetting.getExtractors();
-        List<Extractor> extractors = null;
+        String[] exts = configDirectory.list((dir, name) ->
+                name.endsWith(EXTRACTOR_SUFFIX)
+        );
+        List<Extractor> allExtractors = readExtractors(exts);
         if (extractorNames.size() != 0) {
-            if (extractorNames.get(0).equals(ALL)) {
-                //read all
-                String[] exts = configDirectory.list((dir, name) -> {
-                    return name.endsWith(EXTRACTOR_SUFFIX);
-                });
-                extractors = readExtractors(exts);
-            } else {
-                extractors = readExtractors(this.jobSetting.getExtractors().toArray(new String[0]));
+            if (!extractorNames.get(0).equals(ALL)) {
+                allExtractors = allExtractors.stream().filter(e ->
+                        extractorNames.contains(e.getName())
+                ).collect(Collectors.toList());
             }
         }
-        for (Extractor extractor : extractors) {
+        for (Extractor extractor : allExtractors) {
             this.extractors.put(extractor.getName(), extractor);
         }
     }
 
     protected void initLoaders() throws IOException {
         List<String> loaderNames = this.jobSetting.getLoaders();
-        List<Loader> extractors = null;
+        String[] loaders = configDirectory.list((dir, name) ->
+                name.endsWith(LOADER_SUFFIX)
+        );
+        List<Loader> allLoaders = readLoaders(loaders);
         if (loaderNames.size() != 0) {
-            if (loaderNames.get(0).equals(ALL)) {
+            if (!loaderNames.get(0).equals(ALL)) {
                 //read all
-                String[] exts = configDirectory.list((dir, name) -> {
-                    return name.endsWith(LOADER_SUFFIX);
-                });
-                extractors = readLoaders(exts);
-            } else {
-                extractors = readLoaders(this.jobSetting.getExtractors().toArray(new String[0]));
+                allLoaders = allLoaders.stream().filter(e ->
+                        loaderNames.contains(e.getName())
+                ).collect(Collectors.toList());
             }
         }
-        for (Loader loader : extractors) {
+        for (Loader loader : allLoaders) {
             this.loaders.put(loader.getName(), loader);
         }
     }
 
     protected void initMapping() throws IOException {
-        if (this.jobSetting.getMapping() != null)
+        if (!ObjectUtils.isEmpty(this.jobSetting.getMapping()))
             this.mapping = reader.read(new File(this.configDirectory, this.jobSetting.getMapping()), Map.class);
     }
 
     protected List<Extractor> readExtractors(String[] extractSettings) throws IOException {
         List<Extractor> extractors = new ArrayList<>();
         for (String ext : extractSettings) {
-            extractors.add(readExtractor(ext + EXTRACTOR_SUFFIX));
+            extractors.add(readExtractor(ext));
         }
         return extractors;
     }
@@ -155,10 +153,7 @@ public class JobContext implements VariableContext {
     protected List<Loader> readLoaders(String[] loaderSettings) throws IOException {
         List<Loader> extractors = new ArrayList<>();
         for (String ext : loaderSettings) {
-            if (ext.endsWith(LOADER_SUFFIX))
-                extractors.add(readLoader(ext));
-            else
-                extractors.add(readLoader(ext + LOADER_SUFFIX));
+            extractors.add(readLoader(ext));
         }
         return extractors;
     }
@@ -170,7 +165,7 @@ public class JobContext implements VariableContext {
 
     public Extractor getExtractor(String name) {
         Extractor extractor = this.extractors.get(name);
-        if (extractor == null)
+        if (ObjectUtils.isEmpty(extractor))
             throw new EtltException("extractor not found: " + name);
         return extractor;
     }
@@ -185,7 +180,7 @@ public class JobContext implements VariableContext {
 
     public Object getParameter(String name) {
         Object result = this.jobSetting.getParameters().get(name);
-        if (result == null)
+        if (ObjectUtils.isEmpty(result))
             throw new IllegalArgumentException("parameter not found: " + name);
         return result;
     }

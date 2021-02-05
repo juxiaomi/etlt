@@ -1,4 +1,4 @@
-package org.etlt.extract;
+package org.etlt.loader;
 
 import org.etlt.Constants;
 import org.etlt.SettingReader;
@@ -36,6 +36,8 @@ public class TestFileLoader {
     @Test
     public void testCreate(){
         Assert.assertNotNull(loader);
+        loader.preLoad(context);
         loader.load(context);
+        loader.doFinish();
     }
 }

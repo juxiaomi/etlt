@@ -1,7 +1,7 @@
 {
   "name": "client_db",
   "type": "DATA_BASE",
-  "ds":"client_db",
+  "extractor":"client_db",
   "columns": [
     "PROP_SCOPE=client_db.PROP_SCOPE + '1'",
     "PROP_NAME=client_db.PROP_NAME",

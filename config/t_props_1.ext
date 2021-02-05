@@ -1,0 +1,7 @@
+{
+  "name": "t_props_1",
+  "type": "DATA_BASE",
+  "skip": 0,
+  "dql":"SELECT * FROM T_PROPS",
+  "datasourceRef": "h2datasource"
+}

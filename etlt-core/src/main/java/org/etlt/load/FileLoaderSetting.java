@@ -3,7 +3,6 @@ package org.etlt.load;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.etlt.SettingCheck;
 import org.etlt.SettingValidationException;
 
 import java.util.List;
@@ -15,11 +14,7 @@ import java.util.List;
 @JsonSubTypes({@JsonSubTypes.Type(value = FileLoaderSetting.class, name = "FILE"),
         @JsonSubTypes.Type(value = DatabaseLoaderSetting.class, name = "DATA_BASE")})
 public class FileLoaderSetting extends LoaderSetting {
-    private String name;
-
     private boolean usingBanner;
-
-    private String ds;
 
     private List<ColumnSetting> columns;
 
@@ -27,28 +22,12 @@ public class FileLoaderSetting extends LoaderSetting {
 
     private String target;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isUsingBanner() {
         return usingBanner;
     }
 
     public void setUsingBanner(boolean usingBanner) {
         this.usingBanner = usingBanner;
-    }
-
-    public String getDs() {
-        return ds;
-    }
-
-    public void setDs(String ds) {
-        this.ds = ds;
     }
 
     public List<ColumnSetting> getColumns() {
@@ -81,9 +60,9 @@ public class FileLoaderSetting extends LoaderSetting {
             throw new SettingValidationException("missing name.");
         if(StringUtils.isBlank(getTarget()))
             throw new SettingValidationException("missing target: " + getName());
-        if(getColumns().size() == 0)
+        if(getColumns().isEmpty())
             throw new SettingValidationException("missing column definitions: " + getName());
-        if(StringUtils.isBlank(getDs()))
+        if(StringUtils.isBlank(getExtractor()))
             throw new SettingValidationException("missing ds: " + getName());
     }
 }

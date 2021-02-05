@@ -1,6 +1,8 @@
 package org.etlt.load;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.etlt.EtltException;
 import org.etlt.expression.ExpressionCompiler;
 import org.etlt.extract.DbDsSetting;
@@ -24,18 +26,35 @@ public class DatabaseLoader extends Loader {
         setName(setting.getName());
     }
 
-    protected void init(JobContext context) throws SQLException, ClassNotFoundException {
-        DatabaseLoaderSetting setting = getSetting();
-        if(setting.getDataSource() == null){
-            Object ref = context.getParameter(setting.getDatasourceRef());
-            ObjectMapper mapper = new ObjectMapper();
-            setting.setDataSource(mapper.convertValue(ref, DbDsSetting.class));
+    protected void init(JobContext context) {
+        try {
+            DatabaseLoaderSetting setting = getSetting();
+            if (ObjectUtils.isEmpty(setting.getDataSource())) {
+                Object ref = context.getParameter(setting.getDatasourceRef());
+                ObjectMapper mapper = new ObjectMapper();
+                setting.setDataSource(mapper.convertValue(ref, DbDsSetting.class));
+            }
+            resolveColumns(context);
+            DbDsSetting dbDsSetting = setting.getDataSource();
+            Class.forName(dbDsSetting.getClassName());
+            this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
+            this.statement = connection.prepareStatement(setting.getDml());
+        }catch (SQLException | ClassNotFoundException e){
+            throw new EtltException("executing loader error: " + getName(), e);
         }
-        resolveColumns(context);
-        DbDsSetting dbDsSetting = setting.getDataSource();
-        Class.forName(dbDsSetting.getClassName());
-        this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
-        this.statement = connection.prepareStatement(setting.getDml());
+    }
+
+    @Override
+    public void preLoad(JobContext context) {
+        init(context);
+        DatabaseLoaderSetting setting = getSetting();
+        if(!StringUtils.isBlank(setting.getPreDml())){
+            try(PreparedStatement statement = this.connection.prepareStatement(setting.getPreDml())){
+                statement.execute();
+            } catch (SQLException e) {
+                throw new EtltException("preLoad error:" + getName() , e);
+            }
+        }
     }
 
     /**
@@ -44,10 +63,10 @@ public class DatabaseLoader extends Loader {
     @Override
     public void load(JobContext context) {
         try {
-            init(context);
+
             DatabaseLoaderSetting setting = getSetting();
             List<ColumnSetting> columns = setting.getColumns();
-            String ds = setting.getDs();
+            String ds = setting.getExtractor();
             Extractor extractor = context.getExtractor(ds);
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
@@ -59,7 +78,7 @@ public class DatabaseLoader extends Loader {
                 //--todo: should optimized to batch operation
                 this.statement.execute();
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new EtltException("executing loader error: " + getName(), e);
         }
     }

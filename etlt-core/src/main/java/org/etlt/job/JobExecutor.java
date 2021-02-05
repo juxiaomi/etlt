@@ -1,5 +1,6 @@
 package org.etlt.job;
 
+import org.etlt.EtltException;
 import org.etlt.load.Loader;
 
 import java.io.File;
@@ -13,11 +14,12 @@ public class JobExecutor {
             jobContext.init();
             List<Loader> loaders = jobContext.getAllLoader();
             for(Loader loader: loaders){
+                loader.preLoad(jobContext);
                 loader.load(jobContext);
                 loader.doFinish();
             }
         }catch (IOException e){
-            e.printStackTrace();
+            throw new EtltException("job executing error." ,e );
         }
     }
 }

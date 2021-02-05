@@ -21,6 +21,11 @@ public class FileLoader extends Loader {
         setName(setting.getName());
     }
 
+    @Override
+    public void preLoad(JobContext context) {
+
+    }
+
     /**
      * @param context
      */
@@ -33,7 +38,7 @@ public class FileLoader extends Loader {
             List<ColumnSetting> columns = setting.getColumns();
             if (setting.isUsingBanner())
                 writeBanner(bufferedWriter);
-            String ds = setting.getDs();
+            String ds = setting.getExtractor();
             Extractor extractor = context.getExtractor(ds);
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
