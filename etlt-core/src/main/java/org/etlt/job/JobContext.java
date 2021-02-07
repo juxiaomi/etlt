@@ -6,6 +6,7 @@ import org.etlt.EtltException;
 import org.etlt.SettingReader;
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.datameta.Variable;
+import org.etlt.extract.Entity;
 import org.etlt.extract.Extractor;
 import org.etlt.extract.ExtractorSetting;
 import org.etlt.load.Loader;
@@ -28,7 +29,7 @@ public class JobContext implements VariableContext {
     public static final String EXTRACTOR_SUFFIX = ".ext";
     private static final String LOADER_SUFFIX = ".ldr";
 
-    private final Map<String, Map<String, Object>> data = new HashMap<>();
+    private final Map<String, Entity> entityContainer = new HashMap<String, Entity>();
 
     private final File configDirectory;
 
@@ -51,12 +52,12 @@ public class JobContext implements VariableContext {
     }
 
     public boolean isExist(String entity) {
-        return this.data.containsKey(entity);
+        return this.entityContainer.containsKey(entity);
     }
 
     public Object getValue(String entity, String column) {
         if (isExist(entity)) {
-            return this.data.get(entity).get(column);
+            return this.entityContainer.get(entity).getValue(column);
         }
         return null;
     }
@@ -77,12 +78,12 @@ public class JobContext implements VariableContext {
         return cmap.get(key.trim());
     }
 
-    public void setEntity(String entity, Map<String, Object> data) {
-        this.data.put(entity, data);
+    public void setEntity(String entityName, Entity entity) {
+        this.entityContainer.put(entityName, entity);
     }
 
     public void removeEntity(String entity) {
-        this.data.remove(entity);
+        this.entityContainer.remove(entity);
     }
 
     /**

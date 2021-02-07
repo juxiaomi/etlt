@@ -1,5 +1,6 @@
 package org.etlt.extract;
 
+import org.etlt.EtltException;
 import org.etlt.job.JobContext;
 import org.etlt.load.ColumnSetting;
 
@@ -12,8 +13,6 @@ public class FileExtractor extends Extractor {
     final FileExtractSetting setting;
 
     private BufferedReader reader = null;
-
-    private int skip = 0;
 
     public FileExtractor(FileExtractSetting setting) {
         this.setting = setting;
@@ -32,15 +31,16 @@ public class FileExtractor extends Extractor {
             if (text != null) {
                 if (this.skip < this.setting.getSkip()) {
                     this.skip++;
+                    this.index++;
                     extract(context);
                 } else
-                    context.setEntity(this.setting.getName(), parse(text));
+                    context.setEntity(this.setting.getName(), parse(index++, text));
             } else {
                 context.removeEntity(this.setting.getName());
                 doFinish();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new EtltException("extractor execution error: " + getName(), e);
         }
     }
 
@@ -54,13 +54,13 @@ public class FileExtractor extends Extractor {
         close(reader);
     }
 
-    private Map<String, Object> parse(String text) {
+    private Entity parse(int index, String text) {
         Map<String, Object> result = new HashMap<>();
         String columns[] = text.split(this.setting.getDelim());
         List<String> columnNames = setting.getColumns();
         for (int i = 0; i < columns.length; i++) {
             result.put(columnNames.get(i), columns[i]);
         }
-        return result;
+        return new Entity(index, result);
     }
 }

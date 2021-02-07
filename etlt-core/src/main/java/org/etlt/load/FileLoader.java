@@ -1,5 +1,6 @@
 package org.etlt.load;
 
+import org.etlt.EtltException;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
 import org.etlt.expression.ExpressionCompiler;
@@ -54,7 +55,7 @@ public class FileLoader extends Loader {
                 bufferedWriter.write(sb.toString());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new EtltException("load execution error: " + getName(), e);
         }
     }
 
@@ -66,7 +67,6 @@ public class FileLoader extends Loader {
                 bufferedWriter.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

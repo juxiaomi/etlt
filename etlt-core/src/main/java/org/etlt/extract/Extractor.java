@@ -7,6 +7,10 @@ import java.util.List;
 public abstract class Extractor {
     private String name;
 
+    protected int skip = 0;
+
+    protected int index = 0;
+
     /**
      * extract data and set it to context
      * @param context

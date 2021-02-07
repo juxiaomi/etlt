@@ -6,11 +6,9 @@ import org.etlt.expression.VariableContext;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FunctionFactory implements FunctionExecutor {
 
@@ -67,7 +65,7 @@ public class FunctionFactory implements FunctionExecutor {
         InputStream udConfig = getClass().getClassLoader().getResourceAsStream(CONFIGURATION);
         if (udConfig != null) {
             this.setting = reader.read(udConfig, FunctionSetting.class);
-            List<Class> udFunctions = this.setting.getUserDefined();
+            List<Class> udFunctions = this.setting.getFunctionByClass();
             udFunctions.forEach((clazz) -> {
                 if (clazz.isAssignableFrom(FunctionActor.class)) {
                     throw new IllegalExpressionException("user defined class is not a FunctionActor: " + clazz.getName());

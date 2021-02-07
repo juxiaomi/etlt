@@ -18,8 +18,6 @@ public class DatabaseExtractor extends Extractor {
 
     private ResultSet resultSet;
 
-    private int skip = 0;
-
     public DatabaseExtractor(DatabaseExtractSetting setting) {
         this.setting = setting;
         this.setName(setting.getName());
@@ -57,6 +55,7 @@ public class DatabaseExtractor extends Extractor {
             if (resultSet.next()) {
                 if (this.skip < this.setting.getSkip()) {
                     this.skip++;
+                    this.index++;
                     extract(context);
                 } else {
                     Map<String, Object> rowData = new HashMap<>();
@@ -65,7 +64,8 @@ public class DatabaseExtractor extends Extractor {
                         if (getColumns().contains(resultSetMetaData.getColumnLabel(i + 1)))
                             rowData.put(getColumns().get(i), resultSet.getObject(i + 1));
                     }
-                    context.setEntity(this.setting.getName(), rowData);
+                    Entity entity = new Entity(index++, rowData);
+                    context.setEntity(this.setting.getName(), entity);
                 }
             } else {
                 context.removeEntity(this.setting.getName());

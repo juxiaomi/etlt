@@ -1,27 +1,26 @@
 package org.etlt.expression.function;
 
 import java.util.List;
-import java.util.Map;
 
 public class FunctionSetting {
 
-    private List<Class> userDefined ;
+    private List<Class> functionByClass;
 
-    private List<Class> functions;
+    private List<Class> functionByMethod;
 
-    public List<Class> getUserDefined() {
-        return userDefined;
+    public List<Class> getFunctionByClass() {
+        return functionByClass;
     }
 
-    public void setUserDefined(List<Class> userDefined) {
-        this.userDefined = userDefined;
+    public void setFunctionByClass(List<Class> functionByClass) {
+        this.functionByClass = functionByClass;
     }
 
-    public List<Class> getFunctions() {
-        return functions;
+    public List<Class> getFunctionByMethod() {
+        return functionByMethod;
     }
 
-    public void setFunctions(List<Class> functions) {
-        this.functions = functions;
+    public void setFunctionByMethod(List<Class> functionByMethod) {
+        this.functionByMethod = functionByMethod;
     }
 }

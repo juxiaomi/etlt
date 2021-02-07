@@ -1,5 +1,5 @@
 {
-  "userDefined": [
+  "functionByClass": [
     "org.etlt.expression.ud.Concat"
   ]
 }

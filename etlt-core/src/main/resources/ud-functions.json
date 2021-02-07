@@ -1,5 +1,5 @@
 {
-  "userDefined": [
+  "functionByClass": [
     "org.etlt.op.ud.Mapping",
     "org.etlt.op.ud.Currency",
     "org.etlt.op.ud.LeftCurrency",
