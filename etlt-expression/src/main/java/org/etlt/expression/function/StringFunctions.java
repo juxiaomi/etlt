@@ -3,6 +3,8 @@
  */
 package org.etlt.expression.function;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,5 +75,8 @@ public class StringFunctions {
         return str1.endsWith(str2);
     }
 
-
+    @FunctionEnabled(value = "LENGTH", help = "calculate the length of a String, 0 for null")
+    public int getLength(String str){
+        return StringUtils.isBlank(str) ? 0 : str.length();
+    }
 }

@@ -79,6 +79,12 @@ public class CmdMain {
         }));
         listFunctions.helpMessage = "show all functions";
         addCommander(listFunctions);
+        // -- quit
+        Commander quitCommander = new Commander("quit", () ->{
+            System.exit(0);
+        });
+        quitCommander.helpMessage = "quit the console";
+        addCommander(quitCommander);
     }
 
     private void addCommander(Commander commander) {
