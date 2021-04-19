@@ -101,7 +101,8 @@ public class FunctionInvoker {
             throw new IllegalArgumentException("unsupported now, please expect.");
         } else {
             for (int i = 0; i < actualArgs.length; i++) {
-                if (!parameterTypes[i].isAssignableFrom(actualArgs[i].getClass())) {
+                if (actualArgs[i] != null &&
+                        !parameterTypes[i].isAssignableFrom(actualArgs[i].getClass())) {
                     // list 转 数组
                     if (parameterTypes[i].isArray() && (List.class.isAssignableFrom(actualArgs[i].getClass()))) {
                         @SuppressWarnings("unchecked")

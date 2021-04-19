@@ -7,7 +7,8 @@
     "client_name",
     "open_org",
     "field_1",
-    "field_2"
+    "field_2",
+    "field_3"
   ],
   "delim": ",",
   "dataSource": "client.del"
