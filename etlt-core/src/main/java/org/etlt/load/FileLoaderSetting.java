@@ -60,14 +60,11 @@ public class FileLoaderSetting extends LoaderSetting {
 
     @Override
     public void check() {
-        if(StringUtils.isBlank(getName()))
-            throw new SettingValidationException("missing name.");
+        super.check();
         if(StringUtils.isBlank(getTarget()))
             throw new SettingValidationException("missing target: " + getName());
         if(getColumns().isEmpty())
             throw new SettingValidationException("missing column definitions: " + getName());
-        if(StringUtils.isBlank(getExtractor()))
-            throw new SettingValidationException("missing ds: " + getName());
     }
 
     public String getEncoding() {

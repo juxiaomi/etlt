@@ -2,6 +2,7 @@ package org.etlt.load;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.apache.commons.lang3.ArrayUtils;
 import org.etlt.SettingCheck;
 import org.etlt.SettingValidationException;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,9 @@ import java.util.List;
 public class LoaderSetting implements SettingCheck {
     private String name;
 
-    private String extractor;
+    private List<String> extractors;
+
+    private String criteria;
 
     private boolean autoResolve = false;
 
@@ -32,12 +35,12 @@ public class LoaderSetting implements SettingCheck {
         this.name = name;
     }
 
-    public String getExtractor() {
-        return extractor;
+    public List<String> getExtractors() {
+        return extractors;
     }
 
-    public void setExtractor(String extractor) {
-        this.extractor = extractor;
+    public void setExtractor(List<String> extractors) {
+        this.extractors = extractors;
     }
 
     public boolean isAutoResolve() {
@@ -56,13 +59,24 @@ public class LoaderSetting implements SettingCheck {
         this.columns = columns;
     }
 
+    public String getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
     @Override
     public void check() {
-        if(StringUtils.isBlank(getName()))
+        if (StringUtils.isBlank(getName()))
             throw new SettingValidationException("missing name.");
-        if(!isAutoResolve() &&  getColumns().isEmpty())
+        if (!isAutoResolve() && getColumns().isEmpty())
             throw new SettingValidationException("missing column definitions: " + getName());
-        if(StringUtils.isBlank(getExtractor()))
-            throw new SettingValidationException("missing ds: " + getName());
+        if (getExtractors().isEmpty()) {
+            throw new SettingValidationException("missing extractors: " + getName());
+        }
+        if (getExtractors().size() > 1 && StringUtils.isBlank(getCriteria()))
+            throw new SettingValidationException("missing criteria while more than 1 extractors found: " + getName());
     }
 }

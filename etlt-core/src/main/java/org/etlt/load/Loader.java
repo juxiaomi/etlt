@@ -51,11 +51,11 @@ public abstract class Loader {
 
     protected void resolveColumns(JobContext context){
         if(this.setting.isAutoResolve()){
-            Extractor extractor = context.getExtractor(this.setting.getExtractor());
+            Extractor extractor = context.getExtractor(this.setting.getExtractors().get(0));
             List<ColumnSetting> columnSettings = new ArrayList<ColumnSetting>();
             List<String> columns = extractor.getColumns();
             for(String column : columns){
-                columnSettings.add(new ColumnSetting(column, this.setting.getExtractor()));
+                columnSettings.add(new ColumnSetting(column, this.setting.getExtractors().get(0)));
             }
             for(ColumnSetting userDefinedColumnSetting : columnSettings){
                 for(ColumnSetting columnSetting : this.setting.getColumns()){

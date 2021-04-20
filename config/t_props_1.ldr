@@ -1,9 +1,9 @@
 {
   "name": "t_props_1",
   "type": "DATA_BASE",
-  "extractor":"t_props",
+  "extractors":["t_props"],
   "autoResolve": "true",
-  "preDml": "TRUNCATE TABLE T_PROPS_1",
-  "dml": "INSERT INTO T_PROPS_1 VALUES(?, ?, ?, ?,?)",
-  "datasourceRef": "h2datasource"
+  "preDml": "TRUNCATE TABLE T_PROPS",
+  "dml": "INSERT INTO T_PROPS VALUES(?, ?, ?, ?,?)",
+  "datasourceRef": "h2datasource2"
 }

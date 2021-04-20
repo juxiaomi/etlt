@@ -1,0 +1,14 @@
+{
+  "name": "client1",
+  "type": "FILE",
+  "skip": 0,
+  "columns": [
+    "client_id",
+    "last_name",
+    "mobile"
+  ],
+  "delim": ",",
+  "encoding": "utf8",
+  "dataSource": "client1.del"
+  }
+}

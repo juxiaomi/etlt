@@ -66,7 +66,7 @@ public class DatabaseLoader extends Loader {
 
             DatabaseLoaderSetting setting = getSetting();
             List<ColumnSetting> columns = setting.getColumns();
-            String ds = setting.getExtractor();
+            String ds = setting.getExtractors().get(0);
             Extractor extractor = context.getExtractor(ds);
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {

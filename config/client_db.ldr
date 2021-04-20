@@ -2,7 +2,7 @@
   "name": "client_db",
   "type": "FILE",
   "usingBanner":"true",
-  "extractor":"client_db",
+  "extractors":["client_db"],
   "columns": [
     "PROP_SCOPE=client_db.PROP_SCOPE",
     "PROP_NAME=client_db.PROP_NAME",

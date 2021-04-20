@@ -40,7 +40,7 @@ public class FileLoader extends Loader {
             List<ColumnSetting> columns = setting.getColumns();
             if (setting.isUsingBanner())
                 writeBanner(bufferedWriter);
-            String ds = setting.getExtractor();
+            String ds = setting.getExtractors().get(0);
             Extractor extractor = context.getExtractor(ds);
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
