@@ -10,6 +10,8 @@ public class FileExtractSetting extends ExtractorSetting{
 
     private String dataSource;
 
+    private String encoding = ExtractorSetting.UTF_8;
+
     public String getDelim() {
         return delim;
     }
@@ -31,5 +33,13 @@ public class FileExtractSetting extends ExtractorSetting{
         super.check();
         if(getColumns().size() == 0)
             throw new SettingValidationException("extractor columns definition missing: " + getName() );
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
 }

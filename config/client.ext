@@ -11,6 +11,7 @@
     "field_3"
   ],
   "delim": ",",
+  "encoding": "utf8",
   "dataSource": "client.del"
   }
 }

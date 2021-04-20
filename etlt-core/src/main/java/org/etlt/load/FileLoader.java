@@ -5,10 +5,8 @@ import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
 import org.etlt.expression.ExpressionCompiler;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class FileLoader extends Loader {
@@ -35,7 +33,10 @@ public class FileLoader extends Loader {
         try {
             resolveColumns(context);
             FileLoaderSetting setting = getSetting();
-            bufferedWriter = new BufferedWriter(new FileWriter(new File(setting.getTarget())));
+            bufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(setting.getTarget()),
+                            Charset.forName(setting.getEncoding())));
             List<ColumnSetting> columns = setting.getColumns();
             if (setting.isUsingBanner())
                 writeBanner(bufferedWriter);

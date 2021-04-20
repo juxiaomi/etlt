@@ -13,5 +13,6 @@
     "field3=length(client.field_3)>0?subString(client.field_3,4,8):''"
   ],
   "delim": ",",
+  "encoding": "utf8",
   "target": "client.del"
 }

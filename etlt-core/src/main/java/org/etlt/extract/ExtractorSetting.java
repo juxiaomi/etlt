@@ -19,6 +19,8 @@ import java.util.List;
         @JsonSubTypes.Type(value = DatabaseExtractSetting.class, name = "DATA_BASE")})
 public class ExtractorSetting implements SettingCheck {
 
+    public static final String UTF_8 = "utf8";
+
     private String name;
 
     private int skip;
