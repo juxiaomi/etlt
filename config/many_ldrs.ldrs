@@ -1,0 +1,17 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "autoResolve":"true",
+        "datasourceRef":"h2datasource2"
+    },
+    "loaders":[
+        {
+            "name":"t_props_2",
+            "extractors":[
+                "t_props"
+            ],
+            "preDml":"TRUNCATE TABLE T_PROPS",
+            "dml":"INSERT INTO T_PROPS VALUES(?, ?, ?, ?,?)"
+        }
+    ]
+}

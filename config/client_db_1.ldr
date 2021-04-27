@@ -1,5 +1,5 @@
 {
-  "name": "client_db",
+  "name": "client_db_2",
   "type": "DATA_BASE",
   "extractors":["client_db"],
   "columns": [

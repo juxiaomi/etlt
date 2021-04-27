@@ -13,10 +13,15 @@ this project has two workable modules:
 
 #Release Note
 ##v1.0-0121-2
-###add function: divide
-this function need 4 arguments: number, dividing number, scale, rounding mode in an integer
+###add function: 
+divide  
+-- this function need 4 arguments: number, dividing number, scale, rounding mode in an integer
 ##v1.0-0419
-###add function: length
-this function is to calculate the length of a String, 0 for null
+###add function: 
+length  
+-- calculate length of a string
+##v1.1
+###add a new functionality
+-- 1 file contains multi extractor settings with a suffix .exts, 1 file contains multi loader settings with a suffix .ldrs
 ##contact me  
 [contact me using mail](mailto:juxiaomi@hotmail.com)

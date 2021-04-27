@@ -34,7 +34,6 @@ public class ElementReaderFactory {
 				} else if (c == DateReader.START_MARK) {//[开头，构造日期读取器 // todo: should be deprecated
 					return DateReader.class.newInstance();
 				}
-				//$开头，构造函数读取器// todo: function should like functionName(), identified by ()
 				/*
 				else if (c == FunctionReader.START_MARK) {
 					return FunctionReader.class.newInstance();

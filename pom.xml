@@ -6,7 +6,7 @@
 
 	<groupId>org.etlt</groupId>
 	<artifactId>etlt.parent</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<name>etlt.parent</name>
 	<packaging>pom</packaging>
 
@@ -80,11 +80,6 @@
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
 				<version>42.2.12</version>
-			</dependency>
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>1.4.197</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.tomcat</groupId>

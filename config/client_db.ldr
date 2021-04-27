@@ -1,5 +1,5 @@
 {
-  "name": "client_db",
+  "name": "client_db_1",
   "type": "FILE",
   "usingBanner":"true",
   "extractors":["client_db"],

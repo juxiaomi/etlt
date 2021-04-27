@@ -1,0 +1,18 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "skip":0,
+        "datasourceRef":"h2datasource"
+    },
+    "extractors":[
+        {
+            "name":"client_db_3",
+            "skip":1,
+            "dql":"SELECT * FROM T_PROPS"
+        },
+        {
+            "name":"client_db_1",
+            "dql":"SELECT * FROM T_PROPS_1"
+        }
+    ]
+}
