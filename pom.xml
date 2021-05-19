@@ -93,9 +93,9 @@
 			</dependency>
 			<!-- jdbc drivers -->
 			<dependency>
-				<groupId>oracle</groupId>
-				<artifactId>ojdbc6</artifactId>
-				<version>11.2.0.3</version>
+				<groupId>com.oracle.database.jdbc</groupId>
+				<artifactId>ojdbc8</artifactId>
+				<version>12.2.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.postgresql</groupId>
@@ -122,6 +122,11 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>1.7.21</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.28</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>

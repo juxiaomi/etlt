@@ -75,7 +75,7 @@ public abstract class TableModelUtilsOfDb {
 					try {
 						col.setColumnType(TypeUtils.javaSqlTypeToDialectType(javaSqlType));
 					} catch (Exception e1) {
-						throw new DialectException("jDialect does not supported java.sql.types value " + javaSqlType,
+						throw new DialectException("jDialect does not supported java.sql.types value " + javaSqlType + " for table " + tableName + ", column " + colName,
 								e1);
 					}
 					col.setLength(rs.getInt("COLUMN_SIZE"));

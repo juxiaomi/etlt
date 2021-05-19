@@ -45,6 +45,7 @@ public enum Type {
 	, SMALLINT//
 	, TIME//
 	, TIMESTAMP//
+	, TIMESTAMPZ//timestamp with timezone
 	, TINYINT//
 	, VARBINARY//
 	, VARCHAR;

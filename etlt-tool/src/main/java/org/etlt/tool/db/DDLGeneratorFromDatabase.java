@@ -35,6 +35,8 @@ public class DDLGeneratorFromDatabase extends SettingEnable {
 
         Connection connection = ddlGeneratorFromDatabase.createConnection();
         Dialect dialect = Dialect.guessDialect(connection);
+        // Reserved words are allowed
+        Dialect.setGlobalAllowReservedWords(true);
         TableModel[] tableModels =
                 TableModelUtils.db2Models(connection, dialect);
         StringBuilder stringBuilder = new StringBuilder();
