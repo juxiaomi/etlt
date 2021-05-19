@@ -1,0 +1,1 @@
+java -cp etlt-tool-1.1.0.jar org.etlt.tool.db.DDLGeneratorFromDatabase ${config.dir}

@@ -6,6 +6,7 @@ import org.etlt.expression.function.FunctionInvoker;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class CmdMain {
             if (main.isCommand(input)) {
                 Commander commander = main.findCommander(input);
                 if (commander == null) {
-                    System.out.println("commander not found: " + input);
+                    System.out.println("commander not found: " + input.substring(1));
                 } else {
                     commander.execute();
                 }
@@ -85,6 +86,12 @@ public class CmdMain {
         });
         quitCommander.helpMessage = "quit the console";
         addCommander(quitCommander);
+        // -- set
+        Commander setCommand = new Commander("set", ()->{
+
+        });
+        setCommand.helpMessage = "set parameter, like set a = 123; b = 456";
+        addCommander(setCommand);
     }
 
     private void addCommander(Commander commander) {
@@ -92,10 +99,16 @@ public class CmdMain {
     }
 
     protected Commander findCommander(String text) {
+        Commander commander = null;
         String com = text.trim();
-        if (com.startsWith(COMMAND_PREFIX))
+        if (com.startsWith(COMMAND_PREFIX)) {
             com = com.substring(1);
-        return this.commanders.get(com);
+            String[] args = com.split(";");
+            List<String> params = new ArrayList<>();
+
+            commander = this.commanders.get(com);
+        }
+        return commander;
     }
 
     private Map<String, Commander> commanders = new HashMap<String, Commander>();
@@ -111,6 +124,8 @@ public class CmdMain {
         final Runnable runnable;
 
         String helpMessage;
+
+        String parameters;
 
         public void execute() {
             this.runnable.run();

@@ -1,5 +1,6 @@
 {
   "functionByClass": [
     "org.etlt.expression.ud.Concat"
-  ]
+  ],
+  "functionByMethod" : []
 }

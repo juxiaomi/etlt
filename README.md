@@ -1,5 +1,7 @@
 #this is a simple etl toolkit project  
-
+the main classes are:  
+* org.etlt.Main  
+* org.etlt.expression.CmdMain 
 ##initialize the project  
 $> cd ${project-dir}  
 $> mvn test  

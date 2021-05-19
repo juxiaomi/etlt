@@ -1,0 +1,9 @@
+{
+  "supportedDatabases" : {
+    "mysql": "com.mysql.cj.jdbc.Driver",
+    "h2" : "org.h2.Driver",
+    "oracle": "oracle.jdbc.driver.OracleDriver",
+    "postgreSQL": "org.postgresql.Driver"
+  }
+
+}
