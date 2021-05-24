@@ -3,17 +3,18 @@ package org.etlt.load;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.etlt.EtltException;
 import org.etlt.expression.ExpressionCompiler;
 import org.etlt.extract.DbDsSetting;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseLoader extends Loader {
 
@@ -63,21 +64,32 @@ public class DatabaseLoader extends Loader {
     @Override
     public void load(JobContext context) {
         try {
-
             DatabaseLoaderSetting setting = getSetting();
             List<ColumnSetting> columns = setting.getColumns();
             String ds = setting.getExtractors().get(0);
             Extractor extractor = context.getExtractor(ds);
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
+            int batch = 0;
+            connection.setAutoCommit(false);
             for (extractor.extract(context); context.isExist(ds); extractor.extract(context)) {
                 for (int i = 0; i< columns.size(); i++) {
                     ColumnSetting column = columns.get(i);
                     Object result = expressionCompiler.evaluate(column.getExpression(), context);
                     this.statement.setObject(i+1, result);
+
                 }
-                //--todo: should optimized to batch operation
-                this.statement.execute();
+                this.statement.addBatch();
+                batch++;
+                if(batch % getSetting().getBatch() == 0) {
+                    this.statement.executeBatch();
+                    batch = 0;
+                }
             }
+            if(batch != 0) {
+                this.statement.executeBatch();
+            }
+            connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             throw new EtltException("executing loader error: " + getName(), e);
         }
@@ -86,6 +98,10 @@ public class DatabaseLoader extends Loader {
     @Override
     public void doFinish() {
         close(statement, connection);
+    }
+
+    protected void mappingTypes(Object object){
+
     }
 
 }

@@ -1,0 +1,97 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "autoResolve":"true",
+        "datasourceRef":"pg-datasource-web"
+    },
+    "loaders":[
+        {
+            "name":"IBSACCESSLOG",
+            "extractors":[
+                "IBSACCESSLOG"
+            ],
+            "preDml":"TRUNCATE TABLE IBSACCESSLOG",
+            "dml":"INSERT INTO IBSACCESSLOG VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"IBSACCESSLOGHIST",
+            "extractors":[
+                "IBSACCESSLOGHIST"
+            ],
+            "preDml":"TRUNCATE TABLE IBSACCESSLOGHIST",
+            "dml":"INSERT INTO IBSACCESSLOGHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"IBSJNL",
+            "extractors":[
+                "IBSJNL"
+            ],
+            "preDml":"TRUNCATE TABLE IBSJNL",
+            "dml":"INSERT INTO IBSJNL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"IBSJNLHIST",
+            "extractors":[
+                "IBSJNLHIST"
+            ],
+            "preDml":"TRUNCATE TABLE IBSJNLHIST",
+            "dml":"INSERT INTO IBSJNLHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCMENU",
+            "extractors":[
+                "MCMENU"
+            ],
+            "preDml":"TRUNCATE TABLE MCMENU",
+            "dml":"INSERT INTO MCMENU VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"PRODUCTTRS",
+            "extractors":[
+                "PRODUCTTRS"
+            ],
+            "preDml":"TRUNCATE TABLE PRODUCTTRS",
+            "dml":"INSERT INTO PRODUCTTRS VALUES(?,?,?)"
+        },
+         {
+            "name":"RULE1",
+            "extractors":[
+                "RULE1"
+            ],
+            "preDml":"TRUNCATE TABLE RULE",
+            "dml":"INSERT INTO RULE VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SCHEDULETASK",
+            "extractors":[
+                "SCHEDULETASK"
+            ],
+            "preDml":"TRUNCATE TABLE SCHEDULETASK",
+            "dml":"INSERT INTO SCHEDULETASK VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SCHEDULETASKLOG",
+            "extractors":[
+                "SCHEDULETASKLOG"
+            ],
+            "preDml":"TRUNCATE TABLE SCHEDULETASKLOG",
+            "dml":"INSERT INTO SCHEDULETASKLOG VALUES(?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SCHEDULETASK_MAN",
+            "extractors":[
+                "SCHEDULETASK_MAN"
+            ],
+            "preDml":"TRUNCATE TABLE SCHEDULETASK_MAN",
+            "dml":"INSERT INTO SCHEDULETASK_MAN VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SPEEDMENU",
+            "extractors":[
+                "SPEEDMENU"
+            ],
+            "preDml":"TRUNCATE TABLE SPEEDMENU",
+            "dml":"INSERT INTO SPEEDMENU VALUES(?,?,?,?,?,?)"
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "skip":0,
+        "datasourceRef":"oracle-datasource-web"
+    },
+    "extractors":[
+        {
+            "name":"IBSACCESSLOG",
+            "dql":"SELECT * FROM IBSACCESSLOG"
+        },
+        {
+            "name":"IBSACCESSLOGHIST",
+            "dql":"SELECT * FROM IBSACCESSLOGHIST"
+        },
+        {
+            "name":"IBSJNL",
+            "dql":"SELECT * FROM IBSJNL"
+        },
+        {
+            "name":"IBSJNLHIST",
+            "dql":"SELECT * FROM IBSJNLHIST"
+        },
+        {
+            "name":"MCMENU",
+            "dql":"SELECT * FROM MCMENU"
+        },
+        {
+            "name":"PRODUCTTRS",
+            "dql":"SELECT * FROM PRODUCTTRS"
+        },
+        {
+            "name":"RULE1",
+            "dql":"SELECT * FROM RULE"
+        },
+        {
+            "name":"SCHEDULETASK",
+            "dql":"SELECT * FROM SCHEDULETASK"
+        },
+        {
+            "name":"SCHEDULETASKLOG",
+            "dql":"SELECT * FROM SCHEDULETASKLOG"
+        },
+        {
+            "name":"SCHEDULETASK_MAN",
+            "dql":"SELECT * FROM SCHEDULETASK_MAN"
+        },
+        {
+            "name":"SPEEDMENU",
+            "dql":"SELECT * FROM SPEEDMENU"
+        }
+    ]
+}

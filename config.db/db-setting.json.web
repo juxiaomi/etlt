@@ -1,6 +1,6 @@
 {
 	"type": "oracle",
 	"url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
-	"user": "cfca_app",
-	"password": "Ghbkj4tybt_0403"
+	"user": "cfca_web",
+	"password": "Dtbghbkj4_0403"
 }

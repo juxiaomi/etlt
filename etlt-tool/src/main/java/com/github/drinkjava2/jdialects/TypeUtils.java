@@ -213,8 +213,10 @@ public abstract class TypeUtils {// NOSONAR
                 return Type.TIME;
 
             case java.sql.Types.TIMESTAMP:
-            case Types.TIMESTAMP_WITH_TIMEZONE:
                 return Type.TIMESTAMP;
+            case Types.TIMESTAMP_WITH_TIMEZONE:
+            case -101:
+                return Type.TIMESTAMPZ;
 
             case java.sql.Types.BINARY:
                 return Type.BINARY;

@@ -118,6 +118,7 @@
 				<version>9.0.10</version>
 			</dependency>
 			<!-- jdbc drivers -->
+			<!-- logger -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
@@ -138,6 +139,7 @@
 				<artifactId>logback-classic</artifactId>
 				<version>1.2.3</version>
 			</dependency>
+			<!-- logger -->
 			<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 			<dependency>
 				<groupId>org.apache.poi</groupId>

@@ -25,6 +25,8 @@ public class LoaderSetting implements SettingCheck {
 
     private boolean autoResolve = false;
 
+    private int batch = 1;
+
     private List<ColumnSetting> columns = new ArrayList<ColumnSetting>();
 
     public String getName() {
@@ -67,6 +69,18 @@ public class LoaderSetting implements SettingCheck {
         this.criteria = criteria;
     }
 
+    public void setExtractors(List<String> extractors) {
+        this.extractors = extractors;
+    }
+
+    public int getBatch() {
+        return batch;
+    }
+
+    public void setBatch(int batch) {
+        this.batch = batch;
+    }
+
     @Override
     public void check() {
         if (StringUtils.isBlank(getName()))
@@ -75,6 +89,9 @@ public class LoaderSetting implements SettingCheck {
             throw new SettingValidationException("missing column definitions: " + getName());
         if (getExtractors().isEmpty()) {
             throw new SettingValidationException("missing extractors: " + getName());
+        }
+        if(getBatch() < 0 || getBatch() > 500){
+            throw new SettingValidationException("wrong batch set (less than 500, and greater than 0): " + getBatch());
         }
         if (getExtractors().size() > 1 && StringUtils.isBlank(getCriteria()))
             throw new SettingValidationException("missing criteria while more than 1 extractors found: " + getName());

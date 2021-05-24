@@ -86,7 +86,7 @@ public class DDLCreateUtils {// NOSONAR
 			else if (realIdGen instanceof SequenceIdGenerator)
 				sequenceList.add((SequenceIdGenerator) realIdGen);
 			else
-				throw new DialectException("Unknow exception happen for realIdGen, please report this bug");
+				throw new DialectException("Unknown exception happen for realIdGen, please report this bug");
 		}
 
 		buildSequenceDDL(dialect, stringResultList, sequenceList);

@@ -84,7 +84,7 @@ public class DDLDropUtils {
 			else if (realIdGen instanceof SequenceIdGenerator)
 				sequenceList.add((SequenceIdGenerator) realIdGen);
 			else
-				throw new DialectException("Unknow exception happen for realIdGen, please report this bug");
+				throw new DialectException("Unknown exception happen for realIdGen, please report this bug");
 		}
 
 		buildDropSequenceDDL(dialect, stringResultList, sequenceList);

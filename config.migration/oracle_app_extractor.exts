@@ -1,0 +1,865 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "skip":0,
+        "datasourceRef":"oracle-datasource-app"
+    },
+    "extractors":[
+        {
+            "name":"ADVERTINFO",
+            "dql":"SELECT * FROM ADVERTINFO"
+        },
+         {
+            "name":"BANKHOLIDAY",
+            "dql":"SELECT * FROM BANKHOLIDAY"
+        },
+         {
+            "name":"BANKPROD",
+            "dql":"SELECT * FROM BANKPROD"
+        },
+         {
+            "name":"CHANNEL",
+            "dql":"SELECT * FROM CHANNEL"
+        },
+         {
+            "name":"COUNTRYINFO",
+            "dql":"SELECT * FROM COUNTRYINFO"
+        },
+         {
+            "name":"DAILY_INCREMENT",
+            "dql":"SELECT * FROM DAILY_INCREMENT"
+        },
+         {
+            "name":"DEPT",
+            "dql":"SELECT * FROM DEPT"
+        },
+         {
+            "name":"DEPTEXT",
+            "dql":"SELECT * FROM DEPTEXT"
+        },
+         {
+            "name":"DEPTMERGE",
+            "dql":"SELECT * FROM DEPTMERGE"
+        },
+         {
+            "name":"DEPTPROD",
+            "dql":"SELECT * FROM DEPTPROD"
+        },
+         {
+            "name":"DEPTPRODGROUP",
+            "dql":"SELECT * FROM DEPTPRODGROUP"
+        },
+         {
+            "name":"DEPTPRODGROUPPROD",
+            "dql":"SELECT * FROM DEPTPRODGROUPPROD"
+        },
+         {
+            "name":"DETAILQUERYINFO",
+            "dql":"SELECT * FROM DETAILQUERYINFO"
+        },
+         {
+            "name":"DETAILQUERYLOG",
+            "dql":"SELECT * FROM DETAILQUERYLOG"
+        },
+         {
+            "name":"DETAILQUERYRECEIVE",
+            "dql":"SELECT * FROM DETAILQUERYRECEIVE"
+        },
+         {
+            "name":"DICT_CBR_ACCOUNT",
+            "dql":"SELECT * FROM DICT_CBR_ACCOUNT"
+        },
+         {
+            "name":"DICT_RBIC_ACTION",
+            "dql":"SELECT * FROM DICT_RBIC_ACTION"
+        },
+         {
+            "name":"DICT_RBIC_ENTRY",
+            "dql":"SELECT * FROM DICT_RBIC_ENTRY"
+        },
+         {
+            "name":"DICT_RU_EN_TRANSLATION",
+            "dql":"SELECT * FROM DICT_RU_EN_TRANSLATION"
+        },
+         {
+            "name":"DP_JTFCANCEL",
+            "dql":"SELECT * FROM DP_JTFCANCEL"
+        },
+         {
+            "name":"DP_JTFCANCEL_HIST",
+            "dql":"SELECT * FROM DP_JTFCANCEL_HIST"
+        },
+         {
+            "name":"DP_JTFOPENING",
+            "dql":"SELECT * FROM DP_JTFOPENING"
+        },
+         {
+            "name":"DP_JTFOPENING_HIST",
+            "dql":"SELECT * FROM DP_JTFOPENING_HIST"
+        },
+         {
+            "name":"DP_JTFWITHDRAW",
+            "dql":"SELECT * FROM DP_JTFWITHDRAW"
+        },
+         {
+            "name":"DP_JTFWITHDRAW_HIST",
+            "dql":"SELECT * FROM DP_JTFWITHDRAW_HIST"
+        },
+         {
+            "name":"DP_PROD",
+            "dql":"SELECT * FROM DP_PROD"
+        },
+         {
+            "name":"DP_PRODTP",
+            "dql":"SELECT * FROM DP_PRODTP"
+        },
+         {
+            "name":"DP_USRPROD",
+            "dql":"SELECT * FROM DP_USRPROD"
+        },
+         {
+            "name":"ECACCT",
+            "dql":"SELECT * FROM ECACCT"
+        },
+         {
+            "name":"ECACCTGROUPRELATION",
+            "dql":"SELECT * FROM ECACCTGROUPRELATION"
+        },
+         {
+            "name":"ECACCTGROUPRELATIONHIST",
+            "dql":"SELECT * FROM ECACCTGROUPRELATIONHIST"
+        },
+         {
+            "name":"ECACCTHIST",
+            "dql":"SELECT * FROM ECACCTHIST"
+        },
+         {
+            "name":"ECACCTMCH",
+            "dql":"SELECT * FROM ECACCTMCH"
+        },
+         {
+            "name":"ECACCTMCHHIST",
+            "dql":"SELECT * FROM ECACCTMCHHIST"
+        },
+         {
+            "name":"ECACCTRULE",
+            "dql":"SELECT * FROM ECACCTRULE"
+        },
+         {
+            "name":"ECACCTRULEHIST",
+            "dql":"SELECT * FROM ECACCTRULEHIST"
+        },
+         {
+            "name":"ECACESSLOG",
+            "dql":"SELECT * FROM ECACESSLOG"
+        },
+         {
+            "name":"ECACESSLOGHIST",
+            "dql":"SELECT * FROM ECACESSLOGHIST"
+        },
+         {
+            "name":"ECACLIMIT",
+            "dql":"SELECT * FROM ECACLIMIT"
+        },
+         {
+            "name":"ECACLIMITHIST",
+            "dql":"SELECT * FROM ECACLIMITHIST"
+        },
+         {
+            "name":"ECACLIMITRT",
+            "dql":"SELECT * FROM ECACLIMITRT"
+        },
+         {
+            "name":"ECCIF",
+            "dql":"SELECT * FROM ECCIF"
+        },
+         {
+            "name":"ECCIFADDR",
+            "dql":"SELECT * FROM ECCIFADDR"
+        },
+         {
+            "name":"ECCIFADDRHIST",
+            "dql":"SELECT * FROM ECCIFADDRHIST"
+        },
+         {
+            "name":"ECCIFGROUPRELATION",
+            "dql":"SELECT * FROM ECCIFGROUPRELATION"
+        },
+         {
+            "name":"ECCIFGROUPRELATIONHIST",
+            "dql":"SELECT * FROM ECCIFGROUPRELATIONHIST"
+        },
+         {
+            "name":"ECCIFHIST",
+            "dql":"SELECT * FROM ECCIFHIST"
+        },
+         {
+            "name":"ECCIFID",
+            "dql":"SELECT * FROM ECCIFID"
+        },
+         {
+            "name":"ECCIFIDHIST",
+            "dql":"SELECT * FROM ECCIFIDHIST"
+        },
+         {
+            "name":"ECCIFLIMIT",
+            "dql":"SELECT * FROM ECCIFLIMIT"
+        },
+         {
+            "name":"ECCIFLIMITHIST",
+            "dql":"SELECT * FROM ECCIFLIMITHIST"
+        },
+         {
+            "name":"ECCIFLIMITRT",
+            "dql":"SELECT * FROM ECCIFLIMITRT"
+        },
+         {
+            "name":"ECCIFMCH",
+            "dql":"SELECT * FROM ECCIFMCH"
+        },
+         {
+            "name":"ECCIFMCHHIST",
+            "dql":"SELECT * FROM ECCIFMCHHIST"
+        },
+         {
+            "name":"ECCIFNUMDESC",
+            "dql":"SELECT * FROM ECCIFNUMDESC"
+        },
+         {
+            "name":"ECCIFNUMDESCHIST",
+            "dql":"SELECT * FROM ECCIFNUMDESCHIST"
+        },
+         {
+            "name":"ECCIFPRODSET",
+            "dql":"SELECT * FROM ECCIFPRODSET"
+        },
+         {
+            "name":"ECCIFPRODSETHIST",
+            "dql":"SELECT * FROM ECCIFPRODSETHIST"
+        },
+         {
+            "name":"ECCIFROLE",
+            "dql":"SELECT * FROM ECCIFROLE"
+        },
+         {
+            "name":"ECCIFROLEAC",
+            "dql":"SELECT * FROM ECCIFROLEAC"
+        },
+         {
+            "name":"ECCIFROLEACHIST",
+            "dql":"SELECT * FROM ECCIFROLEACHIST"
+        },
+         {
+            "name":"ECCIFROLEHIST",
+            "dql":"SELECT * FROM ECCIFROLEHIST"
+        },
+         {
+            "name":"ECCIFROLEPRD",
+            "dql":"SELECT * FROM ECCIFROLEPRD"
+        },
+         {
+            "name":"ECCIFROLEPRDAC",
+            "dql":"SELECT * FROM ECCIFROLEPRDAC"
+        },
+         {
+            "name":"ECCIFROLEPRDACHIST",
+            "dql":"SELECT * FROM ECCIFROLEPRDACHIST"
+        },
+         {
+            "name":"ECCIFROLEPRDHIST",
+            "dql":"SELECT * FROM ECCIFROLEPRDHIST"
+        },
+         {
+            "name":"ECCIFRULE",
+            "dql":"SELECT * FROM ECCIFRULE"
+        },
+         {
+            "name":"ECCIFRULEHIST",
+            "dql":"SELECT * FROM ECCIFRULEHIST"
+        },
+         {
+            "name":"ECCIFTEL",
+            "dql":"SELECT * FROM ECCIFTEL"
+        },
+         {
+            "name":"ECCIFTELHIST",
+            "dql":"SELECT * FROM ECCIFTELHIST"
+        },
+         {
+            "name":"ECDIV",
+            "dql":"SELECT * FROM ECDIV"
+        },
+         {
+            "name":"ECDIVHIST",
+            "dql":"SELECT * FROM ECDIVHIST"
+        },
+         {
+            "name":"ECEMPLOYEE",
+            "dql":"SELECT * FROM ECEMPLOYEE"
+        },
+         {
+            "name":"ECEMPLOYEEHIST",
+            "dql":"SELECT * FROM ECEMPLOYEEHIST"
+        },
+         {
+            "name":"ECEXTCIFNO",
+            "dql":"SELECT * FROM ECEXTCIFNO"
+        },
+         {
+            "name":"ECEXTCIFNOHIST",
+            "dql":"SELECT * FROM ECEXTCIFNOHIST"
+        },
+         {
+            "name":"ECIFBANKINNERPAYEE",
+            "dql":"SELECT * FROM ECIFBANKINNERPAYEE"
+        },
+         {
+            "name":"ECIFBANKINNERPAYEEHIST",
+            "dql":"SELECT * FROM ECIFBANKINNERPAYEEHIST"
+        },
+         {
+            "name":"ECIFCROSSBANKPAYEE",
+            "dql":"SELECT * FROM ECIFCROSSBANKPAYEE"
+        },
+         {
+            "name":"ECIFCROSSBANKPAYEEHIST",
+            "dql":"SELECT * FROM ECIFCROSSBANKPAYEEHIST"
+        },
+         {
+            "name":"ECORG",
+            "dql":"SELECT * FROM ECORG"
+        },
+         {
+            "name":"ECORGHIST",
+            "dql":"SELECT * FROM ECORGHIST"
+        },
+         {
+            "name":"ECORGPERS",
+            "dql":"SELECT * FROM ECORGPERS"
+        },
+         {
+            "name":"ECORGPERSHIST",
+            "dql":"SELECT * FROM ECORGPERSHIST"
+        },
+         {
+            "name":"ECPERS",
+            "dql":"SELECT * FROM ECPERS"
+        },
+         {
+            "name":"ECPERSHIST",
+            "dql":"SELECT * FROM ECPERSHIST"
+        },
+         {
+            "name":"ECPUBLISHINFO",
+            "dql":"SELECT * FROM ECPUBLISHINFO"
+        },
+         {
+            "name":"ECUSR",
+            "dql":"SELECT * FROM ECUSR"
+        },
+         {
+            "name":"ECUSRAC",
+            "dql":"SELECT * FROM ECUSRAC"
+        },
+         {
+            "name":"ECUSRACHIST",
+            "dql":"SELECT * FROM ECUSRACHIST"
+        },
+         {
+            "name":"ECUSRAUTHMODMCH",
+            "dql":"SELECT * FROM ECUSRAUTHMODMCH"
+        },
+         {
+            "name":"ECUSRAUTHMODMCHHIST",
+            "dql":"SELECT * FROM ECUSRAUTHMODMCHHIST"
+        },
+         {
+            "name":"ECUSRCERT",
+            "dql":"SELECT * FROM ECUSRCERT"
+        },
+         {
+            "name":"ECUSRCERTHIST",
+            "dql":"SELECT * FROM ECUSRCERTHIST"
+        },
+         {
+            "name":"ECUSRHIST",
+            "dql":"SELECT * FROM ECUSRHIST"
+        },
+         {
+            "name":"ECUSRIDREC",
+            "dql":"SELECT * FROM ECUSRIDREC"
+        },
+         {
+            "name":"ECUSRLOGINTYPE",
+            "dql":"SELECT * FROM ECUSRLOGINTYPE"
+        },
+         {
+            "name":"ECUSRLOGINTYPEHIST",
+            "dql":"SELECT * FROM ECUSRLOGINTYPEHIST"
+        },
+         {
+            "name":"ECUSRMCH",
+            "dql":"SELECT * FROM ECUSRMCH"
+        },
+         {
+            "name":"ECUSRMCHACCT",
+            "dql":"SELECT * FROM ECUSRMCHACCT"
+        },
+         {
+            "name":"ECUSRMCHACCTHIST",
+            "dql":"SELECT * FROM ECUSRMCHACCTHIST"
+        },
+         {
+            "name":"ECUSRMCHHIST",
+            "dql":"SELECT * FROM ECUSRMCHHIST"
+        },
+         {
+            "name":"ECUSROTP",
+            "dql":"SELECT * FROM ECUSROTP"
+        },
+         {
+            "name":"ECUSROTPHIST",
+            "dql":"SELECT * FROM ECUSROTPHIST"
+        },
+         {
+            "name":"ECUSRPRDPROT",
+            "dql":"SELECT * FROM ECUSRPRDPROT"
+        },
+         {
+            "name":"ECUSRROLE",
+            "dql":"SELECT * FROM ECUSRROLE"
+        },
+         {
+            "name":"ECUSRROLEHIST",
+            "dql":"SELECT * FROM ECUSRROLEHIST"
+        },
+         {
+            "name":"ECUSRRULE",
+            "dql":"SELECT * FROM ECUSRRULE"
+        },
+         {
+            "name":"ECUSRRULEHIST",
+            "dql":"SELECT * FROM ECUSRRULEHIST"
+        },
+         {
+            "name":"ECWHITELIST",
+            "dql":"SELECT * FROM ECWHITELIST"
+        },
+         {
+            "name":"ECWHITELISTHIST",
+            "dql":"SELECT * FROM ECWHITELISTHIST"
+        },
+         {
+            "name":"FXPAYEE",
+            "dql":"SELECT * FROM FXPAYEE"
+        },
+         {
+            "name":"FX_CCY_SETTING",
+            "dql":"SELECT * FROM FX_CCY_SETTING"
+        },
+         {
+            "name":"FX_CURRENCY",
+            "dql":"SELECT * FROM FX_CURRENCY"
+        },
+         {
+            "name":"FX_CURRENCY_PAIR",
+            "dql":"SELECT * FROM FX_CURRENCY_PAIR"
+        },
+         {
+            "name":"FX_JTF_TRADE_INFO",
+            "dql":"SELECT * FROM FX_JTF_TRADE_INFO"
+        },
+         {
+            "name":"FX_JTF_TRADE_INFO_HIST",
+            "dql":"SELECT * FROM FX_JTF_TRADE_INFO_HIST"
+        },
+         {
+            "name":"FX_MAIN_SETTING",
+            "dql":"SELECT * FROM FX_MAIN_SETTING"
+        },
+         {
+            "name":"FX_MANUAL_RATE",
+            "dql":"SELECT * FROM FX_MANUAL_RATE"
+        },
+         {
+            "name":"FX_MANUAL_RATE_REQ",
+            "dql":"SELECT * FROM FX_MANUAL_RATE_REQ"
+        },
+         {
+            "name":"FX_PENDING_DETAIL",
+            "dql":"SELECT * FROM FX_PENDING_DETAIL"
+        },
+         {
+            "name":"FX_RBS_SETTING",
+            "dql":"SELECT * FROM FX_RBS_SETTING"
+        },
+         {
+            "name":"FX_STANDARD_QUOTE",
+            "dql":"SELECT * FROM FX_STANDARD_QUOTE"
+        },
+         {
+            "name":"FX_SUBSCRIBE_QUOTE",
+            "dql":"SELECT * FROM FX_SUBSCRIBE_QUOTE"
+        },
+         {
+            "name":"FX_SUBSCRIBE_REL",
+            "dql":"SELECT * FROM FX_SUBSCRIBE_REL"
+        },
+         {
+            "name":"JAGBATCH",
+            "dql":"SELECT * FROM JAGBATCH"
+        },
+         {
+            "name":"JAGBATCHDETAIL",
+            "dql":"SELECT * FROM JAGBATCHDETAIL"
+        },
+         {
+            "name":"JAGBATCHDETAILHIST",
+            "dql":"SELECT * FROM JAGBATCHDETAILHIST"
+        },
+         {
+            "name":"JAGBATCHHIST",
+            "dql":"SELECT * FROM JAGBATCHHIST"
+        },
+         {
+            "name":"JTDSAVTIM",
+            "dql":"SELECT * FROM JTDSAVTIM"
+        },
+         {
+            "name":"JTDSAVTIMHIST",
+            "dql":"SELECT * FROM JTDSAVTIMHIST"
+        },
+         {
+            "name":"JTFBACH",
+            "dql":"SELECT * FROM JTFBACH"
+        },
+         {
+            "name":"JTFBACHDETAIL",
+            "dql":"SELECT * FROM JTFBACHDETAIL"
+        },
+         {
+            "name":"JTFBACHDETAILHIST",
+            "dql":"SELECT * FROM JTFBACHDETAILHIST"
+        },
+         {
+            "name":"JTFBACHHIST",
+            "dql":"SELECT * FROM JTFBACHHIST"
+        },
+         {
+            "name":"JTFBANKINNER",
+            "dql":"SELECT * FROM JTFBANKINNER"
+        },
+         {
+            "name":"JTFBANKINNERHIST",
+            "dql":"SELECT * FROM JTFBANKINNERHIST"
+        },
+         {
+            "name":"JTFCROSSBANK",
+            "dql":"SELECT * FROM JTFCROSSBANK"
+        },
+         {
+            "name":"JTFCROSSBANKHIST",
+            "dql":"SELECT * FROM JTFCROSSBANKHIST"
+        },
+         {
+            "name":"JTFFOREIGNEXCHANGE",
+            "dql":"SELECT * FROM JTFFOREIGNEXCHANGE"
+        },
+         {
+            "name":"JTFFOREIGNEXCHANGEHIST",
+            "dql":"SELECT * FROM JTFFOREIGNEXCHANGEHIST"
+        },
+         {
+            "name":"JTFSIGNATURETRACE",
+            "dql":"SELECT * FROM JTFSIGNATURETRACE"
+        },
+         {
+            "name":"JTFTRANSFERCANCEL",
+            "dql":"SELECT * FROM JTFTRANSFERCANCEL"
+        },
+         {
+            "name":"JTFTRANSFERCANCELHIST",
+            "dql":"SELECT * FROM JTFTRANSFERCANCELHIST"
+        },
+         {
+            "name":"JTFTRANSFERFEEDBACK",
+            "dql":"SELECT * FROM JTFTRANSFERFEEDBACK"
+        },
+         {
+            "name":"JVOUCHERJNL",
+            "dql":"SELECT * FROM JVOUCHERJNL"
+        },
+         {
+            "name":"JVOUCHERPRINT",
+            "dql":"SELECT * FROM JVOUCHERPRINT"
+        },
+         {
+            "name":"MCACLIMIT",
+            "dql":"SELECT * FROM MCACLIMIT"
+        },
+         {
+            "name":"MCAPPLOCK",
+            "dql":"SELECT * FROM MCAPPLOCK"
+        },
+         {
+            "name":"MCAPSBANK",
+            "dql":"SELECT * FROM MCAPSBANK"
+        },
+         {
+            "name":"MCAPSCITY",
+            "dql":"SELECT * FROM MCAPSCITY"
+        },
+         {
+            "name":"MCAPSPROVINCE",
+            "dql":"SELECT * FROM MCAPSPROVINCE"
+        },
+         {
+            "name":"MCAPSRTGSNODE",
+            "dql":"SELECT * FROM MCAPSRTGSNODE"
+        },
+         {
+            "name":"MCAPSRTGSNODEE",
+            "dql":"SELECT * FROM MCAPSRTGSNODEE"
+        },
+         {
+            "name":"MCAPSRTGSNODES",
+            "dql":"SELECT * FROM MCAPSRTGSNODES"
+        },
+         {
+            "name":"MCCALBACKSETTING",
+            "dql":"SELECT * FROM MCCALBACKSETTING"
+        },
+         {
+            "name":"MCCIFLIMIT",
+            "dql":"SELECT * FROM MCCIFLIMIT"
+        },
+         {
+            "name":"MCCNTGROUNDJNL",
+            "dql":"SELECT * FROM MCCNTGROUNDJNL"
+        },
+         {
+            "name":"MCCODE",
+            "dql":"SELECT * FROM MCCODE"
+        },
+         {
+            "name":"MCDRAFT",
+            "dql":"SELECT * FROM MCDRAFT"
+        },
+         {
+            "name":"MCGROUND",
+            "dql":"SELECT * FROM MCGROUND"
+        },
+         {
+            "name":"MCGROUNDDEPT",
+            "dql":"SELECT * FROM MCGROUNDDEPT"
+        },
+         {
+            "name":"MCGROUNDSETTING",
+            "dql":"SELECT * FROM MCGROUNDSETTING"
+        },
+         {
+            "name":"MCGROUNDSETTINGDETAIL",
+            "dql":"SELECT * FROM MCGROUNDSETTINGDETAIL"
+        },
+         {
+            "name":"MCHANNEL",
+            "dql":"SELECT * FROM MCHANNEL"
+        },
+         {
+            "name":"MCJNL",
+            "dql":"SELECT * FROM MCJNL"
+        },
+         {
+            "name":"MCJNLDATA",
+            "dql":"SELECT * FROM MCJNLDATA"
+        },
+         {
+            "name":"MCJNLDATAHIST",
+            "dql":"SELECT * FROM MCJNLDATAHIST"
+        },
+         {
+            "name":"MCJNLHIST",
+            "dql":"SELECT * FROM MCJNLHIST"
+        },
+         {
+            "name":"MCJNLQUERYLOG",
+            "dql":"SELECT * FROM MCJNLQUERYLOG"
+        },
+         {
+            "name":"MCJNLQUERYLOGHIST",
+            "dql":"SELECT * FROM MCJNLQUERYLOGHIST"
+        },
+         {
+            "name":"MCROLE",
+            "dql":"SELECT * FROM MCROLE"
+        },
+         {
+            "name":"MCROLEPRODUCT",
+            "dql":"SELECT * FROM MCROLEPRODUCT"
+        },
+         {
+            "name":"MCSCHEDULERULE",
+            "dql":"SELECT * FROM MCSCHEDULERULE"
+        },
+         {
+            "name":"MCSERVICESWITCH",
+            "dql":"SELECT * FROM MCSERVICESWITCH"
+        },
+         {
+            "name":"MCTRSTIME",
+            "dql":"SELECT * FROM MCTRSTIME"
+        },
+         {
+            "name":"MINFOPUBLISHITEM",
+            "dql":"SELECT * FROM MINFOPUBLISHITEM"
+        },
+         {
+            "name":"MINFOPUBLISHPLAN",
+            "dql":"SELECT * FROM MINFOPUBLISHPLAN"
+        },
+         {
+            "name":"MINFOPUBLISHRULE",
+            "dql":"SELECT * FROM MINFOPUBLISHRULE"
+        },
+         {
+            "name":"MODULE",
+            "dql":"SELECT * FROM MODULE"
+        },
+         {
+            "name":"MONTHREPORTJOBRECORDS",
+            "dql":"SELECT * FROM MONTHREPORTJOBRECORDS"
+        },
+         {
+            "name":"MONTHREPORTRECORDS",
+            "dql":"SELECT * FROM MONTHREPORTRECORDS"
+        },
+         {
+            "name":"MSGBOARD",
+            "dql":"SELECT * FROM MSGBOARD"
+        },
+         {
+            "name":"MSGBOARDHIS",
+            "dql":"SELECT * FROM MSGBOARDHIS"
+        },
+         {
+            "name":"PASSWORD_RULE",
+            "dql":"SELECT * FROM PASSWORD_RULE"
+        },
+         {
+            "name":"PRDSET",
+            "dql":"SELECT * FROM PRDSET"
+        },
+         {
+            "name":"PRDSETPRD",
+            "dql":"SELECT * FROM PRDSETPRD"
+        },
+         {
+            "name":"PRODCH",
+            "dql":"SELECT * FROM PRODCH"
+        },
+         {
+            "name":"PRODUCT_MENU",
+            "dql":"SELECT * FROM PRODUCT_MENU"
+        },
+         {
+            "name":"PRODUCT_WHITELIST",
+            "dql":"SELECT * FROM PRODUCT_WHITELIST"
+        },
+         {
+            "name":"RISKTRSHIST",
+            "dql":"SELECT * FROM RISKTRSHIST"
+        },
+         {
+            "name":"RJNL",
+            "dql":"SELECT * FROM RJNL"
+        },
+         {
+            "name":"RJNLHIST",
+            "dql":"SELECT * FROM RJNLHIST"
+        },
+         {
+            "name":"RULE",
+            "dql":"SELECT * FROM RULE"
+        },
+         {
+            "name":"SHENTACAUTH",
+            "dql":"SELECT * FROM SHENTACAUTH"
+        },
+         {
+            "name":"SHENTPRDAUTH",
+            "dql":"SELECT * FROM SHENTPRDAUTH"
+        },
+         {
+            "name":"SHENTUSRACAUTH",
+            "dql":"SELECT * FROM SHENTUSRACAUTH"
+        },
+         {
+            "name":"SHENTUSRACAUTHHIST",
+            "dql":"SELECT * FROM SHENTUSRACAUTHHIST"
+        },
+         {
+            "name":"SHENTUSRPRDAUTH",
+            "dql":"SELECT * FROM SHENTUSRPRDAUTH"
+        },
+         {
+            "name":"SHENTUSRPRDAUTHHIST",
+            "dql":"SELECT * FROM SHENTUSRPRDAUTHHIST"
+        },
+         {
+            "name":"SIGNTRSTRACEINFO",
+            "dql":"SELECT * FROM SIGNTRSTRACEINFO"
+        },
+         {
+            "name":"SWIFTCODETABLE",
+            "dql":"SELECT * FROM SWIFTCODETABLE"
+        },
+         {
+            "name":"SWIFTINFO",
+            "dql":"SELECT * FROM SWIFTINFO"
+        },
+         {
+            "name":"TASK",
+            "dql":"SELECT * FROM TASK"
+        },
+         {
+            "name":"TASKJNL",
+            "dql":"SELECT * FROM TASKJNL"
+        },
+         {
+            "name":"TASKJNLHIST",
+            "dql":"SELECT * FROM TASKJNLHIST"
+        },
+         {
+            "name":"TASKQUEUE",
+            "dql":"SELECT * FROM TASKQUEUE"
+        },
+         {
+            "name":"TASKSTAT",
+            "dql":"SELECT * FROM TASKSTAT"
+        },
+         {
+            "name":"TASKSTATJNL",
+            "dql":"SELECT * FROM TASKSTATJNL"
+        },
+         {
+            "name":"TASKSTATJNLHIST",
+            "dql":"SELECT * FROM TASKSTATJNLHIST"
+        },
+         {
+            "name":"TEMP_MCROLE",
+            "dql":"SELECT * FROM TEMP_MCROLE"
+        },
+         {
+            "name":"TRANSLATE_CODE",
+            "dql":"SELECT * FROM TRANSLATE_CODE"
+        },
+         {
+            "name":"USER_NOTIFY",
+            "dql":"SELECT * FROM USER_NOTIFY"
+        },
+         {
+            "name":"WAND_HOLDERS",
+            "dql":"SELECT * FROM WAND_HOLDERS"
+        }
+    ]
+}

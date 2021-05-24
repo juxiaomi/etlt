@@ -436,13 +436,14 @@ public class DialectTypeMappingTemplate {
 		copyTo(mp, Dialect.OracleDialect);
 		mp.put(Type.BINARY, "raw($l)<2000|long raw");
 		mp.put(Type.BOOLEAN, "number(1,0)");
-		mp.put(Type.CHAR, "char(1 char)");
+		mp.put(Type.CHAR, "char(1)");
 		mp.put(Type.LONGNVARCHAR, "nvarchar2($l)");
 		mp.put(Type.LONGVARBINARY, "long raw");
 		mp.put(Type.LONGVARCHAR, "long");
 		mp.put(Type.NVARCHAR, "nvarchar2($l)");
 		mp.put(Type.TIMESTAMP, "timestamp");
-		mp.put(Type.VARCHAR, "varchar2($l char)<4000|long");
+		mp.put(Type.VARCHAR, "varchar2($l)<4000|long");
+		mp.put(Type.TIMESTAMPZ, "timestamp with timezone");
 		copyTo(mp, Dialect.Oracle10gDialect);
 		copyTo(mp, Dialect.Oracle12cDialect);
 		mp.put(Type.CHAR, "char(1)");
@@ -450,6 +451,7 @@ public class DialectTypeMappingTemplate {
 		mp.put(Type.NVARCHAR, "nvarchar($l)");
 		mp.put(Type.TIMESTAMP, "date");
 		mp.put(Type.VARCHAR, "varchar2($l)<4000|long");
+		mp.put(Type.TIMESTAMPZ, "timestamp with timezone");
 		copyTo(mp, Dialect.Oracle8iDialect);
 		mp.put(Type.BINARY, "N/A");
 		mp.put(Type.BOOLEAN, "boolean");
@@ -457,7 +459,7 @@ public class DialectTypeMappingTemplate {
 		mp.put(Type.LONGVARBINARY, "bit varying($l)");
 		mp.put(Type.LONGVARCHAR, "varchar($l)");
 		mp.put(Type.TIMESTAMP, "timestamp");
-		mp.put(Type.VARCHAR, "varchar2($l char)<4000|long");
+		mp.put(Type.VARCHAR, "varchar2($l)<4000|long");
 		copyTo(mp, Dialect.Oracle9Dialect);
 		mp.put(Type.BINARY, "raw($l)<2000|long raw");
 		mp.put(Type.BOOLEAN, "number(1,0)");

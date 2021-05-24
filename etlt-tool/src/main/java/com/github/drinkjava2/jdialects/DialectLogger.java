@@ -18,69 +18,63 @@ import org.apache.commons.logging.LogFactory;
  * For logger output, to avoid logger jar version conflict, default use JDK log,
  * if found commons log, use it, if found Log4j use it..., by this way this
  * project has no dependency to any logger jar.
- * 
+ *
  * @author Yong Zhu
  * @since 1.0.1
  */
 public class DialectLogger {
 
-	private Log logger;
-	private static boolean firstRun = true;
-	private static boolean enableLog = true;
-	public static DialectLogger INSTANCE = null;// NOSONAR
+    private Log logger;
+    private static boolean enableLog = true;
+    public static DialectLogger INSTANCE = null;// NOSONAR
 
-	static {
-		INSTANCE = new DialectLogger(DialectLogger.class);
-		firstRun = false;
-	}
+    static {
+        INSTANCE = new DialectLogger(DialectLogger.class);
+    }
 
-	public DialectLogger(Class<?> targetClass) {
-		if (targetClass == null)
-			throw new AssertionError("DbProLogger error: targetClass can not be null.");
+    public DialectLogger(Class<?> targetClass) {
+        if (targetClass == null)
+            throw new AssertionError("DbProLogger error: targetClass can not be null.");
+        if(logger == null)
+            logger = LogFactory.getLog(targetClass);
+    }
 
-		if (firstRun) {
-			System.err.println("DialectLogger failed to load org.apache.commons.logging.LogFactory. Use JDK logger.");// NOSONAR
-			logger = LogFactory.getLog(targetClass.getName());// use JDK log
-			firstRun = false;
-		}
-	}
+    /**
+     * Build a DbProLogger instance by given targetClass
+     *
+     * @param targetClass
+     * @return A DbProLogger instance
+     */
+    public static DialectLogger getLog(Class<?> targetClass) {
+        return new DialectLogger(targetClass);
+    }
 
-	/**
-	 * Build a DbProLogger instance by given targetClass
-	 * 
-	 * @param targetClass
-	 * @return A DbProLogger instance
-	 */
-	public static DialectLogger getLog(Class<?> targetClass) {
-		return new DialectLogger(targetClass);
-	}
+    public static void setEnableLog(boolean enablelog) {
+        enableLog = enablelog;
+    }
 
-	public static void setEnableLog(boolean enablelog) {
-		enableLog = enablelog;
-	}
+    public void info(String msg) {
+        if (!enableLog)
+            return;
+        if (logger != null) {
+            logger.info(msg);
+        }
+    }
 
-	public void info(String msg) {
-		if (!enableLog)
-			return;
-		if (logger != null) {
-			logger.info(msg);
-		}
-	}
+    public void warn(String msg) {
+        if (!enableLog)
+            return;
+        if (logger != null) {
+            logger.warn(msg);
+        }
+    }
 
-	public void warn(String msg) {
-		if (!enableLog)
-			return;
-		if (logger != null) {
-			logger.warn(msg);
-		}
-	}
-
-	public void error(String msg) {
-		if (!enableLog)
-			return;
-		if (logger != null) {
-			logger.error(msg);
-		}
-	}
+    public void error(String msg) {
+        if (!enableLog)
+            return;
+        if (logger != null) {
+            logger.error(msg);
+        }
+    }
 
 }

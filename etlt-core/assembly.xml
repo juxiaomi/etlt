@@ -16,6 +16,11 @@
 				<include>com.fasterxml.jackson.core:jackson-core</include>
 				<!--apache commons-->
 				<include>org.apache.commons:commons-lang3</include>
+				<!--log-->
+				<include>org.slf4j:jcl-over-slf4j</include>
+				<include>org.slf4j:slf4j-api</include>
+				<include>ch.qos.logback:logback-core</include>
+				<include>ch.qos.logback:logback-classic</include>
 				<!--etlt module-->
 				<include>org.etlt:etlt-core</include>
 				<include>org.etlt:etlt-expression</include>

@@ -7,17 +7,29 @@
     "*"
   ],
   "parameters": {
-    "oracle-datasource": {
-      "className": "todo:oracle-driver",
-      "url": "todo: oracle-url",
-      "user": "todo: oracle-user",
-      "password": "todo: oracle-password"
+    "oracle-datasource-app": {
+      "className": "oracle.jdbc.driver.OracleDriver",
+      "url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
+      "user": "cfca_app",
+      "password": "Ghbkj4tybt_0403"
     },
-    "pg-datasource": {
-      "className": "todo: pg-driver",
-      "url": "todo: pg-url",
-      "user": "todo: pg-user",
-      "password": "todo: pg-password"
+    "pg-datasource-app": {
+      "className": "org.postgresql.Driver",
+      "url": "jdbc:postgresql://itaofei.top:15432/cfca_app",
+      "user": "itaofei",
+      "password": "4CgbWMUB76uxNcUp^v@*"
+    },
+    "oracle-datasource-web": {
+      "className": "oracle.jdbc.driver.OracleDriver",
+      "url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
+      "user": "cfca_web",
+      "password": "Dtbghbkj4_0403"
+    },
+    "pg-datasource-web": {
+      "className": "org.postgresql.Driver",
+      "url": "jdbc:postgresql://itaofei.top:15432/cfca_web",
+      "user": "itaofei",
+      "password": "4CgbWMUB76uxNcUp^v@*"
     }
   }
 }

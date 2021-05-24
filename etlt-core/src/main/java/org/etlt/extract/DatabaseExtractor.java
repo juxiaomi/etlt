@@ -62,7 +62,10 @@ public class DatabaseExtractor extends Extractor {
                     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
                     for (int i = 0; i < getColumns().size(); i++) {
                         if (getColumns().contains(resultSetMetaData.getColumnLabel(i + 1)))
-                            rowData.put(getColumns().get(i), resultSet.getObject(i + 1));
+                            rowData.put(getColumns().get(i),
+                                        DatabaseUtil.getObject(resultSet, i+1,
+                                                resultSetMetaData.getColumnType(i+1))
+                                    );
                     }
                     Entity entity = new Entity(index++, rowData);
                     context.setEntity(this.setting.getName(), entity);
