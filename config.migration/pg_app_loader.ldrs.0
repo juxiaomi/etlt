@@ -1,0 +1,1722 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "autoResolve":"true",
+        "datasourceRef":"pg-datasource-app",
+        "batch" : 200
+    },
+    "loaders":[
+        {
+            "name":"ADVERTINFO",
+            "extractors":[
+                "ADVERTINFO"
+            ],
+            "preDml":"TRUNCATE TABLE ADVERTINFO",
+            "dml":"INSERT INTO ADVERTINFO VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"BANKHOLIDAY",
+            "extractors":[
+                "BANKHOLIDAY"
+            ],
+            "preDml":"TRUNCATE TABLE BANKHOLIDAY",
+            "dml":"INSERT INTO BANKHOLIDAY VALUES(?,?,?)"
+        },
+         {
+            "name":"BANKPROD",
+            "extractors":[
+                "BANKPROD"
+            ],
+            "preDml":"TRUNCATE TABLE BANKPROD",
+            "dml":"INSERT INTO BANKPROD VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"CHANNEL",
+            "extractors":[
+                "CHANNEL"
+            ],
+            "preDml":"TRUNCATE TABLE CHANNEL",
+            "dml":"INSERT INTO CHANNEL VALUES(?,?,?,?)"
+        },
+         {
+            "name":"COUNTRYINFO",
+            "extractors":[
+                "COUNTRYINFO"
+            ],
+            "preDml":"TRUNCATE TABLE COUNTRYINFO",
+            "dml":"INSERT INTO COUNTRYINFO VALUES(?,?,?,?)"
+        },
+         {
+            "name":"DAILY_INCREMENT",
+            "extractors":[
+                "DAILY_INCREMENT"
+            ],
+            "preDml":"TRUNCATE TABLE DAILY_INCREMENT",
+            "dml":"INSERT INTO DAILY_INCREMENT VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"DEPT",
+            "extractors":[
+                "DEPT"
+            ],
+            "preDml":"TRUNCATE TABLE DEPT",
+            "dml":"INSERT INTO DEPT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DEPTEXT",
+            "extractors":[
+                "DEPTEXT"
+            ],
+            "preDml":"TRUNCATE TABLE DEPTEXT",
+            "dml":"INSERT INTO DEPTEXT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DEPTMERGE",
+            "extractors":[
+                "DEPTMERGE"
+            ],
+            "preDml":"TRUNCATE TABLE DEPTMERGE",
+            "dml":"INSERT INTO DEPTMERGE VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DEPTPROD",
+            "extractors":[
+                "DEPTPROD"
+            ],
+            "preDml":"TRUNCATE TABLE DEPTPROD",
+            "dml":"INSERT INTO DEPTPROD VALUES(?,?)"
+        },
+         {
+            "name":"DEPTPRODGROUP",
+            "extractors":[
+                "DEPTPRODGROUP"
+            ],
+            "preDml":"TRUNCATE TABLE DEPTPRODGROUP",
+            "dml":"INSERT INTO DEPTPRODGROUP VALUES(?,?,?,?,?)"
+        },
+         {
+            "name":"DEPTPRODGROUPPROD",
+            "extractors":[
+                "DEPTPRODGROUPPROD"
+            ],
+            "preDml":"TRUNCATE TABLE DEPTPRODGROUPPROD",
+            "dml":"INSERT INTO DEPTPRODGROUPPROD VALUES(?,?,?,?,?)"
+        },
+         {
+            "name":"DETAILQUERYINFO",
+            "extractors":[
+                "DETAILQUERYINFO"
+            ],
+            "preDml":"TRUNCATE TABLE DETAILQUERYINFO",
+            "dml":"INSERT INTO DETAILQUERYINFO VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DETAILQUERYLOG",
+            "extractors":[
+                "DETAILQUERYLOG"
+            ],
+            "preDml":"TRUNCATE TABLE DETAILQUERYLOG",
+            "dml":"INSERT INTO DETAILQUERYLOG VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DETAILQUERYRECEIVE",
+            "extractors":[
+                "DETAILQUERYRECEIVE"
+            ],
+            "preDml":"TRUNCATE TABLE DETAILQUERYRECEIVE",
+            "dml":"INSERT INTO DETAILQUERYRECEIVE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DICT_CBR_ACCOUNT",
+            "extractors":[
+                "DICT_CBR_ACCOUNT"
+            ],
+            "preDml":"TRUNCATE TABLE DICT_CBR_ACCOUNT",
+            "dml":"INSERT INTO DICT_CBR_ACCOUNT VALUES(?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DICT_RBIC_ACTION",
+            "extractors":[
+                "DICT_RBIC_ACTION"
+            ],
+            "preDml":"TRUNCATE TABLE DICT_RBIC_ACTION",
+            "dml":"INSERT INTO DICT_RBIC_ACTION VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DICT_RBIC_ENTRY",
+            "extractors":[
+                "DICT_RBIC_ENTRY"
+            ],
+            "preDml":"TRUNCATE TABLE DICT_RBIC_ENTRY",
+            "dml":"INSERT INTO DICT_RBIC_ENTRY VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DICT_RU_EN_TRANSLATION",
+            "extractors":[
+                "DICT_RU_EN_TRANSLATION"
+            ],
+            "preDml":"TRUNCATE TABLE DICT_RU_EN_TRANSLATION",
+            "dml":"INSERT INTO DICT_RU_EN_TRANSLATION VALUES(?,?)"
+        },
+         {
+            "name":"DP_JTFCANCEL",
+            "extractors":[
+                "DP_JTFCANCEL"
+            ],
+            "preDml":"TRUNCATE TABLE DP_JTFCANCEL",
+            "dml":"INSERT INTO DP_JTFCANCEL VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_JTFCANCEL_HIST",
+            "extractors":[
+                "DP_JTFCANCEL_HIST"
+            ],
+            "preDml":"TRUNCATE TABLE DP_JTFCANCEL_HIST",
+            "dml":"INSERT INTO DP_JTFCANCEL_HIST VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_JTFOPENING",
+            "extractors":[
+                "DP_JTFOPENING"
+            ],
+            "preDml":"TRUNCATE TABLE DP_JTFOPENING",
+            "dml":"INSERT INTO DP_JTFOPENING VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_JTFOPENING_HIST",
+            "extractors":[
+                "DP_JTFOPENING_HIST"
+            ],
+            "preDml":"TRUNCATE TABLE DP_JTFOPENING_HIST",
+            "dml":"INSERT INTO DP_JTFOPENING_HIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_JTFWITHDRAW",
+            "extractors":[
+                "DP_JTFWITHDRAW"
+            ],
+            "preDml":"TRUNCATE TABLE DP_JTFWITHDRAW",
+            "dml":"INSERT INTO DP_JTFWITHDRAW VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_JTFWITHDRAW_HIST",
+            "extractors":[
+                "DP_JTFWITHDRAW_HIST"
+            ],
+            "preDml":"TRUNCATE TABLE DP_JTFWITHDRAW_HIST",
+            "dml":"INSERT INTO DP_JTFWITHDRAW_HIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_PROD",
+            "extractors":[
+                "DP_PROD"
+            ],
+            "preDml":"TRUNCATE TABLE DP_PROD",
+            "dml":"INSERT INTO DP_PROD VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_PRODTP",
+            "extractors":[
+                "DP_PRODTP"
+            ],
+            "preDml":"TRUNCATE TABLE DP_PRODTP",
+            "dml":"INSERT INTO DP_PRODTP VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"DP_USRPROD",
+            "extractors":[
+                "DP_USRPROD"
+            ],
+            "preDml":"TRUNCATE TABLE DP_USRPROD",
+            "dml":"INSERT INTO DP_USRPROD VALUES(?,?)"
+        },
+         {
+            "name":"ECACCT",
+            "extractors":[
+                "ECACCT"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCT",
+            "dml":"INSERT INTO ECACCT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTGROUPRELATION",
+            "extractors":[
+                "ECACCTGROUPRELATION"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTGROUPRELATION",
+            "dml":"INSERT INTO ECACCTGROUPRELATION VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTGROUPRELATIONHIST",
+            "extractors":[
+                "ECACCTGROUPRELATIONHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTGROUPRELATIONHIST",
+            "dml":"INSERT INTO ECACCTGROUPRELATIONHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTHIST",
+            "extractors":[
+                "ECACCTHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTHIST",
+            "dml":"INSERT INTO ECACCTHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTMCH",
+            "extractors":[
+                "ECACCTMCH"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTMCH",
+            "dml":"INSERT INTO ECACCTMCH VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTMCHHIST",
+            "extractors":[
+                "ECACCTMCHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTMCHHIST",
+            "dml":"INSERT INTO ECACCTMCHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTRULE",
+            "extractors":[
+                "ECACCTRULE"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTRULE",
+            "dml":"INSERT INTO ECACCTRULE VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACCTRULEHIST",
+            "extractors":[
+                "ECACCTRULEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECACCTRULEHIST",
+            "dml":"INSERT INTO ECACCTRULEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACESSLOG",
+            "extractors":[
+                "ECACESSLOG"
+            ],
+            "preDml":"TRUNCATE TABLE ECACESSLOG",
+            "dml":"INSERT INTO ECACESSLOG VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACESSLOGHIST",
+            "extractors":[
+                "ECACESSLOGHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECACESSLOGHIST",
+            "dml":"INSERT INTO ECACESSLOGHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACLIMIT",
+            "extractors":[
+                "ECACLIMIT"
+            ],
+            "preDml":"TRUNCATE TABLE ECACLIMIT",
+            "dml":"INSERT INTO ECACLIMIT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACLIMITHIST",
+            "extractors":[
+                "ECACLIMITHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECACLIMITHIST",
+            "dml":"INSERT INTO ECACLIMITHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECACLIMITRT",
+            "extractors":[
+                "ECACLIMITRT"
+            ],
+            "preDml":"TRUNCATE TABLE ECACLIMITRT",
+            "dml":"INSERT INTO ECACLIMITRT VALUES(?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIF",
+            "extractors":[
+                "ECCIF"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIF",
+            "dml":"INSERT INTO ECCIF VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFADDR",
+            "extractors":[
+                "ECCIFADDR"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFADDR",
+            "dml":"INSERT INTO ECCIFADDR VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFADDRHIST",
+            "extractors":[
+                "ECCIFADDRHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFADDRHIST",
+            "dml":"INSERT INTO ECCIFADDRHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFGROUPRELATION",
+            "extractors":[
+                "ECCIFGROUPRELATION"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFGROUPRELATION",
+            "dml":"INSERT INTO ECCIFGROUPRELATION VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFGROUPRELATIONHIST",
+            "extractors":[
+                "ECCIFGROUPRELATIONHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFGROUPRELATIONHIST",
+            "dml":"INSERT INTO ECCIFGROUPRELATIONHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFHIST",
+            "extractors":[
+                "ECCIFHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFHIST",
+            "dml":"INSERT INTO ECCIFHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFID",
+            "extractors":[
+                "ECCIFID"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFID",
+            "dml":"INSERT INTO ECCIFID VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFIDHIST",
+            "extractors":[
+                "ECCIFIDHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFIDHIST",
+            "dml":"INSERT INTO ECCIFIDHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFLIMIT",
+            "extractors":[
+                "ECCIFLIMIT"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFLIMIT",
+            "dml":"INSERT INTO ECCIFLIMIT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFLIMITHIST",
+            "extractors":[
+                "ECCIFLIMITHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFLIMITHIST",
+            "dml":"INSERT INTO ECCIFLIMITHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFLIMITRT",
+            "extractors":[
+                "ECCIFLIMITRT"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFLIMITRT",
+            "dml":"INSERT INTO ECCIFLIMITRT VALUES(?,?,?,?)"
+        },
+         {
+            "name":"ECCIFMCH",
+            "extractors":[
+                "ECCIFMCH"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFMCH",
+            "dml":"INSERT INTO ECCIFMCH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFMCHHIST",
+            "extractors":[
+                "ECCIFMCHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFMCHHIST",
+            "dml":"INSERT INTO ECCIFMCHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFNUMDESC",
+            "extractors":[
+                "ECCIFNUMDESC"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFNUMDESC",
+            "dml":"INSERT INTO ECCIFNUMDESC VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFNUMDESCHIST",
+            "extractors":[
+                "ECCIFNUMDESCHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFNUMDESCHIST",
+            "dml":"INSERT INTO ECCIFNUMDESCHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFPRODSET",
+            "extractors":[
+                "ECCIFPRODSET"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFPRODSET",
+            "dml":"INSERT INTO ECCIFPRODSET VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFPRODSETHIST",
+            "extractors":[
+                "ECCIFPRODSETHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFPRODSETHIST",
+            "dml":"INSERT INTO ECCIFPRODSETHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLE",
+            "extractors":[
+                "ECCIFROLE"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLE",
+            "dml":"INSERT INTO ECCIFROLE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEAC",
+            "extractors":[
+                "ECCIFROLEAC"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEAC",
+            "dml":"INSERT INTO ECCIFROLEAC VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEACHIST",
+            "extractors":[
+                "ECCIFROLEACHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEACHIST",
+            "dml":"INSERT INTO ECCIFROLEACHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEHIST",
+            "extractors":[
+                "ECCIFROLEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEHIST",
+            "dml":"INSERT INTO ECCIFROLEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEPRD",
+            "extractors":[
+                "ECCIFROLEPRD"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEPRD",
+            "dml":"INSERT INTO ECCIFROLEPRD VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEPRDAC",
+            "extractors":[
+                "ECCIFROLEPRDAC"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEPRDAC",
+            "dml":"INSERT INTO ECCIFROLEPRDAC VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEPRDACHIST",
+            "extractors":[
+                "ECCIFROLEPRDACHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEPRDACHIST",
+            "dml":"INSERT INTO ECCIFROLEPRDACHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFROLEPRDHIST",
+            "extractors":[
+                "ECCIFROLEPRDHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFROLEPRDHIST",
+            "dml":"INSERT INTO ECCIFROLEPRDHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFRULE",
+            "extractors":[
+                "ECCIFRULE"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFRULE",
+            "dml":"INSERT INTO ECCIFRULE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFRULEHIST",
+            "extractors":[
+                "ECCIFRULEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFRULEHIST",
+            "dml":"INSERT INTO ECCIFRULEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFTEL",
+            "extractors":[
+                "ECCIFTEL"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFTEL",
+            "dml":"INSERT INTO ECCIFTEL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECCIFTELHIST",
+            "extractors":[
+                "ECCIFTELHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECCIFTELHIST",
+            "dml":"INSERT INTO ECCIFTELHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECDIV",
+            "extractors":[
+                "ECDIV"
+            ],
+            "preDml":"TRUNCATE TABLE ECDIV",
+            "dml":"INSERT INTO ECDIV VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECDIVHIST",
+            "extractors":[
+                "ECDIVHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECDIVHIST",
+            "dml":"INSERT INTO ECDIVHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECEMPLOYEE",
+            "extractors":[
+                "ECEMPLOYEE"
+            ],
+            "preDml":"TRUNCATE TABLE ECEMPLOYEE",
+            "dml":"INSERT INTO ECEMPLOYEE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECEMPLOYEEHIST",
+            "extractors":[
+                "ECEMPLOYEEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECEMPLOYEEHIST",
+            "dml":"INSERT INTO ECEMPLOYEEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECEXTCIFNO",
+            "extractors":[
+                "ECEXTCIFNO"
+            ],
+            "preDml":"TRUNCATE TABLE ECEXTCIFNO",
+            "dml":"INSERT INTO ECEXTCIFNO VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECEXTCIFNOHIST",
+            "extractors":[
+                "ECEXTCIFNOHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECEXTCIFNOHIST",
+            "dml":"INSERT INTO ECEXTCIFNOHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECIFBANKINNERPAYEE",
+            "extractors":[
+                "ECIFBANKINNERPAYEE"
+            ],
+            "preDml":"TRUNCATE TABLE ECIFBANKINNERPAYEE",
+            "dml":"INSERT INTO ECIFBANKINNERPAYEE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECIFBANKINNERPAYEEHIST",
+            "extractors":[
+                "ECIFBANKINNERPAYEEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECIFBANKINNERPAYEEHIST",
+            "dml":"INSERT INTO ECIFBANKINNERPAYEEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECIFCROSSBANKPAYEE",
+            "extractors":[
+                "ECIFCROSSBANKPAYEE"
+            ],
+            "preDml":"TRUNCATE TABLE ECIFCROSSBANKPAYEE",
+            "dml":"INSERT INTO ECIFCROSSBANKPAYEE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECIFCROSSBANKPAYEEHIST",
+            "extractors":[
+                "ECIFCROSSBANKPAYEEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECIFCROSSBANKPAYEEHIST",
+            "dml":"INSERT INTO ECIFCROSSBANKPAYEEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECORG",
+            "extractors":[
+                "ECORG"
+            ],
+            "preDml":"TRUNCATE TABLE ECORG",
+            "dml":"INSERT INTO ECORG VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECORGHIST",
+            "extractors":[
+                "ECORGHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECORGHIST",
+            "dml":"INSERT INTO ECORGHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECORGPERS",
+            "extractors":[
+                "ECORGPERS"
+            ],
+            "preDml":"TRUNCATE TABLE ECORGPERS",
+            "dml":"INSERT INTO ECORGPERS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECORGPERSHIST",
+            "extractors":[
+                "ECORGPERSHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECORGPERSHIST",
+            "dml":"INSERT INTO ECORGPERSHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECPERS",
+            "extractors":[
+                "ECPERS"
+            ],
+            "preDml":"TRUNCATE TABLE ECPERS",
+            "dml":"INSERT INTO ECPERS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECPERSHIST",
+            "extractors":[
+                "ECPERSHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECPERSHIST",
+            "dml":"INSERT INTO ECPERSHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECPUBLISHINFO",
+            "extractors":[
+                "ECPUBLISHINFO"
+            ],
+            "preDml":"TRUNCATE TABLE ECPUBLISHINFO",
+            "dml":"INSERT INTO ECPUBLISHINFO VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSR",
+            "extractors":[
+                "ECUSR"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSR",
+            "dml":"INSERT INTO ECUSR VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRAC",
+            "extractors":[
+                "ECUSRAC"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRAC",
+            "dml":"INSERT INTO ECUSRAC VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRACHIST",
+            "extractors":[
+                "ECUSRACHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRACHIST",
+            "dml":"INSERT INTO ECUSRACHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRAUTHMODMCH",
+            "extractors":[
+                "ECUSRAUTHMODMCH"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRAUTHMODMCH",
+            "dml":"INSERT INTO ECUSRAUTHMODMCH VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRAUTHMODMCHHIST",
+            "extractors":[
+                "ECUSRAUTHMODMCHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRAUTHMODMCHHIST",
+            "dml":"INSERT INTO ECUSRAUTHMODMCHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRCERT",
+            "extractors":[
+                "ECUSRCERT"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRCERT",
+            "dml":"INSERT INTO ECUSRCERT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRCERTHIST",
+            "extractors":[
+                "ECUSRCERTHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRCERTHIST",
+            "dml":"INSERT INTO ECUSRCERTHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRHIST",
+            "extractors":[
+                "ECUSRHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRHIST",
+            "dml":"INSERT INTO ECUSRHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRIDREC",
+            "extractors":[
+                "ECUSRIDREC"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRIDREC",
+            "dml":"INSERT INTO ECUSRIDREC VALUES(?,?,?)"
+        },
+         {
+            "name":"ECUSRLOGINTYPE",
+            "extractors":[
+                "ECUSRLOGINTYPE"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRLOGINTYPE",
+            "dml":"INSERT INTO ECUSRLOGINTYPE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRLOGINTYPEHIST",
+            "extractors":[
+                "ECUSRLOGINTYPEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRLOGINTYPEHIST",
+            "dml":"INSERT INTO ECUSRLOGINTYPEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRMCH",
+            "extractors":[
+                "ECUSRMCH"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRMCH",
+            "dml":"INSERT INTO ECUSRMCH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRMCHACCT",
+            "extractors":[
+                "ECUSRMCHACCT"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRMCHACCT",
+            "dml":"INSERT INTO ECUSRMCHACCT VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRMCHACCTHIST",
+            "extractors":[
+                "ECUSRMCHACCTHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRMCHACCTHIST",
+            "dml":"INSERT INTO ECUSRMCHACCTHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRMCHHIST",
+            "extractors":[
+                "ECUSRMCHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRMCHHIST",
+            "dml":"INSERT INTO ECUSRMCHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSROTP",
+            "extractors":[
+                "ECUSROTP"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSROTP",
+            "dml":"INSERT INTO ECUSROTP VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSROTPHIST",
+            "extractors":[
+                "ECUSROTPHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSROTPHIST",
+            "dml":"INSERT INTO ECUSROTPHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRPRDPROT",
+            "extractors":[
+                "ECUSRPRDPROT"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRPRDPROT",
+            "dml":"INSERT INTO ECUSRPRDPROT VALUES(?,?,?,?)"
+        },
+         {
+            "name":"ECUSRROLE",
+            "extractors":[
+                "ECUSRROLE"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRROLE",
+            "dml":"INSERT INTO ECUSRROLE VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRROLEHIST",
+            "extractors":[
+                "ECUSRROLEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRROLEHIST",
+            "dml":"INSERT INTO ECUSRROLEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRRULE",
+            "extractors":[
+                "ECUSRRULE"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRRULE",
+            "dml":"INSERT INTO ECUSRRULE VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECUSRRULEHIST",
+            "extractors":[
+                "ECUSRRULEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECUSRRULEHIST",
+            "dml":"INSERT INTO ECUSRRULEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECWHITELIST",
+            "extractors":[
+                "ECWHITELIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECWHITELIST",
+            "dml":"INSERT INTO ECWHITELIST VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"ECWHITELISTHIST",
+            "extractors":[
+                "ECWHITELISTHIST"
+            ],
+            "preDml":"TRUNCATE TABLE ECWHITELISTHIST",
+            "dml":"INSERT INTO ECWHITELISTHIST VALUES(?,?,?,?,?)"
+        },
+         {
+            "name":"FXPAYEE",
+            "extractors":[
+                "FXPAYEE"
+            ],
+            "preDml":"TRUNCATE TABLE FXPAYEE",
+            "dml":"INSERT INTO FXPAYEE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_CCY_SETTING",
+            "extractors":[
+                "FX_CCY_SETTING"
+            ],
+            "preDml":"TRUNCATE TABLE FX_CCY_SETTING",
+            "dml":"INSERT INTO FX_CCY_SETTING VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_CURRENCY",
+            "extractors":[
+                "FX_CURRENCY"
+            ],
+            "preDml":"TRUNCATE TABLE FX_CURRENCY",
+            "dml":"INSERT INTO FX_CURRENCY VALUES(?,?,?,?)"
+        },
+         {
+            "name":"FX_CURRENCY_PAIR",
+            "extractors":[
+                "FX_CURRENCY_PAIR"
+            ],
+            "preDml":"TRUNCATE TABLE FX_CURRENCY_PAIR",
+            "dml":"INSERT INTO FX_CURRENCY_PAIR VALUES(?,?,?,?)"
+        },
+         {
+            "name":"FX_JTF_TRADE_INFO",
+            "extractors":[
+                "FX_JTF_TRADE_INFO"
+            ],
+            "preDml":"TRUNCATE TABLE FX_JTF_TRADE_INFO",
+            "dml":"INSERT INTO FX_JTF_TRADE_INFO VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_JTF_TRADE_INFO_HIST",
+            "extractors":[
+                "FX_JTF_TRADE_INFO_HIST"
+            ],
+            "preDml":"TRUNCATE TABLE FX_JTF_TRADE_INFO_HIST",
+            "dml":"INSERT INTO FX_JTF_TRADE_INFO_HIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_MAIN_SETTING",
+            "extractors":[
+                "FX_MAIN_SETTING"
+            ],
+            "preDml":"TRUNCATE TABLE FX_MAIN_SETTING",
+            "dml":"INSERT INTO FX_MAIN_SETTING VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_MANUAL_RATE",
+            "extractors":[
+                "FX_MANUAL_RATE"
+            ],
+            "preDml":"TRUNCATE TABLE FX_MANUAL_RATE",
+            "dml":"INSERT INTO FX_MANUAL_RATE VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_MANUAL_RATE_REQ",
+            "extractors":[
+                "FX_MANUAL_RATE_REQ"
+            ],
+            "preDml":"TRUNCATE TABLE FX_MANUAL_RATE_REQ",
+            "dml":"INSERT INTO FX_MANUAL_RATE_REQ VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_PENDING_DETAIL",
+            "extractors":[
+                "FX_PENDING_DETAIL"
+            ],
+            "preDml":"TRUNCATE TABLE FX_PENDING_DETAIL",
+            "dml":"INSERT INTO FX_PENDING_DETAIL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_RBS_SETTING",
+            "extractors":[
+                "FX_RBS_SETTING"
+            ],
+            "preDml":"TRUNCATE TABLE FX_RBS_SETTING",
+            "dml":"INSERT INTO FX_RBS_SETTING VALUES(?,?,?,?)"
+        },
+         {
+            "name":"FX_STANDARD_QUOTE",
+            "extractors":[
+                "FX_STANDARD_QUOTE"
+            ],
+            "preDml":"TRUNCATE TABLE FX_STANDARD_QUOTE",
+            "dml":"INSERT INTO FX_STANDARD_QUOTE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_SUBSCRIBE_QUOTE",
+            "extractors":[
+                "FX_SUBSCRIBE_QUOTE"
+            ],
+            "preDml":"TRUNCATE TABLE FX_SUBSCRIBE_QUOTE",
+            "dml":"INSERT INTO FX_SUBSCRIBE_QUOTE VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"FX_SUBSCRIBE_REL",
+            "extractors":[
+                "FX_SUBSCRIBE_REL"
+            ],
+            "preDml":"TRUNCATE TABLE FX_SUBSCRIBE_REL",
+            "dml":"INSERT INTO FX_SUBSCRIBE_REL VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"JAGBATCH",
+            "extractors":[
+                "JAGBATCH"
+            ],
+            "preDml":"TRUNCATE TABLE JAGBATCH",
+            "dml":"INSERT INTO JAGBATCH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JAGBATCHDETAIL",
+            "extractors":[
+                "JAGBATCHDETAIL"
+            ],
+            "preDml":"TRUNCATE TABLE JAGBATCHDETAIL",
+            "dml":"INSERT INTO JAGBATCHDETAIL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JAGBATCHDETAILHIST",
+            "extractors":[
+                "JAGBATCHDETAILHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JAGBATCHDETAILHIST",
+            "dml":"INSERT INTO JAGBATCHDETAILHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JAGBATCHHIST",
+            "extractors":[
+                "JAGBATCHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JAGBATCHHIST",
+            "dml":"INSERT INTO JAGBATCHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTDSAVTIM",
+            "extractors":[
+                "JTDSAVTIM"
+            ],
+            "preDml":"TRUNCATE TABLE JTDSAVTIM",
+            "dml":"INSERT INTO JTDSAVTIM VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTDSAVTIMHIST",
+            "extractors":[
+                "JTDSAVTIMHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTDSAVTIMHIST",
+            "dml":"INSERT INTO JTDSAVTIMHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFBACH",
+            "extractors":[
+                "JTFBACH"
+            ],
+            "preDml":"TRUNCATE TABLE JTFBACH",
+            "dml":"INSERT INTO JTFBACH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFBACHDETAIL",
+            "extractors":[
+                "JTFBACHDETAIL"
+            ],
+            "preDml":"TRUNCATE TABLE JTFBACHDETAIL",
+            "dml":"INSERT INTO JTFBACHDETAIL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFBACHDETAILHIST",
+            "extractors":[
+                "JTFBACHDETAILHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTFBACHDETAILHIST",
+            "dml":"INSERT INTO JTFBACHDETAILHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFBACHHIST",
+            "extractors":[
+                "JTFBACHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTFBACHHIST",
+            "dml":"INSERT INTO JTFBACHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFBANKINNER",
+            "extractors":[
+                "JTFBANKINNER"
+            ],
+            "preDml":"TRUNCATE TABLE JTFBANKINNER",
+            "dml":"INSERT INTO JTFBANKINNER VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFBANKINNERHIST",
+            "extractors":[
+                "JTFBANKINNERHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTFBANKINNERHIST",
+            "dml":"INSERT INTO JTFBANKINNERHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFCROSSBANK",
+            "extractors":[
+                "JTFCROSSBANK"
+            ],
+            "preDml":"TRUNCATE TABLE JTFCROSSBANK",
+            "dml":"INSERT INTO JTFCROSSBANK VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFCROSSBANKHIST",
+            "extractors":[
+                "JTFCROSSBANKHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTFCROSSBANKHIST",
+            "dml":"INSERT INTO JTFCROSSBANKHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFFOREIGNEXCHANGE",
+            "extractors":[
+                "JTFFOREIGNEXCHANGE"
+            ],
+            "preDml":"TRUNCATE TABLE JTFFOREIGNEXCHANGE",
+            "dml":"INSERT INTO JTFFOREIGNEXCHANGE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFFOREIGNEXCHANGEHIST",
+            "extractors":[
+                "JTFFOREIGNEXCHANGEHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTFFOREIGNEXCHANGEHIST",
+            "dml":"INSERT INTO JTFFOREIGNEXCHANGEHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFSIGNATURETRACE",
+            "extractors":[
+                "JTFSIGNATURETRACE"
+            ],
+            "preDml":"TRUNCATE TABLE JTFSIGNATURETRACE",
+            "dml":"INSERT INTO JTFSIGNATURETRACE VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFTRANSFERCANCEL",
+            "extractors":[
+                "JTFTRANSFERCANCEL"
+            ],
+            "preDml":"TRUNCATE TABLE JTFTRANSFERCANCEL",
+            "dml":"INSERT INTO JTFTRANSFERCANCEL VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFTRANSFERCANCELHIST",
+            "extractors":[
+                "JTFTRANSFERCANCELHIST"
+            ],
+            "preDml":"TRUNCATE TABLE JTFTRANSFERCANCELHIST",
+            "dml":"INSERT INTO JTFTRANSFERCANCELHIST VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JTFTRANSFERFEEDBACK",
+            "extractors":[
+                "JTFTRANSFERFEEDBACK"
+            ],
+            "preDml":"TRUNCATE TABLE JTFTRANSFERFEEDBACK",
+            "dml":"INSERT INTO JTFTRANSFERFEEDBACK VALUES(?,?)"
+        },
+         {
+            "name":"JVOUCHERJNL",
+            "extractors":[
+                "JVOUCHERJNL"
+            ],
+            "preDml":"TRUNCATE TABLE JVOUCHERJNL",
+            "dml":"INSERT INTO JVOUCHERJNL VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"JVOUCHERPRINT",
+            "extractors":[
+                "JVOUCHERPRINT"
+            ],
+            "preDml":"TRUNCATE TABLE JVOUCHERPRINT",
+            "dml":"INSERT INTO JVOUCHERPRINT VALUES(?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCACLIMIT",
+            "extractors":[
+                "MCACLIMIT"
+            ],
+            "preDml":"TRUNCATE TABLE MCACLIMIT",
+            "dml":"INSERT INTO MCACLIMIT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPPLOCK",
+            "extractors":[
+                "MCAPPLOCK"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPPLOCK",
+            "dml":"INSERT INTO MCAPPLOCK VALUES(?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPSBANK",
+            "extractors":[
+                "MCAPSBANK"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPSBANK",
+            "dml":"INSERT INTO MCAPSBANK VALUES(?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPSCITY",
+            "extractors":[
+                "MCAPSCITY"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPSCITY",
+            "dml":"INSERT INTO MCAPSCITY VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPSPROVINCE",
+            "extractors":[
+                "MCAPSPROVINCE"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPSPROVINCE",
+            "dml":"INSERT INTO MCAPSPROVINCE VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPSRTGSNODE",
+            "extractors":[
+                "MCAPSRTGSNODE"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPSRTGSNODE",
+            "dml":"INSERT INTO MCAPSRTGSNODE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPSRTGSNODEE",
+            "extractors":[
+                "MCAPSRTGSNODEE"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPSRTGSNODEE",
+            "dml":"INSERT INTO MCAPSRTGSNODEE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCAPSRTGSNODES",
+            "extractors":[
+                "MCAPSRTGSNODES"
+            ],
+            "preDml":"TRUNCATE TABLE MCAPSRTGSNODES",
+            "dml":"INSERT INTO MCAPSRTGSNODES VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCCALBACKSETTING",
+            "extractors":[
+                "MCCALBACKSETTING"
+            ],
+            "preDml":"TRUNCATE TABLE MCCALBACKSETTING",
+            "dml":"INSERT INTO MCCALBACKSETTING VALUES(?,?,?,?)"
+        },
+         {
+            "name":"MCCIFLIMIT",
+            "extractors":[
+                "MCCIFLIMIT"
+            ],
+            "preDml":"TRUNCATE TABLE MCCIFLIMIT",
+            "dml":"INSERT INTO MCCIFLIMIT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCCNTGROUNDJNL",
+            "extractors":[
+                "MCCNTGROUNDJNL"
+            ],
+            "preDml":"TRUNCATE TABLE MCCNTGROUNDJNL",
+            "dml":"INSERT INTO MCCNTGROUNDJNL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCCODE",
+            "extractors":[
+                "MCCODE"
+            ],
+            "preDml":"TRUNCATE TABLE MCCODE",
+            "dml":"INSERT INTO MCCODE VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCDRAFT",
+            "extractors":[
+                "MCDRAFT"
+            ],
+            "preDml":"TRUNCATE TABLE MCDRAFT",
+            "dml":"INSERT INTO MCDRAFT VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCGROUND",
+            "extractors":[
+                "MCGROUND"
+            ],
+            "preDml":"TRUNCATE TABLE MCGROUND",
+            "dml":"INSERT INTO MCGROUND VALUES(?,?,?,?,?)"
+        },
+         {
+            "name":"MCGROUNDDEPT",
+            "extractors":[
+                "MCGROUNDDEPT"
+            ],
+            "preDml":"TRUNCATE TABLE MCGROUNDDEPT",
+            "dml":"INSERT INTO MCGROUNDDEPT VALUES(?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCGROUNDSETTING",
+            "extractors":[
+                "MCGROUNDSETTING"
+            ],
+            "preDml":"TRUNCATE TABLE MCGROUNDSETTING",
+            "dml":"INSERT INTO MCGROUNDSETTING VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCGROUNDSETTINGDETAIL",
+            "extractors":[
+                "MCGROUNDSETTINGDETAIL"
+            ],
+            "preDml":"TRUNCATE TABLE MCGROUNDSETTINGDETAIL",
+            "dml":"INSERT INTO MCGROUNDSETTINGDETAIL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCHANNEL",
+            "extractors":[
+                "MCHANNEL"
+            ],
+            "preDml":"TRUNCATE TABLE MCHANNEL",
+            "dml":"INSERT INTO MCHANNEL VALUES(?,?,?,?)"
+        },
+         {
+            "name":"MCJNL",
+            "extractors":[
+                "MCJNL"
+            ],
+            "preDml":"TRUNCATE TABLE MCJNL",
+            "dml":"INSERT INTO MCJNL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCJNLDATA",
+            "extractors":[
+                "MCJNLDATA"
+            ],
+            "preDml":"TRUNCATE TABLE MCJNLDATA",
+            "dml":"INSERT INTO MCJNLDATA VALUES(?,?,?,?)"
+        },
+         {
+            "name":"MCJNLDATAHIST",
+            "extractors":[
+                "MCJNLDATAHIST"
+            ],
+            "preDml":"TRUNCATE TABLE MCJNLDATAHIST",
+            "dml":"INSERT INTO MCJNLDATAHIST VALUES(?,?,?,?)"
+        },
+         {
+            "name":"MCJNLHIST",
+            "extractors":[
+                "MCJNLHIST"
+            ],
+            "preDml":"TRUNCATE TABLE MCJNLHIST",
+            "dml":"INSERT INTO MCJNLHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCJNLQUERYLOG",
+            "extractors":[
+                "MCJNLQUERYLOG"
+            ],
+            "preDml":"TRUNCATE TABLE MCJNLQUERYLOG",
+            "dml":"INSERT INTO MCJNLQUERYLOG VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCJNLQUERYLOGHIST",
+            "extractors":[
+                "MCJNLQUERYLOGHIST"
+            ],
+            "preDml":"TRUNCATE TABLE MCJNLQUERYLOGHIST",
+            "dml":"INSERT INTO MCJNLQUERYLOGHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCROLE",
+            "extractors":[
+                "MCROLE"
+            ],
+            "preDml":"TRUNCATE TABLE MCROLE",
+            "dml":"INSERT INTO MCROLE VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCROLEPRODUCT",
+            "extractors":[
+                "MCROLEPRODUCT"
+            ],
+            "preDml":"TRUNCATE TABLE MCROLEPRODUCT",
+            "dml":"INSERT INTO MCROLEPRODUCT VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCSCHEDULERULE",
+            "extractors":[
+                "MCSCHEDULERULE"
+            ],
+            "preDml":"TRUNCATE TABLE MCSCHEDULERULE",
+            "dml":"INSERT INTO MCSCHEDULERULE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCSERVICESWITCH",
+            "extractors":[
+                "MCSERVICESWITCH"
+            ],
+            "preDml":"TRUNCATE TABLE MCSERVICESWITCH",
+            "dml":"INSERT INTO MCSERVICESWITCH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MCTRSTIME",
+            "extractors":[
+                "MCTRSTIME"
+            ],
+            "preDml":"TRUNCATE TABLE MCTRSTIME",
+            "dml":"INSERT INTO MCTRSTIME VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MINFOPUBLISHITEM",
+            "extractors":[
+                "MINFOPUBLISHITEM"
+            ],
+            "preDml":"TRUNCATE TABLE MINFOPUBLISHITEM",
+            "dml":"INSERT INTO MINFOPUBLISHITEM VALUES(?,?,?)"
+        },
+         {
+            "name":"MINFOPUBLISHPLAN",
+            "extractors":[
+                "MINFOPUBLISHPLAN"
+            ],
+            "preDml":"TRUNCATE TABLE MINFOPUBLISHPLAN",
+            "dml":"INSERT INTO MINFOPUBLISHPLAN VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MINFOPUBLISHRULE",
+            "extractors":[
+                "MINFOPUBLISHRULE"
+            ],
+            "preDml":"TRUNCATE TABLE MINFOPUBLISHRULE",
+            "dml":"INSERT INTO MINFOPUBLISHRULE VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"MODULE",
+            "extractors":[
+                "MODULE"
+            ],
+            "preDml":"TRUNCATE TABLE MODULE",
+            "dml":"INSERT INTO MODULE VALUES(?,?,?)"
+        },
+         {
+            "name":"MONTHREPORTJOBRECORDS",
+            "extractors":[
+                "MONTHREPORTJOBRECORDS"
+            ],
+            "preDml":"TRUNCATE TABLE MONTHREPORTJOBRECORDS",
+            "dml":"INSERT INTO MONTHREPORTJOBRECORDS VALUES(?,?)"
+        },
+         {
+            "name":"MONTHREPORTRECORDS",
+            "extractors":[
+                "MONTHREPORTRECORDS"
+            ],
+            "preDml":"TRUNCATE TABLE MONTHREPORTRECORDS",
+            "dml":"INSERT INTO MONTHREPORTRECORDS VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MSGBOARD",
+            "extractors":[
+                "MSGBOARD"
+            ],
+            "preDml":"TRUNCATE TABLE MSGBOARD",
+            "dml":"INSERT INTO MSGBOARD VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"MSGBOARDHIS",
+            "extractors":[
+                "MSGBOARDHIS"
+            ],
+            "preDml":"TRUNCATE TABLE MSGBOARDHIS",
+            "dml":"INSERT INTO MSGBOARDHIS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"PASSWORD_RULE",
+            "extractors":[
+                "PASSWORD_RULE"
+            ],
+            "preDml":"TRUNCATE TABLE PASSWORD_RULE",
+            "dml":"INSERT INTO PASSWORD_RULE VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"PRDSET",
+            "extractors":[
+                "PRDSET"
+            ],
+            "preDml":"TRUNCATE TABLE PRDSET",
+            "dml":"INSERT INTO PRDSET VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"PRDSETPRD",
+            "extractors":[
+                "PRDSETPRD"
+            ],
+            "preDml":"TRUNCATE TABLE PRDSETPRD",
+            "dml":"INSERT INTO PRDSETPRD VALUES(?,?)"
+        },
+         {
+            "name":"PRODCH",
+            "extractors":[
+                "PRODCH"
+            ],
+            "preDml":"TRUNCATE TABLE PRODCH",
+            "dml":"INSERT INTO PRODCH VALUES(?,?,?)"
+        },
+         {
+            "name":"PRODUCT_MENU",
+            "extractors":[
+                "PRODUCT_MENU"
+            ],
+            "preDml":"TRUNCATE TABLE PRODUCT_MENU",
+            "dml":"INSERT INTO PRODUCT_MENU VALUES(?,?)"
+        },
+         {
+            "name":"PRODUCT_WHITELIST",
+            "extractors":[
+                "PRODUCT_WHITELIST"
+            ],
+            "preDml":"TRUNCATE TABLE PRODUCT_WHITELIST",
+            "dml":"INSERT INTO PRODUCT_WHITELIST VALUES(?,?,?)"
+        },
+         {
+            "name":"RISKTRSHIST",
+            "extractors":[
+                "RISKTRSHIST"
+            ],
+            "preDml":"TRUNCATE TABLE RISKTRSHIST",
+            "dml":"INSERT INTO RISKTRSHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"RJNL",
+            "extractors":[
+                "RJNL"
+            ],
+            "preDml":"TRUNCATE TABLE RJNL",
+            "dml":"INSERT INTO RJNL VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"RJNLHIST",
+            "extractors":[
+                "RJNLHIST"
+            ],
+            "preDml":"TRUNCATE TABLE RJNLHIST",
+            "dml":"INSERT INTO RJNLHIST VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"RULE",
+            "extractors":[
+                "RULE"
+            ],
+            "preDml":"TRUNCATE TABLE RULE",
+            "dml":"INSERT INTO RULE VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SHENTACAUTH",
+            "extractors":[
+                "SHENTACAUTH"
+            ],
+            "preDml":"TRUNCATE TABLE SHENTACAUTH",
+            "dml":"INSERT INTO SHENTACAUTH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SHENTPRDAUTH",
+            "extractors":[
+                "SHENTPRDAUTH"
+            ],
+            "preDml":"TRUNCATE TABLE SHENTPRDAUTH",
+            "dml":"INSERT INTO SHENTPRDAUTH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SHENTUSRACAUTH",
+            "extractors":[
+                "SHENTUSRACAUTH"
+            ],
+            "preDml":"TRUNCATE TABLE SHENTUSRACAUTH",
+            "dml":"INSERT INTO SHENTUSRACAUTH VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SHENTUSRACAUTHHIST",
+            "extractors":[
+                "SHENTUSRACAUTHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE SHENTUSRACAUTHHIST",
+            "dml":"INSERT INTO SHENTUSRACAUTHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SHENTUSRPRDAUTH",
+            "extractors":[
+                "SHENTUSRPRDAUTH"
+            ],
+            "preDml":"TRUNCATE TABLE SHENTUSRPRDAUTH",
+            "dml":"INSERT INTO SHENTUSRPRDAUTH VALUES(?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SHENTUSRPRDAUTHHIST",
+            "extractors":[
+                "SHENTUSRPRDAUTHHIST"
+            ],
+            "preDml":"TRUNCATE TABLE SHENTUSRPRDAUTHHIST",
+            "dml":"INSERT INTO SHENTUSRPRDAUTHHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SIGNTRSTRACEINFO",
+            "extractors":[
+                "SIGNTRSTRACEINFO"
+            ],
+            "preDml":"TRUNCATE TABLE SIGNTRSTRACEINFO",
+            "dml":"INSERT INTO SIGNTRSTRACEINFO VALUES(?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SWIFTCODETABLE",
+            "extractors":[
+                "SWIFTCODETABLE"
+            ],
+            "preDml":"TRUNCATE TABLE SWIFTCODETABLE",
+            "dml":"INSERT INTO SWIFTCODETABLE VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"SWIFTINFO",
+            "extractors":[
+                "SWIFTINFO"
+            ],
+            "preDml":"TRUNCATE TABLE SWIFTINFO",
+            "dml":"INSERT INTO SWIFTINFO VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TASK",
+            "extractors":[
+                "TASK"
+            ],
+            "preDml":"TRUNCATE TABLE TASK",
+            "dml":"INSERT INTO TASK VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TASKJNL",
+            "extractors":[
+                "TASKJNL"
+            ],
+            "preDml":"TRUNCATE TABLE TASKJNL",
+            "dml":"INSERT INTO TASKJNL VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TASKJNLHIST",
+            "extractors":[
+                "TASKJNLHIST"
+            ],
+            "preDml":"TRUNCATE TABLE TASKJNLHIST",
+            "dml":"INSERT INTO TASKJNLHIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TASKQUEUE",
+            "extractors":[
+                "TASKQUEUE"
+            ],
+            "preDml":"TRUNCATE TABLE TASKQUEUE",
+            "dml":"INSERT INTO TASKQUEUE VALUES(?,?,?)"
+        },
+         {
+            "name":"TASKSTAT",
+            "extractors":[
+                "TASKSTAT"
+            ],
+            "preDml":"TRUNCATE TABLE TASKSTAT",
+            "dml":"INSERT INTO TASKSTAT VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TASKSTATJNL",
+            "extractors":[
+                "TASKSTATJNL"
+            ],
+            "preDml":"TRUNCATE TABLE TASKSTATJNL",
+            "dml":"INSERT INTO TASKSTATJNL VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TASKSTATJNLHIST",
+            "extractors":[
+                "TASKSTATJNLHIST"
+            ],
+            "preDml":"TRUNCATE TABLE TASKSTATJNLHIST",
+            "dml":"INSERT INTO TASKSTATJNLHIST VALUES(?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TEMP_MCROLE",
+            "extractors":[
+                "TEMP_MCROLE"
+            ],
+            "preDml":"TRUNCATE TABLE TEMP_MCROLE",
+            "dml":"INSERT INTO TEMP_MCROLE VALUES(?,?,?,?,?,?,?,?,?,?,?)"
+        },
+         {
+            "name":"TRANSLATE_CODE",
+            "extractors":[
+                "TRANSLATE_CODE"
+            ],
+            "preDml":"TRUNCATE TABLE TRANSLATE_CODE",
+            "dml":"INSERT INTO TRANSLATE_CODE VALUES(?,?)"
+        },
+         {
+            "name":"USER_NOTIFY",
+            "extractors":[
+                "USER_NOTIFY"
+            ],
+            "preDml":"TRUNCATE TABLE USER_NOTIFY",
+            "dml":"INSERT INTO USER_NOTIFY VALUES(?,?,?,?,?,?)"
+        },
+         {
+            "name":"WAND_HOLDERS",
+            "extractors":[
+                "WAND_HOLDERS"
+            ],
+            "preDml":"TRUNCATE TABLE WAND_HOLDERS",
+            "dml":"INSERT INTO WAND_HOLDERS VALUES(?,?,?)"
+        }
+    ]
+}

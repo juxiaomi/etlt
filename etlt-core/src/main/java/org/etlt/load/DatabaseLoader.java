@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.etlt.EtltException;
 import org.etlt.expression.ExpressionCompiler;
+import org.etlt.extract.DatabaseUtil;
 import org.etlt.extract.DbDsSetting;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
@@ -75,23 +76,31 @@ public class DatabaseLoader extends Loader {
                 for (int i = 0; i< columns.size(); i++) {
                     ColumnSetting column = columns.get(i);
                     Object result = expressionCompiler.evaluate(column.getExpression(), context);
-                    this.statement.setObject(i+1, result);
-
+//                    this.statement.setObject(i+1, result);
+                    DatabaseUtil.setObject(statement, i+1, result);
                 }
                 this.statement.addBatch();
                 batch++;
                 if(batch % getSetting().getBatch() == 0) {
                     this.statement.executeBatch();
+                    connection.commit();
                     batch = 0;
                 }
             }
             if(batch != 0) {
                 this.statement.executeBatch();
+                connection.commit();
+                connection.setAutoCommit(true);
             }
-            connection.commit();
-            connection.setAutoCommit(true);
         } catch (SQLException e) {
+            try {
+                if(!connection.getAutoCommit())
+                    connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             throw new EtltException("executing loader error: " + getName(), e);
+        }finally {
         }
     }
 

@@ -16,15 +16,17 @@ public class JobExecutor {
     public void execute(File jobDirectory){
         try {
             JobContext jobContext = new JobContext(jobDirectory);
+            log.info("job is initializing ...");
             jobContext.init();
             List<Loader> loaders = jobContext.getAllLoader();
             log.info("there are " + loaders.size() + " loaders.");
-            for(Loader loader: loaders){
-                log.info("loader " + loader.getName() + " starting...");
+            for(int i = 0; i < loaders.size(); i++){
+                Loader loader = loaders.get(i);
+                log.info((i+1) + "/" + loaders.size() + ", loader " + loader.getName() + " starting...");
                 loader.preLoad(jobContext);
                 loader.load(jobContext);
                 loader.doFinish();
-                log.info("loader " + loader.getName() + " finished");
+                log.info((i+1) + "/" + loaders.size() + ", loader " + loader.getName() + " finished");
             }
         }catch (IOException e){
             throw new EtltException("job executing error." ,e );
