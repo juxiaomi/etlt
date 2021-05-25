@@ -10,6 +10,8 @@ public class DbDsSetting {
 
     private String password;
 
+    private String validationQuery;
+
     public String getClassName() {
         return className;
     }
@@ -42,4 +44,11 @@ public class DbDsSetting {
         this.password = password;
     }
 
+    public String getValidationQuery() {
+        return validationQuery;
+    }
+
+    public void setValidationQuery(String validationQuery) {
+        this.validationQuery = validationQuery;
+    }
 }

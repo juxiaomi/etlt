@@ -1,30 +1,32 @@
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
-	<id>all-in-one-${buildNumber}</id>
-	<includeBaseDirectory>false</includeBaseDirectory>
-	<formats>
-		<format>jar</format>
-	</formats>
-	<dependencySets>
-		<dependencySet>
-			<unpack>true</unpack>
-			<includes>
-				<!--jackson jars-->
-				<include>com.fasterxml.jackson.core:jackson-databind</include>
-				<include>com.fasterxml.jackson.core:jackson-annotations</include>
-				<include>com.fasterxml.jackson.core:jackson-core</include>
-				<!--apache commons-->
-				<include>org.apache.commons:commons-lang3</include>
-				<!--log-->
-				<include>org.slf4j:jcl-over-slf4j</include>
-				<include>org.slf4j:slf4j-api</include>
-				<include>ch.qos.logback:logback-core</include>
-				<include>ch.qos.logback:logback-classic</include>
-				<!--etlt module-->
-				<include>org.etlt:etlt-core</include>
-				<include>org.etlt:etlt-expression</include>
-			</includes>
-		</dependencySet>
-	</dependencySets>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>all-in-one-${buildNumber}</id>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <dependencySets>
+        <dependencySet>
+            <unpack>true</unpack>
+            <includes>
+                <!--jackson jars-->
+                <include>com.fasterxml.jackson.core:jackson-databind</include>
+                <include>com.fasterxml.jackson.core:jackson-annotations</include>
+                <include>com.fasterxml.jackson.core:jackson-core</include>
+                <!--apache commons-->
+                <include>org.apache.commons:commons-lang3</include>
+                <!--log-->
+                <include>org.slf4j:jcl-over-slf4j</include>
+                <include>org.slf4j:slf4j-api</include>
+                <include>ch.qos.logback:logback-core</include>
+                <include>ch.qos.logback:logback-classic</include>
+                <!--				tomcat jdbc pool-->
+                <include>org.apache.tomcat:tomcat-jdbc</include>
+                <!--etlt module-->
+                <include>org.etlt:etlt-core</include>
+                <include>org.etlt:etlt-expression</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
 </assembly>
