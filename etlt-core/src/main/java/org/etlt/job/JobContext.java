@@ -1,5 +1,6 @@
 package org.etlt.job;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.etlt.EtltException;
@@ -17,10 +18,7 @@ import org.etlt.load.LoaderSetting;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JobContext implements VariableContext {
 
@@ -251,7 +249,8 @@ public class JobContext implements VariableContext {
     }
 
     public List<Loader> getAllLoader() {
-        return new ArrayList<Loader>(this.loaders.values());
+        List<Loader> loaders = new ArrayList<Loader>(this.loaders.values());
+        return loaders;
     }
 
     public Object getParameter(String name) {

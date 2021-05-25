@@ -6,7 +6,7 @@ import org.etlt.job.JobContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Loader {
+public abstract class Loader implements Comparable<Loader>{
 
     private String name;
 
@@ -67,6 +67,11 @@ public abstract class Loader {
             this.setting.getColumns().clear();
             this.setting.getColumns().addAll(columnSettings);
         }
+    }
+
+    @Override
+    public int compareTo(Loader anotherLoader) {
+        return this.getName().compareTo(anotherLoader.getName());
     }
 
     public static Loader createLoader(LoaderSetting setting) {

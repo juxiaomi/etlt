@@ -37,4 +37,13 @@ public class ColumnSetting {
     public void setExpression(String expression) {
         this.expression = expression;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("ColumnSetting{");
+        stringBuilder.append("name='").append(getName()).append('\'')
+                .append(", expression='").append(expression).append('\'')
+                .append('}');
+        return stringBuilder.toString();
+    }
 }

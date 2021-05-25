@@ -7,29 +7,17 @@
     "*"
   ],
   "parameters": {
-    "oracle-datasource-app": {
-      "className": "oracle.jdbc.driver.OracleDriver",
-      "url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
-      "user": "cfca_app",
-      "password": "Ghbkj4tybt_0403"
+    "h2-datasource": {
+      "className": "org.h2.Driver",
+      "url": "jdbc:h2:tcp://localhost:9092/~/DEPT_DB",
+      "user": "dept_user",
+      "password": "dept_pass"
     },
-    "pg-datasource-app": {
+    "pg-datasource": {
       "className": "org.postgresql.Driver",
-      "url": "jdbc:postgresql://itaofei.top:15432/cfca_app",
-      "user": "itaofei",
-      "password": "4CgbWMUB76uxNcUp^v@*"
-    },
-    "oracle-datasource-web": {
-      "className": "oracle.jdbc.driver.OracleDriver",
-      "url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
-      "user": "cfca_web",
-      "password": "Dtbghbkj4_0403"
-    },
-    "pg-datasource-web": {
-      "className": "org.postgresql.Driver",
-      "url": "jdbc:postgresql://itaofei.top:15432/cfca_web",
-      "user": "itaofei",
-      "password": "4CgbWMUB76uxNcUp^v@*"
+      "url": "jdbc:postgresql://ss.juyuchen.com:5432/deptmgmt_db",
+      "user": "deptmgmt_user",
+      "password": "DEPTMGMT_USER"
     }
   }
 }

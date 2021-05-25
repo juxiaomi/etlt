@@ -1,0 +1,13 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "skip":0,
+        "datasourceRef":"h2-datasource"
+    },
+    "extractors":[
+        {
+            "name":"MY_BLOB_TEST",
+            "dql":"SELECT * FROM MY_BLOB_TEST"
+        }
+    ]
+}
