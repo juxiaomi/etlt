@@ -14,6 +14,9 @@ import java.io.IOException;
  *
  */
 public class Main {
+
+    public static final String JOB_INVENTORY = "job.inventory";
+
     /**
      *
      * @param args
@@ -24,6 +27,7 @@ public class Main {
             throw new IllegalArgumentException("please set the etl config directory.");
         File jobDirectory = new File(args[0]);
         JobContext context = new JobContext(jobDirectory);
+        System.setProperty(JOB_INVENTORY, context.getConfigInventory().getAbsolutePath());
         runAsParallel(context);
     }
 

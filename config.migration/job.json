@@ -1,6 +1,6 @@
 {
   "name": "migration-job",
-  "parallel": 1,
+  "parallel": 2,
   "extractors": [
     "*"
   ],

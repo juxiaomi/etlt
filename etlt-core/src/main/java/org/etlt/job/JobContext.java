@@ -1,6 +1,5 @@
 package org.etlt.job;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.etlt.EtltException;
@@ -42,7 +41,7 @@ public class JobContext implements VariableContext {
 
     private final Map<String, Object> resourceContainer = new ConcurrentHashMap<>();
 
-    private final File configDirectory;
+    private final File configInventory;
 
     private JobSetting jobSetting;
 
@@ -54,17 +53,17 @@ public class JobContext implements VariableContext {
 
     private Map<String, Object> mapping = new HashMap<>();
 
-    public JobContext(File configDirectory) throws IOException{
-        this.configDirectory = configDirectory;
-        this.jobSetting = this.reader.read(new File(this.configDirectory, JOB_SETTING), JobSetting.class);
+    public JobContext(File configInventory) throws IOException{
+        this.configInventory = configInventory;
+        this.jobSetting = this.reader.read(new File(this.configInventory, JOB_SETTING), JobSetting.class);
     }
 
     public JobSetting getJobSetting() {
         return jobSetting;
     }
 
-    public File getConfigDirectory() {
-        return configDirectory;
+    public File getConfigInventory() {
+        return configInventory;
     }
 
     public boolean isExist(String entity) {
@@ -103,7 +102,7 @@ public class JobContext implements VariableContext {
     }
 
     /**
-     * read a job setting {@link JobSetting} from job.json file located in {@link #configDirectory}
+     * read a job setting {@link JobSetting} from job.json file located in {@link #configInventory}
      */
     public void init() throws IOException {
         initResources();
@@ -138,7 +137,7 @@ public class JobContext implements VariableContext {
      */
     protected void initExtractors() throws IOException {
         List<String> extractorNames = this.jobSetting.getExtractors();
-        String[] exts = configDirectory.list((dir, name) ->
+        String[] exts = configInventory.list((dir, name) ->
                 name.endsWith(EXTRACTOR_SUFFIX)
         );
         List<Extractor> allExtractors = readExtractors(exts);
@@ -147,7 +146,7 @@ public class JobContext implements VariableContext {
 
     protected void initBundleExtractors() throws IOException {
         List<String> extractorNames = this.jobSetting.getExtractors();
-        String[] exts = configDirectory.list((dir, name) ->
+        String[] exts = configInventory.list((dir, name) ->
                 name.endsWith(BUNDLE_EXTRACTOR_SUFFIX)
         );
         List<Extractor> allExtractors = readBundleExtractors(exts);
@@ -161,7 +160,7 @@ public class JobContext implements VariableContext {
      * @throws IOException
      */
     protected void initLoaders() throws IOException {
-        String[] loaders = configDirectory.list((dir, name) ->
+        String[] loaders = configInventory.list((dir, name) ->
                 name.endsWith(LOADER_SUFFIX)
         );
         List<Loader> allLoaders = readLoaders(loaders);
@@ -169,7 +168,7 @@ public class JobContext implements VariableContext {
     }
 
     protected void initBundleLoaders() throws IOException {
-        String[] loaderSettings = configDirectory.list((dir, name) ->
+        String[] loaderSettings = configInventory.list((dir, name) ->
                 name.endsWith(BUNDLE_LOADER_SUFFIX)
         );
         List<Loader> allLoaders = readBundleLoaders(loaderSettings);
@@ -178,7 +177,7 @@ public class JobContext implements VariableContext {
 
     protected void initMapping() throws IOException {
         if (!ObjectUtils.isEmpty(this.jobSetting.getMapping()))
-            this.mapping = reader.read(new File(this.configDirectory, this.jobSetting.getMapping()), Map.class);
+            this.mapping = reader.read(new File(this.configInventory, this.jobSetting.getMapping()), Map.class);
     }
 
     protected void initResources() {
@@ -204,7 +203,7 @@ public class JobContext implements VariableContext {
     }
 
     protected Extractor readExtractor(String extractSetting) throws IOException {
-        ExtractorSetting extractorSetting = this.reader.read(new File(this.configDirectory, extractSetting), ExtractorSetting.class);
+        ExtractorSetting extractorSetting = this.reader.read(new File(this.configInventory, extractSetting), ExtractorSetting.class);
         return Extractor.createExtractor(extractorSetting, this);
     }
 
@@ -216,7 +215,7 @@ public class JobContext implements VariableContext {
      * @throws IOException
      */
     protected List<Extractor> readBundleExtractor(String extractSetting) throws IOException {
-        BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.configDirectory, extractSetting), BundleExtractorSetting.class);
+        BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.configInventory, extractSetting), BundleExtractorSetting.class);
         List<ExtractorSetting> extractorSettings = extractorBundleSetting.createExtractorSetting();
         List<Extractor> extractors = new ArrayList<>(extractorSettings.size());
         extractorSettings.forEach((setting) -> {
@@ -242,12 +241,12 @@ public class JobContext implements VariableContext {
     }
 
     protected Loader readLoader(String loadSetting) throws IOException {
-        LoaderSetting loadSetting1 = this.reader.read(new File(this.configDirectory, loadSetting), LoaderSetting.class);
+        LoaderSetting loadSetting1 = this.reader.read(new File(this.configInventory, loadSetting), LoaderSetting.class);
         return Loader.createLoader(loadSetting1);
     }
 
     protected List<Loader> readBundleLoader(String loadSetting) throws IOException {
-        BundleLoaderSetting loadSetting1 = this.reader.read(new File(this.configDirectory, loadSetting), BundleLoaderSetting.class);
+        BundleLoaderSetting loadSetting1 = this.reader.read(new File(this.configInventory, loadSetting), BundleLoaderSetting.class);
         List<LoaderSetting> loaderSettings = loadSetting1.createLoaderSetting();
         List<Loader> loaders = new ArrayList<>(loaderSettings.size());
         loaderSettings.forEach(ls -> loaders.add(Loader.createLoader(ls)));

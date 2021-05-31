@@ -2,7 +2,6 @@ package org.etlt.extract;
 
 import org.etlt.EtltException;
 import org.etlt.job.JobContext;
-import org.etlt.load.ColumnSetting;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -26,7 +25,7 @@ public class FileExtractor extends Extractor {
             if (reader == null) {
                 //use file existed in job config directory
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(
-                        new File(context.getConfigDirectory(), setting.getDataSource())), Charset.forName(this.setting.getEncoding()))
+                        new File(context.getConfigInventory(), setting.getDataSource())), Charset.forName(this.setting.getEncoding()))
                     );
             }
             String text = reader.readLine();
