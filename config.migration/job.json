@@ -1,23 +1,38 @@
 {
   "name": "migration-job",
+  "parallel": 1,
   "extractors": [
     "*"
   ],
   "loaders": [
     "*"
   ],
-  "parameters": {
-    "h2-datasource": {
+  "resources": [
+     {
+      "name": "h2-datasource",
+      "type": "DATA_BASE",
       "className": "org.h2.Driver",
       "url": "jdbc:h2:tcp://localhost:9092/~/DEPT_DB",
       "user": "dept_user",
-      "password": "dept_pass"
+      "password": "dept_pass",
+      "validationQuery": "SELECT 1",
+       "initialSize" : 1,
+       "minIdle": 2,
+       "maxIdle" :  10,
+       "maxActive" : 20
     },
-    "pg-datasource": {
+    {
+      "name": "pg-datasource",
+      "type": "DATA_BASE",
       "className": "org.postgresql.Driver",
       "url": "jdbc:postgresql://ss.juyuchen.com:5432/deptmgmt_db",
       "user": "deptmgmt_user",
-      "password": "DEPTMGMT_USER"
+      "password": "DEPTMGMT_USER",
+      "validationQuery": "SELECT 1",
+      "initialSize" : 1,
+      "minIdle": 2,
+      "maxIdle" :  10,
+      "maxActive" : 20
     }
-  }
+  ]
 }

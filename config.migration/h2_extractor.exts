@@ -2,7 +2,7 @@
     "properties":{
         "type":"DATA_BASE",
         "skip":0,
-        "datasourceRef":"h2-datasource"
+        "datasource":"h2-datasource"
     },
     "extractors":[
         {

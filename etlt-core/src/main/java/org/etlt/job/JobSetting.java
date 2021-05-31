@@ -11,6 +11,8 @@ public class JobSetting implements SettingCheck {
 
     private String name;
 
+    private int parallel = 1;
+
     private List<String> extractors;
 
     private List<String> loaders;
@@ -18,6 +20,8 @@ public class JobSetting implements SettingCheck {
     private String mapping;
 
     private Map<String, Object> parameters;
+
+    private List<ResourceSetting> resources;
 
     public String getName() {
         return name;
@@ -59,9 +63,27 @@ public class JobSetting implements SettingCheck {
         this.parameters = parameters;
     }
 
+    public void setResources(List<ResourceSetting> settings){
+        this.resources = settings;
+    }
+
+    public int getParallel() {
+        return parallel;
+    }
+
+    public void setParallel(int parallel) {
+        this.parallel = parallel;
+    }
+
+    public List<ResourceSetting> getResources(){
+        return this.resources;
+    }
+
     @Override
     public void check() {
         if(StringUtils.isBlank(getName()))
             throw new SettingValidationException("missing name.");
+        if(getParallel() < 1)
+            throw new SettingValidationException("parallel must greater than 0: " + getParallel());
     }
 }

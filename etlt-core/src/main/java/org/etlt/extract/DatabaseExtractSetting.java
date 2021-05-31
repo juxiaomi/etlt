@@ -6,9 +6,7 @@ public class DatabaseExtractSetting extends ExtractorSetting{
 
     private String dql;
 
-    private String datasourceRef;
-
-    private DbDsSetting dataSource;
+    private String datasource;
 
     public boolean isAutoResolve() {
         return autoResolve;
@@ -26,20 +24,12 @@ public class DatabaseExtractSetting extends ExtractorSetting{
         this.dql = dql;
     }
 
-    public String getDatasourceRef() {
-        return datasourceRef;
+    public String getDatasource() {
+        return datasource;
     }
 
-    public void setDatasourceRef(String datasourceRef) {
-        this.datasourceRef = datasourceRef;
-    }
-
-    public DbDsSetting getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DbDsSetting dataSource) {
-        this.dataSource = dataSource;
+    public void setDatasource(String dataSource) {
+        this.datasource = dataSource;
     }
 
     @Override
@@ -50,6 +40,6 @@ public class DatabaseExtractSetting extends ExtractorSetting{
                 throw new IllegalArgumentException("missing column definition.");
             }
         }
-        assertNotNull("datasourceRef, datasource", datasourceRef, dataSource);
+        assertNotNull("datasource", datasource);
     }
 }

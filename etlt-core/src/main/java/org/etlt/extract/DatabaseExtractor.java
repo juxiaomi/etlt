@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.etlt.EtltException;
 import org.etlt.job.JobContext;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Map;
 
 public class DatabaseExtractor extends Extractor {
     final DatabaseExtractSetting setting;
+
+    private DataSource dataSource;
 
     private Connection connection;
 
@@ -26,14 +29,10 @@ public class DatabaseExtractor extends Extractor {
     @Override
     public void init(JobContext context) {
         try {
-            if (this.setting.getDataSource() == null) {
-                Object ref = context.getParameter(this.setting.getDatasourceRef());
-                ObjectMapper mapper = new ObjectMapper();
-                this.setting.setDataSource(mapper.convertValue(ref, DbDsSetting.class));
+            if (this.setting.getDatasource() != null) {
+                this.dataSource = (DataSource) context.getResource(this.setting.getDatasource());
             }
-            DbDsSetting dbDsSetting = this.setting.getDataSource();
-            Class.forName(dbDsSetting.getClassName());
-            this.connection = DriverManager.getConnection(dbDsSetting.getUrl(), dbDsSetting.getUser(), dbDsSetting.getPassword());
+            this.connection = this.dataSource.getConnection();
             this.statement = this.connection.prepareStatement(this.setting.getDql());
             resultSet = this.statement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -43,7 +42,7 @@ public class DatabaseExtractor extends Extractor {
                     getColumns().add(resultSetMetaData.getColumnLabel(i + 1));
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new EtltException("Extractor init error: " + getName(), e);
         }
     }

@@ -19,6 +19,7 @@ import org.etlt.load.LoaderSetting;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class JobContext implements VariableContext {
 
@@ -39,6 +40,8 @@ public class JobContext implements VariableContext {
 
     private final Map<String, Entity> entityContainer = new HashMap<String, Entity>();
 
+    private final Map<String, Object> resourceContainer = new ConcurrentHashMap<>();
+
     private final File configDirectory;
 
     private JobSetting jobSetting;
@@ -51,8 +54,13 @@ public class JobContext implements VariableContext {
 
     private Map<String, Object> mapping = new HashMap<>();
 
-    public JobContext(File configDirectory) {
+    public JobContext(File configDirectory) throws IOException{
         this.configDirectory = configDirectory;
+        this.jobSetting = this.reader.read(new File(this.configDirectory, JOB_SETTING), JobSetting.class);
+    }
+
+    public JobSetting getJobSetting() {
+        return jobSetting;
     }
 
     public File getConfigDirectory() {
@@ -98,7 +106,7 @@ public class JobContext implements VariableContext {
      * read a job setting {@link JobSetting} from job.json file located in {@link #configDirectory}
      */
     public void init() throws IOException {
-        this.jobSetting = this.reader.read(new File(this.configDirectory, JOB_SETTING), JobSetting.class);
+        initResources();
         initExtractors();
         initBundleExtractors();
         initLoaders();
@@ -106,21 +114,22 @@ public class JobContext implements VariableContext {
         initMapping();
     }
 
-    private void addExtractor(Extractor extractor){
-        if(this.extractors.containsKey(extractor.getName()))
+    private void addExtractor(Extractor extractor) {
+        if (this.extractors.containsKey(extractor.getName()))
             throw new EtltRuntimeException("duplicated extractor found: " + extractor.getName());
         List<String> extractorNames = this.jobSetting.getExtractors();
-        if(extractorNames.contains(ALL) || extractorNames.contains(extractor.getName()))
+        if (extractorNames.contains(ALL) || extractorNames.contains(extractor.getName()))
             this.extractors.put(extractor.getName(), extractor);
     }
 
-    private void addLoader(Loader loader){
-        if(this.loaders.containsKey(loader.getName()))
+    private void addLoader(Loader loader) {
+        if (this.loaders.containsKey(loader.getName()))
             throw new EtltRuntimeException("duplicated loader found: " + loader.getName());
         List<String> loaderNames = this.jobSetting.getLoaders();
-        if(loaderNames.contains(ALL) || loaderNames.contains(loader.getName()))
+        if (loaderNames.contains(ALL) || loaderNames.contains(loader.getName()))
             this.loaders.put(loader.getName(), loader);
     }
+
     /**
      * read all file with {@link #EXTRACTOR_SUFFIX}
      * <br>read all file with {@link #BUNDLE_EXTRACTOR_SUFFIX}
@@ -156,7 +165,7 @@ public class JobContext implements VariableContext {
                 name.endsWith(LOADER_SUFFIX)
         );
         List<Loader> allLoaders = readLoaders(loaders);
-        allLoaders.forEach(loader-> addLoader(loader));
+        allLoaders.forEach(loader -> addLoader(loader));
     }
 
     protected void initBundleLoaders() throws IOException {
@@ -164,11 +173,18 @@ public class JobContext implements VariableContext {
                 name.endsWith(BUNDLE_LOADER_SUFFIX)
         );
         List<Loader> allLoaders = readBundleLoaders(loaderSettings);
-        allLoaders.forEach(loader-> addLoader(loader));
+        allLoaders.forEach(loader -> addLoader(loader));
     }
+
     protected void initMapping() throws IOException {
         if (!ObjectUtils.isEmpty(this.jobSetting.getMapping()))
             this.mapping = reader.read(new File(this.configDirectory, this.jobSetting.getMapping()), Map.class);
+    }
+
+    protected void initResources() {
+        List<ResourceSetting> resources = this.jobSetting.getResources();
+        ResourceFactory resourceFactory = new ResourceFactory();
+        resources.forEach((s) -> this.resourceContainer.put(s.getName(), resourceFactory.createResource(s)));
     }
 
     protected List<Extractor> readExtractors(String[] extractSettings) throws IOException {
@@ -194,6 +210,7 @@ public class JobContext implements VariableContext {
 
     /**
      * read extractors from extractor bundle setting
+     *
      * @param extractSetting
      * @return
      * @throws IOException
@@ -202,7 +219,7 @@ public class JobContext implements VariableContext {
         BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.configDirectory, extractSetting), BundleExtractorSetting.class);
         List<ExtractorSetting> extractorSettings = extractorBundleSetting.createExtractorSetting();
         List<Extractor> extractors = new ArrayList<>(extractorSettings.size());
-        extractorSettings.forEach((setting)->{
+        extractorSettings.forEach((setting) -> {
             extractors.add(Extractor.createExtractor(setting, this));
         });
         return extractors;
@@ -254,7 +271,11 @@ public class JobContext implements VariableContext {
     }
 
     public Object getParameter(String name) {
-        Object result = this.jobSetting.getParameters().get(name);
+        Map<String, Object> parameters = this.jobSetting.getParameters();
+        if(parameters == null){
+            throw new EtltRuntimeException("no parameters set. ");
+        }
+        Object result = parameters.get(name);
         if (ObjectUtils.isEmpty(result))
             throw new IllegalArgumentException("parameter not found: " + name);
         return result;
@@ -273,5 +294,20 @@ public class JobContext implements VariableContext {
             return Variable.createVariable(name, getValue(catalog, key));
         }
         throw new IllegalArgumentException("variable not found: " + name);
+    }
+
+    public Object getResource(String name) {
+        Object resource = this.resourceContainer.get(name);
+        if (resource == null)
+            throw new EtltRuntimeException("resource not found: " + name);
+        return resource;
+    }
+
+    public synchronized void store(String key, Object object) {
+        this.resourceContainer.put(key, object);
+    }
+
+    public synchronized Object restore(Object key) {
+        return this.resourceContainer.get(key);
     }
 }

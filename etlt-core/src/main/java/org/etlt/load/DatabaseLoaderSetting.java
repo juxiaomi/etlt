@@ -10,9 +10,7 @@ public class DatabaseLoaderSetting extends LoaderSetting{
 
     private String dml;
 
-    private String datasourceRef;
-
-    private DbDsSetting dataSource;
+    private String datasource;
 
     public String getPreDml() {
         return preDml;
@@ -30,26 +28,18 @@ public class DatabaseLoaderSetting extends LoaderSetting{
         this.dml = dml;
     }
 
-    public String getDatasourceRef() {
-        return datasourceRef;
+    public String getDatasource() {
+        return datasource;
     }
 
-    public void setDatasourceRef(String datasourceRef) {
-        this.datasourceRef = datasourceRef;
-    }
-
-    public DbDsSetting getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DbDsSetting dataSource) {
-        this.dataSource = dataSource;
+    public void setDatasource(String dataSource) {
+        this.datasource = dataSource;
     }
 
     @Override
     public void check(){
         super.check();
         assertNotNull("dml", this.dml);
-        assertNotNull("dataSource, datasourceRef", this.datasourceRef, this.dataSource);
+        assertNotNull("datasource", this.datasource);
     }
 }

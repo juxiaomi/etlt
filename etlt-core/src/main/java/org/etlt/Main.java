@@ -1,8 +1,11 @@
 package org.etlt;
 
+import org.etlt.job.JobContext;
 import org.etlt.job.JobExecutor;
+import org.etlt.job.ParalleledJobExecutor;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * 
@@ -16,12 +19,30 @@ public class Main {
      * @param args
      * args[0] - etlt config directory
      */
-    public static void main(String args[]){
+    public static void main(String args[]) throws IOException {
         if(args.length < 1)
             throw new IllegalArgumentException("please set the etl config directory.");
         File jobDirectory = new File(args[0]);
+        JobContext context = new JobContext(jobDirectory);
+        runAsParallel(context);
+    }
+
+    /**
+     * run as parallel, many loaders are running within different threads
+     * @param context
+     */
+    protected static void runAsParallel(JobContext context){
+        ParalleledJobExecutor paralleledJobExecutor = new ParalleledJobExecutor(context.getJobSetting().getParallel());
+        paralleledJobExecutor.execute(context);
+    }
+
+    /**
+     * run as serial, all loaders are running within a single thread
+     * @param context
+     */
+    protected static void runAsSerial(JobContext context){
         JobExecutor jobExecutor = new JobExecutor();
-        jobExecutor.execute(jobDirectory);
+        jobExecutor.execute(context);
     }
 
 }
