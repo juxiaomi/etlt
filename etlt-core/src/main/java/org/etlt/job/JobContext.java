@@ -163,7 +163,7 @@ public class JobContext implements VariableContext {
         String[] loaders = configInventory.list((dir, name) ->
                 name.endsWith(LOADER_SUFFIX)
         );
-        List<Loader> allLoaders = readLoaders(loaders);
+        List<Loader> allLoaders = resolveLoaders(loaders);
         allLoaders.forEach(loader -> addLoader(loader));
     }
 
@@ -171,7 +171,7 @@ public class JobContext implements VariableContext {
         String[] loaderSettings = configInventory.list((dir, name) ->
                 name.endsWith(BUNDLE_LOADER_SUFFIX)
         );
-        List<Loader> allLoaders = readBundleLoaders(loaderSettings);
+        List<Loader> allLoaders = resolveBundleLoaders(loaderSettings);
         allLoaders.forEach(loader -> addLoader(loader));
     }
 
@@ -183,7 +183,12 @@ public class JobContext implements VariableContext {
     protected void initResources() {
         List<ResourceSetting> resources = this.jobSetting.getResources();
         ResourceFactory resourceFactory = new ResourceFactory();
-        resources.forEach((s) -> this.resourceContainer.put(s.getName(), resourceFactory.createResource(s)));
+        resources.forEach((s) -> {
+            Object resource = resourceFactory.createResource(s);
+            if(this.resourceContainer.containsKey(s.getName()))
+                throw new EtltRuntimeException("Duplicated resource name found: " + s.getName());
+            this.resourceContainer.put(s.getName(), resource);
+        });
     }
 
     protected List<Extractor> readExtractors(String[] extractSettings) throws IOException {
@@ -197,7 +202,7 @@ public class JobContext implements VariableContext {
     protected List<Extractor> readBundleExtractors(String[] bundleExtractSettings) throws IOException {
         List<Extractor> extractors = new ArrayList<>();
         for (String ext : bundleExtractSettings) {
-            extractors.addAll(readBundleExtractor(ext));
+            extractors.addAll(resolveBundleExtractor(ext));
         }
         return extractors;
     }
@@ -214,7 +219,7 @@ public class JobContext implements VariableContext {
      * @return
      * @throws IOException
      */
-    protected List<Extractor> readBundleExtractor(String extractSetting) throws IOException {
+    protected List<Extractor> resolveBundleExtractor(String extractSetting) throws IOException {
         BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.configInventory, extractSetting), BundleExtractorSetting.class);
         List<ExtractorSetting> extractorSettings = extractorBundleSetting.createExtractorSetting();
         List<Extractor> extractors = new ArrayList<>(extractorSettings.size());
@@ -224,28 +229,28 @@ public class JobContext implements VariableContext {
         return extractors;
     }
 
-    protected List<Loader> readLoaders(String[] loaderSettings) throws IOException {
+    protected List<Loader> resolveLoaders(String[] loaderSettings) throws IOException {
         List<Loader> loaders = new ArrayList<>();
         for (String ext : loaderSettings) {
-            loaders.add(readLoader(ext));
+            loaders.add(resolveLoader(ext));
         }
         return loaders;
     }
 
-    protected List<Loader> readBundleLoaders(String[] loaderSettings) throws IOException {
+    protected List<Loader> resolveBundleLoaders(String[] loaderSettings) throws IOException {
         List<Loader> loaders = new ArrayList<>();
         for (String setting : loaderSettings) {
-            loaders.addAll(readBundleLoader(setting));
+            loaders.addAll(resolveBundleLoader(setting));
         }
         return loaders;
     }
 
-    protected Loader readLoader(String loadSetting) throws IOException {
+    protected Loader resolveLoader(String loadSetting) throws IOException {
         LoaderSetting loadSetting1 = this.reader.read(new File(this.configInventory, loadSetting), LoaderSetting.class);
         return Loader.createLoader(loadSetting1);
     }
 
-    protected List<Loader> readBundleLoader(String loadSetting) throws IOException {
+    protected List<Loader> resolveBundleLoader(String loadSetting) throws IOException {
         BundleLoaderSetting loadSetting1 = this.reader.read(new File(this.configInventory, loadSetting), BundleLoaderSetting.class);
         List<LoaderSetting> loaderSettings = loadSetting1.createLoaderSetting();
         List<Loader> loaders = new ArrayList<>(loaderSettings.size());
@@ -256,7 +261,7 @@ public class JobContext implements VariableContext {
     public Extractor getExtractor(String name) {
         Extractor extractor = this.extractors.get(name);
         if (ObjectUtils.isEmpty(extractor))
-            throw new EtltException("extractor not found: " + name);
+            throw new EtltRuntimeException("extractor not found: " + name);
         return extractor;
     }
 
@@ -276,7 +281,7 @@ public class JobContext implements VariableContext {
         }
         Object result = parameters.get(name);
         if (ObjectUtils.isEmpty(result))
-            throw new IllegalArgumentException("parameter not found: " + name);
+            throw new EtltRuntimeException("parameter not found: " + name);
         return result;
     }
 
@@ -292,7 +297,7 @@ public class JobContext implements VariableContext {
             String key = name.substring(index + 1);
             return Variable.createVariable(name, getValue(catalog, key));
         }
-        throw new IllegalArgumentException("variable not found: " + name);
+        throw new EtltRuntimeException("variable not found: " + name);
     }
 
     public Object getResource(String name) {
@@ -302,11 +307,4 @@ public class JobContext implements VariableContext {
         return resource;
     }
 
-    public synchronized void store(String key, Object object) {
-        this.resourceContainer.put(key, object);
-    }
-
-    public synchronized Object restore(Object key) {
-        return this.resourceContainer.get(key);
-    }
 }

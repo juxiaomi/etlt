@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.etlt.EtltException;
+import org.etlt.EtltRuntimeException;
 import org.etlt.expression.ExpressionCompiler;
 import org.etlt.extract.DatabaseUtil;
 import org.etlt.extract.DbDsSetting;
@@ -20,6 +21,7 @@ public class DatabaseLoader extends Loader {
 
     private DataSource dataSource;
 
+    private Connection connection;
 
     public DatabaseLoader(DatabaseLoaderSetting setting) {
         super(setting);
@@ -40,7 +42,7 @@ public class DatabaseLoader extends Loader {
             try (PreparedStatement statement = this.getConnection().prepareStatement(setting.getPreDml())) {
                 statement.execute();
             } catch (SQLException e) {
-                throw new EtltException("preLoad error:" + getName(), e);
+                throw new EtltRuntimeException("preLoad error:" + getName(), e);
             }
         }
     }
@@ -50,7 +52,6 @@ public class DatabaseLoader extends Loader {
      */
     @Override
     public void load(JobContext context) {
-        Connection connection = null;
         try {
             DatabaseLoaderSetting setting = getSetting();
             List<ColumnSetting> columns = setting.getColumns();
@@ -89,7 +90,7 @@ public class DatabaseLoader extends Loader {
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
-            throw new EtltException("executing loader error: " + getName(), e);
+            throw new EtltRuntimeException("executing loader error: " + getName(), e);
         } finally {
             close(connection);
         }
@@ -103,7 +104,9 @@ public class DatabaseLoader extends Loader {
     }
 
     protected Connection getConnection() throws SQLException {
-        return this.dataSource.getConnection();
+        if(this.connection == null || this.connection.isClosed())
+            this.connection = this.dataSource.getConnection();
+        return this.connection;
     }
 
 }

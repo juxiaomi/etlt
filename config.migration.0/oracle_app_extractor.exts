@@ -2,7 +2,7 @@
     "properties":{
         "type":"DATA_BASE",
         "skip":0,
-        "datasourceRef":"oracle-datasource-app"
+        "datasource":"oracle-datasource-app"
     },
     "extractors":[
         {

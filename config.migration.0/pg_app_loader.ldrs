@@ -2,8 +2,8 @@
     "properties":{
         "type":"DATA_BASE",
         "autoResolve":"true",
-        "datasourceRef":"pg-datasource-app",
-        "batch" : 200
+        "datasource":"pg-datasource-app",
+		"batch":100
     },
     "loaders":[
         {
@@ -148,7 +148,7 @@
                 "DICT_RBIC_ENTRY"
             ],
             "preDml":"TRUNCATE TABLE DICT_RBIC_ENTRY",
-            "dml":"INSERT INTO DICT_RBIC_ENTRY VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            "dml":"INSERT INTO DICT_RBIC_ENTRY VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         },
          {
             "name":"DICT_RU_EN_TRANSLATION",
@@ -180,7 +180,7 @@
                 "DP_JTFOPENING"
             ],
             "preDml":"TRUNCATE TABLE DP_JTFOPENING",
-            "dml":"INSERT INTO DP_JTFOPENING VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            "dml":"INSERT INTO DP_JTFOPENING VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         },
          {
             "name":"DP_JTFOPENING_HIST",
@@ -188,24 +188,9 @@
                 "DP_JTFOPENING_HIST"
             ],
             "preDml":"TRUNCATE TABLE DP_JTFOPENING_HIST",
-            "dml":"INSERT INTO DP_JTFOPENING_HIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            "dml":"INSERT INTO DP_JTFOPENING_HIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         },
-         {
-            "name":"DP_JTFWITHDRAW",
-            "extractors":[
-                "DP_JTFWITHDRAW"
-            ],
-            "preDml":"TRUNCATE TABLE DP_JTFWITHDRAW",
-            "dml":"INSERT INTO DP_JTFWITHDRAW VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
-        },
-         {
-            "name":"DP_JTFWITHDRAW_HIST",
-            "extractors":[
-                "DP_JTFWITHDRAW_HIST"
-            ],
-            "preDml":"TRUNCATE TABLE DP_JTFWITHDRAW_HIST",
-            "dml":"INSERT INTO DP_JTFWITHDRAW_HIST VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
-        },
+
          {
             "name":"DP_PROD",
             "extractors":[

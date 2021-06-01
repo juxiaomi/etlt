@@ -35,9 +35,9 @@ public class ResourceFactory {
             p.setMaxIdle(datasourceResourceSetting.getMaxIdle());
             p.setMaxActive(datasourceResourceSetting.getMaxActive());
             p.setMaxWait(10000);
+            p.setRemoveAbandoned(true);
             p.setRemoveAbandonedTimeout(60);
             p.setMinEvictableIdleTimeMillis(30000);
-            p.setLogAbandoned(true);
             p.setJdbcInterceptors(
                     "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"
                             + "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer;"

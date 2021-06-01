@@ -1,37 +1,60 @@
 {
   "name": "migration-job",
+  "parallel": 5,
   "extractors": [
     "*"
   ],
   "loaders": [
     "*"
   ],
-  "parameters": {
-    "oracle-datasource-app": {
+  "resources": [
+     {"name":"oracle-datasource-app",
+	 "type": "DATA_BASE",
       "className": "oracle.jdbc.driver.OracleDriver",
       "url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
       "user": "cfca_app",
-      "password": "Ghbkj4tybt_0403"
+      "password": "Ghbkj4tybt_0403",
+	  "validationQuery":"SELECT 1 FROM DUAL",
+	  "initialSize" : 1,
+       "minIdle": 2,
+       "maxIdle" :  10,
+       "maxActive" : 20
     },
-    "pg-datasource-app": {
+    {"name":"pg-datasource-app",
+	"type": "DATA_BASE",
       "className": "org.postgresql.Driver",
       "url": "jdbc:postgresql://itaofei.top:15432/cfca_app",
       "user": "itaofei",
       "password": "4CgbWMUB76uxNcUp^v@*",
-      "validationQuery": "SELECT 1"
+	  "validationQuery":"SELECT 1",
+	  "initialSize" : 1,
+       "minIdle": 2,
+       "maxIdle" :  10,
+       "maxActive" : 20
     },
-    "oracle-datasource-web": {
+    {"name":"oracle-datasource-web",
+	"type": "DATA_BASE",
       "className": "oracle.jdbc.driver.OracleDriver",
       "url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
       "user": "cfca_web",
-      "password": "Dtbghbkj4_0403"
+      "password": "Dtbghbkj4_0403",
+	  "validationQuery":"SELECT 1 FROM DUAL",
+	  "initialSize" : 1,
+       "minIdle": 2,
+       "maxIdle" :  10,
+       "maxActive" : 20
     },
-    "pg-datasource-web": {
+    {"name":"pg-datasource-web",
+	"type": "DATA_BASE",
       "className": "org.postgresql.Driver",
       "url": "jdbc:postgresql://itaofei.top:15432/cfca_web",
       "user": "itaofei",
       "password": "4CgbWMUB76uxNcUp^v@*",
-      "validationQuery": "SELECT 1"
+	  "validationQuery":"SELECT 1",
+	  "initialSize" : 1,
+       "minIdle": 2,
+       "maxIdle" :  10,
+       "maxActive" : 20
     }
-  }
+  ]
 }

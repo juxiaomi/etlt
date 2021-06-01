@@ -1,6 +1,6 @@
 package org.etlt;
 
-public class EtltException extends RuntimeException{
+public class EtltException extends Exception{
 
     public EtltException(String message){
         super(message);

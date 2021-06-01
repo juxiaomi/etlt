@@ -1,11 +1,14 @@
 package org.etlt.load;
 
-import org.etlt.EtltException;
+import org.etlt.EtltRuntimeException;
+import org.etlt.expression.ExpressionCompiler;
 import org.etlt.extract.Extractor;
 import org.etlt.job.JobContext;
-import org.etlt.expression.ExpressionCompiler;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -56,7 +59,7 @@ public class FileLoader extends Loader {
                 bufferedWriter.write(sb.toString());
             }
         } catch (IOException e) {
-            throw new EtltException("load execution error: " + getName(), e);
+            throw new EtltRuntimeException("load execution error: " + getName(), e);
         }
     }
 

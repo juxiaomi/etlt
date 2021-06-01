@@ -1,6 +1,7 @@
 package org.etlt.extract;
 
 import org.etlt.EtltException;
+import org.etlt.EtltRuntimeException;
 import org.etlt.job.JobContext;
 
 import java.io.*;
@@ -42,7 +43,7 @@ public class FileExtractor extends Extractor {
                 doFinish();
             }
         } catch (IOException e) {
-            throw new EtltException("extractor execution error: " + getName(), e);
+            throw new EtltRuntimeException("extractor execution error: " + getName(), e);
         }
     }
 

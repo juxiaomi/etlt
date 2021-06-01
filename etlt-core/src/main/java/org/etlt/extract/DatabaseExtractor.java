@@ -1,7 +1,7 @@
 package org.etlt.extract;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.etlt.EtltException;
+import org.etlt.EtltRuntimeException;
 import org.etlt.job.JobContext;
 
 import javax.sql.DataSource;
@@ -31,19 +31,21 @@ public class DatabaseExtractor extends Extractor {
         try {
             if (this.setting.getDatasource() != null) {
                 this.dataSource = (DataSource) context.getResource(this.setting.getDatasource());
-            }
-            this.connection = this.dataSource.getConnection();
-            this.statement = this.connection.prepareStatement(this.setting.getDql());
-            resultSet = this.statement.executeQuery();
-            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-            int columnCount = resultSetMetaData.getColumnCount();
-            if (this.setting.isAutoResolve() && getColumns().size() == 0) {
-                for (int i = 0; i < columnCount; i++) {
-                    getColumns().add(resultSetMetaData.getColumnLabel(i + 1));
+                this.connection = this.dataSource.getConnection();
+                this.statement = this.connection.prepareStatement(this.setting.getDql());
+                resultSet = this.statement.executeQuery();
+                ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                int columnCount = resultSetMetaData.getColumnCount();
+                if (this.setting.isAutoResolve() && getColumns().size() == 0) {
+                    for (int i = 0; i < columnCount; i++) {
+                        getColumns().add(resultSetMetaData.getColumnLabel(i + 1));
+                    }
                 }
             }
         } catch (SQLException e) {
-            throw new EtltException("Extractor init error: " + getName(), e);
+            throw new EtltRuntimeException("Extractor init error: " + getName(), e);
+        } finally {
+            close(resultSet, statement, connection);
         }
     }
 
@@ -51,6 +53,11 @@ public class DatabaseExtractor extends Extractor {
     @Override
     public void extract(JobContext context) {
         try {
+            if (this.connection == null || this.connection.isClosed()) {
+                this.connection = this.dataSource.getConnection();
+                this.statement = this.connection.prepareStatement(this.setting.getDql());
+                resultSet = this.statement.executeQuery();
+            }
             if (resultSet.next()) {
                 if (this.skip < this.setting.getSkip()) {
                     this.skip++;
@@ -62,9 +69,9 @@ public class DatabaseExtractor extends Extractor {
                     for (int i = 0; i < getColumns().size(); i++) {
                         if (getColumns().contains(resultSetMetaData.getColumnLabel(i + 1)))
                             rowData.put(getColumns().get(i),
-                                        DatabaseUtil.getObject(resultSet, i+1,
-                                                resultSetMetaData.getColumnType(i+1))
-                                    );
+                                    DatabaseUtil.getObject(resultSet, i + 1,
+                                            resultSetMetaData.getColumnType(i + 1))
+                            );
                     }
                     Entity entity = new Entity(index++, rowData);
                     context.setEntity(this.setting.getName(), entity);
@@ -75,6 +82,7 @@ public class DatabaseExtractor extends Extractor {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            doFinish();
         }
     }
 

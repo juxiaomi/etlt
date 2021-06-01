@@ -3,6 +3,7 @@ package org.etlt.job;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.etlt.EtltException;
+import org.etlt.EtltRuntimeException;
 import org.etlt.load.Loader;
 
 import java.io.File;
@@ -18,7 +19,7 @@ public class JobExecutor {
             JobContext jobContext = new JobContext(jobDirectory);
             execute(jobContext);
         } catch (IOException e) {
-            throw new EtltException("job executing error.", e);
+            throw new EtltRuntimeException("job executing error.", e);
         }
     }
 
@@ -37,7 +38,7 @@ public class JobExecutor {
                 log.info((i + 1) + "/" + loaders.size() + ", loader " + loader.getName() + " finished");
             }
         } catch (IOException e) {
-            throw new EtltException("job executing error.", e);
+            throw new EtltRuntimeException("job executing error.", e);
         }
     }
 

@@ -57,7 +57,7 @@ public class ParalleledJobExecutor {
                 worker.start();
             }
         } catch (IOException e) {
-            throw new EtltException("job executing error.", e);
+            throw new EtltRuntimeException("job executing error.", e);
         }
     }
 
