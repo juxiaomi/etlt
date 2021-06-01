@@ -2,14 +2,13 @@ package org.etlt.job;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.etlt.EtltException;
 import org.etlt.EtltRuntimeException;
 import org.etlt.SettingReader;
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.datameta.Variable;
+import org.etlt.extract.BundleExtractorSetting;
 import org.etlt.extract.Entity;
 import org.etlt.extract.Extractor;
-import org.etlt.extract.BundleExtractorSetting;
 import org.etlt.extract.ExtractorSetting;
 import org.etlt.load.BundleLoaderSetting;
 import org.etlt.load.Loader;
@@ -17,7 +16,10 @@ import org.etlt.load.LoaderSetting;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class JobContext implements VariableContext {
@@ -37,15 +39,15 @@ public class JobContext implements VariableContext {
      */
     private static final String BUNDLE_LOADER_SUFFIX = ".ldrs";
 
-    private final Map<String, Entity> entityContainer = new HashMap<String, Entity>();
+    private final Map<String, Entity> entityContainer = new HashMap<>();
 
     private final Map<String, Object> resourceContainer = new ConcurrentHashMap<>();
 
     private final File configInventory;
 
-    private JobSetting jobSetting;
+    private final JobSetting jobSetting;
 
-    private SettingReader reader = new SettingReader();
+    private final SettingReader reader = new SettingReader();
 
     private final Map<String, Extractor> extractors = new HashMap<>();
 
@@ -78,9 +80,9 @@ public class JobContext implements VariableContext {
     }
 
     /**
-     * @param catalog
-     * @param key
-     * @return
+     * @param catalog catalog
+     * @param key key
+     * @return mapping result
      */
     public Object mapping(String catalog, String key) {
         if (StringUtils.isBlank(catalog))
@@ -136,7 +138,6 @@ public class JobContext implements VariableContext {
      * @throws IOException
      */
     protected void initExtractors() throws IOException {
-        List<String> extractorNames = this.jobSetting.getExtractors();
         String[] exts = configInventory.list((dir, name) ->
                 name.endsWith(EXTRACTOR_SUFFIX)
         );
@@ -145,7 +146,6 @@ public class JobContext implements VariableContext {
     }
 
     protected void initBundleExtractors() throws IOException {
-        List<String> extractorNames = this.jobSetting.getExtractors();
         String[] exts = configInventory.list((dir, name) ->
                 name.endsWith(BUNDLE_EXTRACTOR_SUFFIX)
         );
@@ -300,11 +300,12 @@ public class JobContext implements VariableContext {
         throw new EtltRuntimeException("variable not found: " + name);
     }
 
-    public Object getResource(String name) {
+    @SuppressWarnings("unchecked")
+    public <T> T getResource(String name) {
         Object resource = this.resourceContainer.get(name);
         if (resource == null)
             throw new EtltRuntimeException("resource not found: " + name);
-        return resource;
+        return (T) resource;
     }
 
 }

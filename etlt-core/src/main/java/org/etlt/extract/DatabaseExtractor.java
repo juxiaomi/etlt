@@ -30,7 +30,7 @@ public class DatabaseExtractor extends Extractor {
     public void init(JobContext context) {
         try {
             if (this.setting.getDatasource() != null) {
-                this.dataSource = (DataSource) context.getResource(this.setting.getDatasource());
+                this.dataSource = context.getResource(this.setting.getDatasource());
                 this.connection = this.dataSource.getConnection();
                 this.statement = this.connection.prepareStatement(this.setting.getDql());
                 resultSet = this.statement.executeQuery();

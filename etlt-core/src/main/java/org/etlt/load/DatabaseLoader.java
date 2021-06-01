@@ -30,7 +30,7 @@ public class DatabaseLoader extends Loader {
 
     protected void init(JobContext context) {
         DatabaseLoaderSetting setting = getSetting();
-        this.dataSource = (DataSource) context.getResource(setting.getDatasource());
+        this.dataSource = context.getResource(setting.getDatasource());
         resolveColumns(context);
     }
 
