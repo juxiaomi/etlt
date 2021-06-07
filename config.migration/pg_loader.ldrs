@@ -3,7 +3,8 @@
         "type":"DATA_BASE",
         "autoResolve":"true",
         "datasource":"pg-datasource",
-        "batch":200
+        "batch":200,
+        "parallel":2
     },
     "loaders":[
         {

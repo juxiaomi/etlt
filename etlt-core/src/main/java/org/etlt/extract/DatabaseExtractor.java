@@ -1,6 +1,5 @@
 package org.etlt.extract;
 
-import org.etlt.EtltException;
 import org.etlt.EtltRuntimeException;
 import org.etlt.job.JobContext;
 
@@ -44,8 +43,6 @@ public class DatabaseExtractor extends Extractor {
             }
         } catch (SQLException e) {
             throw new EtltRuntimeException("Extractor init error: " + getName(), e);
-        } finally {
-            close(resultSet, statement, connection);
         }
     }
 
@@ -58,33 +55,34 @@ public class DatabaseExtractor extends Extractor {
                 this.statement = this.connection.prepareStatement(this.setting.getDql());
                 resultSet = this.statement.executeQuery();
             }
-            if (resultSet.next()) {
-                if (this.skip < this.setting.getSkip()) {
-                    this.skip++;
-                    this.index++;
-                    extract(context);
-                } else {
-                    Map<String, Object> rowData = new HashMap<>();
-                    ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-                    for (int i = 0; i < getColumns().size(); i++) {
-                        if (getColumns().contains(resultSetMetaData.getColumnLabel(i + 1)))
-                            rowData.put(getColumns().get(i),
-                                    DatabaseUtil.getObject(resultSet, i + 1,
-                                            resultSetMetaData.getColumnType(i + 1))
-                            );
+            synchronized (this) {
+                if (this.resultSet.next()) {
+                    if (this.skip < this.setting.getSkip()) {
+                        this.skip++;
+                        this.index++;
+                        extract(context);
+                    } else {
+                        Map<String, Object> rowData = new HashMap<>();
+                        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                        for (int i = 0; i < getColumns().size(); i++) {
+                            if (getColumns().contains(resultSetMetaData.getColumnLabel(i + 1)))
+                                rowData.put(getColumns().get(i),
+                                        DatabaseUtil.getObject(resultSet, i + 1,
+                                                resultSetMetaData.getColumnType(i + 1))
+                                );
+                        }
+                        Entity entity = new Entity(index++, rowData);
+                        context.setEntity(this.setting.getName(), entity);
                     }
-                    Entity entity = new Entity(index++, rowData);
-                    context.setEntity(this.setting.getName(), entity);
+                } else {
+                    context.removeEntity(this.setting.getName());
                 }
-            } else {
-                context.removeEntity(this.setting.getName());
-                doFinish();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            doFinish();
         }
     }
+
 
     @Override
     public List<String> getColumns() {

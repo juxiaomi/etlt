@@ -11,16 +11,16 @@
  */
 package com.github.drinkjava2.jdialects;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.github.drinkjava2.jdialects.model.ColumnModel;
 import com.github.drinkjava2.jdialects.model.FKeyModel;
+import com.github.drinkjava2.jdialects.model.IndexModel;
 import com.github.drinkjava2.jdialects.model.TableModel;
 
 /**
@@ -32,6 +32,18 @@ import com.github.drinkjava2.jdialects.model.TableModel;
 public abstract class TableModelUtilsOfDb {
 	private static final String TABLE_NAME = "TABLE_NAME";
 
+	/**
+	 * get schema of database instance
+	 * @param dialect
+	 * @param metaData
+	 * @return
+	 * @throws SQLException
+	 */
+	private static String getSchema(Dialect dialect,DatabaseMetaData metaData ) throws SQLException {
+		return
+		dialect.isOracleFamily() || dialect.isDB2Family()
+				? metaData.getUserName() : null;
+	}
 	/**
 	 * Convert JDBC connected database structure to TableModels, note: <br/>
 	 * 1)This method does not close connection <br/>
@@ -48,18 +60,39 @@ public abstract class TableModelUtilsOfDb {
 			DatabaseMetaData meta = con.getMetaData();
 			String catalog = con.getCatalog();
 			// get Tables
-			rs = meta.getTables(catalog, dialect.isOracleFamily() ? meta.getUserName() : null, null,
+			rs = meta.getTables(catalog,
+					getSchema(dialect, meta),
+					null,
 					new String[] { "TABLE" });
 			while (rs.next()) {
 				String tableName = rs.getString(TABLE_NAME);
+				ResultSet indexRs = null;
 				if (!StrUtils.isEmpty(tableName)) {
+					// get indexes
+					indexRs = meta.getIndexInfo(catalog,
+							con.getSchema(),
+							tableName,false, false
+							);
 					TableModel model = new TableModel(tableName);
 					tableModels.add(model);
+					IndexCollection indexCollection = new IndexCollection();
+					while(indexRs.next()){
+						String cname = indexRs.getString("COLUMN_NAME");
+						String iname = indexRs.getString("INDEX_NAME");
+						short position = indexRs.getShort("ORDINAL_POSITION");
+						boolean unique = !indexRs.getBoolean("NON_UNIQUE");
+						IndexDesc indexDesc = new IndexDesc(iname, position, cname, unique);
+						indexCollection.addIndexDesc(indexDesc);
+					}
+					indexCollection.generateIndexes();
+					indexCollection.indexModels.forEach((indexModel -> model.addIndex(indexModel)));
+					indexRs.close();
 					String comment = rs.getString("REMARKS");
 					if (!StrUtils.isEmpty(comment))
 						model.setComment(comment);
 				}
 			}
+
 			rs.close();
 
 			// Build Columns
@@ -153,6 +186,50 @@ public abstract class TableModelUtilsOfDb {
 		if (sqlException != null)
 			throw new DialectException(sqlException);
 		return tableModels.toArray(new TableModel[tableModels.size()]);
+	}
+
+	static class IndexCollection{
+		List<IndexDesc> indexDescs = new ArrayList<>();
+
+		List<IndexModel> indexModels = new ArrayList<>();
+
+		void addIndexDesc(IndexDesc indexDesc){
+			this.indexDescs.add(indexDesc);
+		}
+
+		void generateIndexes(){
+			indexDescs.forEach((indexDesc -> {
+				List<IndexModel> results =
+					indexModels.stream().filter((indexModel ->
+						indexModel.getName().equals(indexDesc.indexName))).collect(Collectors.toList());
+				Optional<IndexModel> result = results.stream().findFirst();
+				if(result.isPresent()){
+					result.get().addColumn(indexDesc.column, indexDesc.position);
+				}else{
+					IndexModel indexModel = new IndexModel(indexDesc.indexName);
+					indexModel.addColumn(indexDesc.column, indexDesc.position);
+					indexModel.setUnique(indexDesc.unique);
+					this.indexModels.add(indexModel);
+				}
+			}));
+		}
+	}
+
+	static class IndexDesc{
+		String indexName;
+
+		short position;
+
+		String column;
+
+		boolean unique;
+
+		IndexDesc(String indexName, short position, String column, boolean unique){
+			this.indexName = indexName;
+			this.position = position;
+			this.column = column;
+			this.unique = unique;
+		}
 	}
 
 }

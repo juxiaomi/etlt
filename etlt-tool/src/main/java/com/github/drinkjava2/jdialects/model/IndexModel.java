@@ -112,4 +112,16 @@ public class IndexModel {
 		this.tableModel = tableModel;
 	}
 
+	public IndexModel addColumn(String name, short position){
+		if(this.columnList == null){
+			this.columnList = new String[position];
+		}else if(this.columnList.length < position){
+			String[] existingOne = this.columnList;
+			this.columnList = new String[position];
+			System.arraycopy(existingOne,0, this.columnList, 0, existingOne.length);
+		}
+		this.columnList[position - 1] = name;
+		return this;
+	}
+
 }

@@ -356,6 +356,11 @@ public class TableModel {
 		return null;
 	}
 
+	public TableModel addIndex(IndexModel indexModel){
+		indexModel.setTableModel(this);
+		getIndexConsts().add(indexModel);
+		return this;
+	}
 	/**
 	 * Start add a Index in DDL, detail usage see demo
 	 */

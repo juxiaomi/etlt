@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * this class is not thread safe, when it is used in many threads, copy it firstly
+ */
 public class JobContext implements VariableContext {
 
     public static final String JOB_SETTING = "job.json";
@@ -38,14 +41,16 @@ public class JobContext implements VariableContext {
      * define many loaders
      */
     private static final String BUNDLE_LOADER_SUFFIX = ".ldrs";
-
-    private final Map<String, Entity> entityContainer = new HashMap<>();
+    /**
+     *
+     */
+    private Map<String, Entity> entityContainer = new HashMap<>();
 
     private final Map<String, Object> resourceContainer = new ConcurrentHashMap<>();
 
-    private final File configInventory;
+    private File configInventory;
 
-    private final JobSetting jobSetting;
+    private JobSetting jobSetting;
 
     private final SettingReader reader = new SettingReader();
 
@@ -58,6 +63,25 @@ public class JobContext implements VariableContext {
     public JobContext(File configInventory) throws IOException{
         this.configInventory = configInventory;
         this.jobSetting = this.reader.read(new File(this.configInventory, JOB_SETTING), JobSetting.class);
+    }
+
+    private JobContext(){
+
+    }
+
+    public JobContext copy(){
+        JobContext jobContext = new JobContext();
+        jobContext.configInventory = this.configInventory;
+        jobContext.jobSetting = this.jobSetting;
+        jobContext.extractors.putAll(this.extractors);
+        jobContext.loaders.putAll(this.loaders);
+        jobContext.mapping.putAll(this.mapping);
+        jobContext.resourceContainer.putAll(this.resourceContainer);
+        /**
+         * entity container should be initialized
+         */
+        jobContext.entityContainer = new HashMap<>();
+        return jobContext;
     }
 
     public JobSetting getJobSetting() {

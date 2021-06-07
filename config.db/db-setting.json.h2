@@ -1,6 +1,0 @@
-{
-	"type": "h2",
-	"url": "jdbc:h2:tcp://localhost:9092/~/ecifprd;SCHEMA=ecifprd",
-	"user": "ecifprduser",
-	"password": "ecifprduser"
-}

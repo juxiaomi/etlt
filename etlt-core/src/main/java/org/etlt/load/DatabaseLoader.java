@@ -16,12 +16,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class DatabaseLoader extends Loader {
 
     private DataSource dataSource;
 
-    private Connection connection;
+//    private Connection connection;
+
+    private CountDownLatch countDownLatch;
 
     public DatabaseLoader(DatabaseLoaderSetting setting) {
         super(setting);
@@ -31,6 +34,7 @@ public class DatabaseLoader extends Loader {
     protected void init(JobContext context) {
         DatabaseLoaderSetting setting = getSetting();
         this.dataSource = context.getResource(setting.getDatasource());
+        this.countDownLatch = new CountDownLatch(setting.getParallel());
         resolveColumns(context);
     }
 
@@ -47,19 +51,33 @@ public class DatabaseLoader extends Loader {
         }
     }
 
+    public void load(JobContext context){
+        DatabaseLoaderSetting setting = getSetting();
+        ThreadGroup threadGroup = new ThreadGroup(getName());
+        for(int i = 0; i < setting.getParallel(); i++){
+            JobContext newContext = context.copy();
+            Thread worker = new Thread(threadGroup, ()->load0(newContext, getConnection()),getName() + "-worker-" + i);
+            worker.start();
+
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new EtltRuntimeException(e);
+        }
+    }
     /**
      * @param context
      */
-    @Override
-    public void load(JobContext context) {
+    private void load0(JobContext context, Connection connection) {
+        Extractor extractor = null;
         try {
             DatabaseLoaderSetting setting = getSetting();
             List<ColumnSetting> columns = setting.getColumns();
             String ds = setting.getExtractors().get(0);
-            Extractor extractor = context.getExtractor(ds);
+            extractor = context.getExtractor(ds);
             ExpressionCompiler expressionCompiler = new ExpressionCompiler();
             int batch = 0;
-            connection = getConnection();
             boolean autoCommit = connection.getAutoCommit();
             if (autoCommit)
                 connection.setAutoCommit(false);
@@ -92,7 +110,11 @@ public class DatabaseLoader extends Loader {
             }
             throw new EtltRuntimeException("executing loader error: " + getName(), e);
         } finally {
+            this.countDownLatch.countDown();
             close(connection);
+            if(extractor != null)
+                extractor.doFinish();
+            System.out.println(Thread.currentThread() + " quit." + System.currentTimeMillis());
         }
     }
 
@@ -103,10 +125,12 @@ public class DatabaseLoader extends Loader {
     protected void mappingTypes(Object object) {
     }
 
-    protected Connection getConnection() throws SQLException {
-        if(this.connection == null || this.connection.isClosed())
-            this.connection = this.dataSource.getConnection();
-        return this.connection;
+    protected Connection getConnection()  {
+        try {
+            return this.dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new EtltRuntimeException(e);
+        }
     }
 
 }

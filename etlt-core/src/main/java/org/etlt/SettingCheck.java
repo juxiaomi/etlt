@@ -19,4 +19,10 @@ public interface SettingCheck {
         if (obj == null)
             throw new IllegalArgumentException("unsupported null object: " + message);
     }
+
+    default void assertCondition(String message, boolean condition){
+        if(!condition){
+            throw new IllegalArgumentException("condition should be true: " + message);
+        }
+    }
 }

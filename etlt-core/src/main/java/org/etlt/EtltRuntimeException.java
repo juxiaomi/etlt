@@ -13,11 +13,8 @@ public class EtltRuntimeException extends RuntimeException{
         super(message, cause);
     }
 
-    public EtltRuntimeException(SQLException e) {
-        super(e);
-    }
 
-    public EtltRuntimeException(IOException e) {
+    public EtltRuntimeException(Exception e) {
         super(e);
     }
 }
