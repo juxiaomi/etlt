@@ -18,6 +18,7 @@ public class JobExecutor {
     public void execute(File jobDirectory) {
         try {
             JobContext jobContext = new JobContext(jobDirectory);
+            jobContext.init();
             execute(jobContext);
         } catch (IOException e) {
             throw new EtltRuntimeException("job executing error.", e);
@@ -40,11 +41,9 @@ public class JobExecutor {
         }
         /**
          * execute all validators
-         * todo
          */
         List<Validator> validators = context.getAllValidators();
         log.info("there are " + validators.size() + " validators.");
-        //todo
         validators.forEach(validator -> {
             validator.validate(context);
         });

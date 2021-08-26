@@ -4,6 +4,7 @@ import org.etlt.Constants;
 import org.etlt.SettingReader;
 import org.etlt.job.JobContext;
 import org.etlt.load.Loader;
+import org.etlt.load.LoaderFactory;
 import org.etlt.load.LoaderSetting;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class TestDbLoader {
         LoaderSetting setting = settingReader.read(settingPath, LoaderSetting.class);
         context = new JobContext(new File(Constants.CONFIG_DIRECTORY));
         context.init();
-        loader = Loader.createLoader(setting);
+        loader = LoaderFactory.getInstance().createLoader(setting);
     }
 
     @Test

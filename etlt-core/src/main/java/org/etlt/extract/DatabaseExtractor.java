@@ -79,7 +79,7 @@ public class DatabaseExtractor extends Extractor {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new EtltRuntimeException(e);
         }
     }
 
@@ -87,6 +87,13 @@ public class DatabaseExtractor extends Extractor {
     @Override
     public List<String> getColumns() {
         return this.setting.getColumns();
+    }
+
+    @Override
+    public DatabaseExtractor createInstance() {
+        DatabaseExtractor extractor = new DatabaseExtractor(this.setting);
+        extractor.dataSource = this.dataSource;
+        return extractor;
     }
 
     @Override

@@ -19,6 +19,8 @@ public abstract class Extractor {
 
     public abstract List<String> getColumns();
 
+    public abstract <T extends  Extractor> T createInstance();
+
     /**
      * clean resources
      */
@@ -40,19 +42,6 @@ public abstract class Extractor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public static Extractor createExtractor(ExtractorSetting setting, JobContext context){
-        if(setting instanceof FileExtractSetting){
-            FileExtractor extractor = new FileExtractor((FileExtractSetting)setting);
-            extractor.init(context);
-            return  extractor;
-        }else if(setting instanceof DatabaseExtractSetting){
-            DatabaseExtractor extractor = new DatabaseExtractor((DatabaseExtractSetting) setting);
-            extractor.init(context);
-            return  extractor;
-        }
-        throw new IllegalArgumentException("unsupported extractor setting: " + setting.getName());
     }
 
     public void init(JobContext context){}

@@ -6,15 +6,14 @@ import org.etlt.EtltRuntimeException;
 import org.etlt.SettingReader;
 import org.etlt.expression.VariableContext;
 import org.etlt.expression.datameta.Variable;
-import org.etlt.extract.BundleExtractorSetting;
-import org.etlt.extract.Entity;
-import org.etlt.extract.Extractor;
-import org.etlt.extract.ExtractorSetting;
+import org.etlt.extract.*;
 import org.etlt.load.BundleLoaderSetting;
 import org.etlt.load.Loader;
+import org.etlt.load.LoaderFactory;
 import org.etlt.load.LoaderSetting;
 import org.etlt.validate.BundleValidatorSetting;
 import org.etlt.validate.Validator;
+import org.etlt.validate.ValidatorFactory;
 import org.etlt.validate.ValidatorSetting;
 
 import java.io.File;
@@ -27,6 +26,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * this class is not thread safe, when it is used in many threads, copy it firstly
+ * <p>Usage:</p>
+ * 1)JobContext context = new JobContext();<br>
+ * 2)context.init()<br>
  */
 public class JobContext implements VariableContext {
 
@@ -71,15 +73,15 @@ public class JobContext implements VariableContext {
 
     private Map<String, Object> mapping = new HashMap<>();
 
-    public JobContext(File contextRoot) throws IOException{
+    public JobContext(File contextRoot) throws IOException {
         this.contextRoot = contextRoot;
         this.jobSetting = this.reader.read(new File(this.contextRoot, JOB_SETTING), JobSetting.class);
     }
 
-    private JobContext(){
+    private JobContext() {
     }
 
-    public JobContext copy(){
+    public JobContext copy() {
         JobContext jobContext = new JobContext();
         jobContext.contextRoot = this.contextRoot;
         jobContext.jobSetting = this.jobSetting;
@@ -116,7 +118,7 @@ public class JobContext implements VariableContext {
 
     /**
      * @param catalog catalog
-     * @param key key
+     * @param key     key
      * @return mapping result
      */
     public Object mapping(String catalog, String key) {
@@ -158,6 +160,9 @@ public class JobContext implements VariableContext {
          */
         initValidators();
         initBundleValidators();
+        /**
+         * init mapping
+         */
         initMapping();
     }
 
@@ -195,7 +200,7 @@ public class JobContext implements VariableContext {
         String[] exts = getContextRoot().list((dir, name) ->
                 name.endsWith(EXTRACTOR_SUFFIX)
         );
-        List<Extractor> allExtractors = readExtractors(exts);
+        List<Extractor> allExtractors = ExtractorFactory.getInstance().resolveInstances(exts, this);
         allExtractors.forEach((extractor -> addExtractor(extractor)));
     }
 
@@ -203,7 +208,7 @@ public class JobContext implements VariableContext {
         String[] exts = getContextRoot().list((dir, name) ->
                 name.endsWith(BUNDLE_EXTRACTOR_SUFFIX)
         );
-        List<Extractor> allExtractors = readBundleExtractors(exts);
+        List<Extractor> allExtractors = ExtractorFactory.getInstance().resolveBundleInstances(exts, this);
         allExtractors.forEach(extractor -> addExtractor(extractor));
     }
 
@@ -217,7 +222,7 @@ public class JobContext implements VariableContext {
         String[] loaders = getContextRoot().list((dir, name) ->
                 name.endsWith(LOADER_SUFFIX)
         );
-        List<Loader> allLoaders = resolveLoaders(loaders);
+        List<Loader> allLoaders = LoaderFactory.getInstance().resolveInstances(loaders, this);
         allLoaders.forEach(loader -> addLoader(loader));
     }
 
@@ -225,7 +230,7 @@ public class JobContext implements VariableContext {
         String[] loaderSettings = getContextRoot().list((dir, name) ->
                 name.endsWith(BUNDLE_LOADER_SUFFIX)
         );
-        List<Loader> allLoaders = resolveBundleLoaders(loaderSettings);
+        List<Loader> allLoaders = LoaderFactory.getInstance().resolveBundleInstances(loaderSettings, this);
         allLoaders.forEach(loader -> addLoader(loader));
     }
 
@@ -239,7 +244,7 @@ public class JobContext implements VariableContext {
         String[] validators = getContextRoot().list((dir, name) ->
                 name.endsWith(VALIDATOR_SUFFIX)
         );
-        List<Validator> allValidators = resolveValidators(validators);
+        List<Validator> allValidators = ValidatorFactory.getInstance().resolveInstances(validators, this);
         allValidators.forEach(validator -> addValidator(validator));
     }
 
@@ -247,7 +252,7 @@ public class JobContext implements VariableContext {
         String[] validatorSettings = getContextRoot().list((dir, name) ->
                 name.endsWith(BUNDLE_VALIDATOR_SUFFIX)
         );
-        List<Validator> allValidators = resolveBundleValidators(validatorSettings);
+        List<Validator> allValidators = ValidatorFactory.getInstance().resolveBundleInstances(validatorSettings, this);
         allValidators.forEach(validator -> addValidator(validator));
     }
 
@@ -261,113 +266,18 @@ public class JobContext implements VariableContext {
         ResourceFactory resourceFactory = new ResourceFactory();
         resources.forEach((s) -> {
             Object resource = resourceFactory.createResource(s);
-            if(this.resourceContainer.containsKey(s.getName()))
+            if (this.resourceContainer.containsKey(s.getName()))
                 throw new EtltRuntimeException("Duplicated resource name found: " + s.getName());
             this.resourceContainer.put(s.getName(), resource);
         });
     }
 
-    protected List<Extractor> readExtractors(String[] extractSettings) throws IOException {
-        List<Extractor> extractors = new ArrayList<>();
-        for (String ext : extractSettings) {
-            extractors.add(readExtractor(ext));
-        }
-        return extractors;
-    }
-
-    protected List<Extractor> readBundleExtractors(String[] bundleExtractSettings) throws IOException {
-        List<Extractor> extractors = new ArrayList<>();
-        for (String ext : bundleExtractSettings) {
-            extractors.addAll(resolveBundleExtractor(ext));
-        }
-        return extractors;
-    }
-
-    protected Extractor readExtractor(String extractSetting) throws IOException {
-        ExtractorSetting extractorSetting = this.reader.read(new File(this.getContextRoot(), extractSetting), ExtractorSetting.class);
-        return Extractor.createExtractor(extractorSetting, this);
-    }
-
-    /**
-     * read extractors from extractor bundle setting
-     *
-     * @param extractSetting
-     * @return
-     * @throws IOException
-     */
-    protected List<Extractor> resolveBundleExtractor(String extractSetting) throws IOException {
-        BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.getContextRoot(), extractSetting), BundleExtractorSetting.class);
-        List<ExtractorSetting> extractorSettings = extractorBundleSetting.createExtractorSetting();
-        List<Extractor> extractors = new ArrayList<>(extractorSettings.size());
-        extractorSettings.forEach((setting) -> {
-            extractors.add(Extractor.createExtractor(setting, this));
-        });
-        return extractors;
-    }
-
-    protected List<Loader> resolveLoaders(String[] loaderSettings) throws IOException {
-        List<Loader> loaders = new ArrayList<>();
-        for (String loaderSetting : loaderSettings) {
-            loaders.add(resolveLoader(loaderSetting));
-        }
-        return loaders;
-    }
-
-    protected List<Loader> resolveBundleLoaders(String[] loaderSettings) throws IOException {
-        List<Loader> loaders = new ArrayList<>();
-        for (String setting : loaderSettings) {
-            loaders.addAll(resolveBundleLoader(setting));
-        }
-        return loaders;
-    }
-
-    protected Loader resolveLoader(String loadSetting) throws IOException {
-        LoaderSetting loadSetting1 = this.reader.read(new File(this.getContextRoot(), loadSetting), LoaderSetting.class);
-        return Loader.createLoader(loadSetting1);
-    }
-
-    protected List<Loader> resolveBundleLoader(String loadSetting) throws IOException {
-        BundleLoaderSetting loadSetting1 = this.reader.read(new File(this.getContextRoot(), loadSetting), BundleLoaderSetting.class);
-        List<LoaderSetting> loaderSettings = loadSetting1.createLoaderSetting();
-        List<Loader> loaders = new ArrayList<>(loaderSettings.size());
-        loaderSettings.forEach(ls -> loaders.add(Loader.createLoader(ls)));
-        return loaders;
-    }
-
-    protected Validator resolveValidator(String validatorSetting) throws IOException {
-        ValidatorSetting validatorSetting1 = this.reader.read(new File(this.getContextRoot(), validatorSetting), ValidatorSetting.class);
-        return Validator.createValidator(validatorSetting1);
-    }
-
-    protected List<Validator> resolveValidators(String[] validatorSettings) throws IOException {
-        List<Validator> validators = new ArrayList<>();
-        for (String setting: validatorSettings) {
-            validators.add(resolveValidator(setting));
-        }
-        return validators;
-    }
-
-    protected List<Validator> resolveBundleValidator(String validatorSetting) throws IOException {
-        BundleValidatorSetting validatorSetting1 = this.reader.read(new File(this.getContextRoot(), validatorSetting), BundleValidatorSetting.class);
-        List<ValidatorSetting> validatorSettings = validatorSetting1.createValidatorSetting();
-        List<Validator> validators = new ArrayList<>(validatorSettings.size());
-        validatorSettings.forEach(ls -> validators.add(Validator.createValidator(ls)));
-        return validators;
-    }
-
-    private List<Validator> resolveBundleValidators(String[] validatorSettings) throws IOException {
-        List<Validator> validators = new ArrayList<>();
-        for (String setting : validatorSettings) {
-            validators.addAll(resolveBundleValidator(setting));
-        }
-        return validators;
-    }
 
     public Extractor getExtractor(String name) {
         Extractor extractor = this.extractors.get(name);
         if (ObjectUtils.isEmpty(extractor))
             throw new EtltRuntimeException("extractor not found: " + name);
-        return extractor;
+        return extractor.createInstance();
     }
 
     public Loader getLoader(String name) {
@@ -386,7 +296,7 @@ public class JobContext implements VariableContext {
 
     public Object getParameter(String name) {
         Map<String, Object> parameters = this.jobSetting.getParameters();
-        if(parameters == null){
+        if (parameters == null) {
             throw new EtltRuntimeException("no parameters set. ");
         }
         Object result = parameters.get(name);

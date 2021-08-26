@@ -53,6 +53,12 @@ public class FileExtractor extends Extractor {
     }
 
     @Override
+    public FileExtractor createInstance() {
+        FileExtractor extractor = new FileExtractor(this.setting);
+        return extractor;
+    }
+
+    @Override
     public void doFinish() {
         close(reader);
     }

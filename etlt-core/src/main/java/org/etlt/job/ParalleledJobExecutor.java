@@ -31,6 +31,7 @@ public class ParalleledJobExecutor {
     public void execute(File jobDirectory) {
         try {
             final JobContext jobContext = new JobContext(jobDirectory);
+            jobContext.init();
             execute(jobContext);
         } catch (IOException e) {
             throw new EtltRuntimeException(e);

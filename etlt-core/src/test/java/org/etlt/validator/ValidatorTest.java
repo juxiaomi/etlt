@@ -1,5 +1,6 @@
 package org.etlt.validator;
 
+import org.etlt.Main;
 import org.etlt.job.JobContext;
 import org.etlt.job.JobExecutor;
 import org.junit.Assert;
@@ -17,6 +18,7 @@ public class ValidatorTest {
     public void init() throws IOException {
         context = new JobContext(new File("../config.validator"));
         context.init();
+        System.setProperty(Main.JOB_INVENTORY, context.getContextRoot().getAbsolutePath());
     }
 
     @Test

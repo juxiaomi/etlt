@@ -5,5 +5,5 @@
   "autoResolve": "true",
   "preDml": "TRUNCATE TABLE T_PROPS",
   "dml": "INSERT INTO T_PROPS VALUES(?, ?, ?, ?,?)",
-  "datasource": "h2-datasource"
+  "datasource": "pg-datasource"
 }

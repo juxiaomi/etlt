@@ -10,6 +10,10 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * if no data found in table (T_PROPS), use this sql: <br>
+ *     INSERT INTO T_PROPS values('rov', 'enabled', 'true','undefined', CURRENT_TIMESTAMP);
+ */
 public class TestDbExtractor {
 
     SettingReader settingReader = new SettingReader();

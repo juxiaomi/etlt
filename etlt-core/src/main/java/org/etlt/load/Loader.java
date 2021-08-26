@@ -74,12 +74,5 @@ public abstract class Loader implements Comparable<Loader>{
         return this.getName().compareTo(anotherLoader.getName());
     }
 
-    public static Loader createLoader(LoaderSetting setting) {
-        if (setting instanceof FileLoaderSetting) {
-            return new FileLoader((FileLoaderSetting) setting);
-        } else if (setting instanceof DatabaseLoaderSetting) {
-            return new DatabaseLoader((DatabaseLoaderSetting) setting);
-        }
-        throw new IllegalArgumentException("unsupported loader setting: " + setting.getName());
-    }
+
 }
