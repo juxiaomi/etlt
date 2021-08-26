@@ -2,7 +2,7 @@
     "properties":{
         "type":"DATA_BASE",
         "autoResolve":"true",
-        "datasourceRef":"h2datasource2"
+        "datasource":"h2-datasource2"
     },
     "loaders":[
         {

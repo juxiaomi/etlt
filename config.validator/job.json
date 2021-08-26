@@ -1,16 +1,17 @@
 {
-  "name": "module-all",
+  "name": "migration-job",
+  "parallel": 2,
   "extractors": [
-    "client",
-    "client_db",
-    "t_props"
-  ],
-  "loaders": [
     "*"
   ],
-  "mapping": "mapping.json",
+  "loaders": [
+    "T_PROPS_1"
+  ],
+  "validators": [
+    "*"
+  ],
   "resources": [
-    {
+     {
       "name": "h2-datasource",
       "type": "DATA_BASE",
       "className": "org.h2.Driver",
@@ -18,10 +19,10 @@
       "user": "dept_user",
       "password": "dept_pass",
       "validationQuery": "SELECT 1",
-      "initialSize" : 1,
-      "minIdle": 2,
-      "maxIdle" :  10,
-      "maxActive" : 20
+       "initialSize" : 1,
+       "minIdle": 2,
+       "maxIdle" :  10,
+       "maxActive" : 20
     },
     {
       "name": "pg-datasource",

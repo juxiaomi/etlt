@@ -17,6 +17,8 @@ public class JobSetting implements SettingCheck {
 
     private List<String> loaders;
 
+    private List<String> validators;
+
     private String mapping;
 
     private Map<String, Object> parameters;
@@ -45,6 +47,10 @@ public class JobSetting implements SettingCheck {
 
     public void setLoaders(List<String> loaders) {
         this.loaders = loaders;
+    }
+
+    public List<String> getValidators() {
+        return validators;
     }
 
     public String getMapping() {

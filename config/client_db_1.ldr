@@ -9,5 +9,5 @@
     "PROP_REMARK='UNSET'"
   ],
   "dml": "INSERT INTO T_PROPS VALUES(?, ?, ?, ?,current_timestamp())",
-  "datasourceRef": "h2datasource"
+  "datasource": "h2-datasource"
 }

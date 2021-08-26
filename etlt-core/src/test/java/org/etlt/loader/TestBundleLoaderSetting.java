@@ -22,7 +22,7 @@ public class TestBundleLoaderSetting {
         Map properties = new HashMap();
         properties.put("type", "DATA_BASE");
         properties.put("autoResolve", true);
-        properties.put("datasourceRef", "h2datasource");
+        properties.put("datasource", "h2datasource");
         bundleLoaderSetting.setProperties(properties);
 
         List<Map> loaders = new ArrayList<>();

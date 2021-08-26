@@ -3,5 +3,5 @@
   "type": "DATA_BASE",
   "skip": 0,
   "dql":"SELECT * FROM T_PROPS",
-  "datasourceRef": "h2datasource"
+  "datasource": "h2-datasource"
 }

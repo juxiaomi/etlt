@@ -26,7 +26,7 @@ public class FileExtractor extends Extractor {
             if (reader == null) {
                 //use file existed in job config directory
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(
-                        new File(context.getConfigInventory(), setting.getDataSource())), Charset.forName(this.setting.getEncoding()))
+                        new File(context.getContextRoot(), setting.getDataSource())), Charset.forName(this.setting.getEncoding()))
                     );
             }
             String text = reader.readLine();
@@ -59,10 +59,10 @@ public class FileExtractor extends Extractor {
 
     private Entity parse(int index, String text) {
         Map<String, Object> result = new HashMap<>();
-        String columns[] = text.split(this.setting.getDelim());
-        List<String> columnNames = setting.getColumns();
-        for (int i = 0; i < columns.length; i++) {
-            result.put(columnNames.get(i), columns[i]);
+        String concreteColumns[] = text.split(this.setting.getDelim());
+        List<String> settingColumns = setting.getColumns();
+        for (int i = 0; i < Math.min(concreteColumns.length, settingColumns.size()); i++) {
+            result.put(settingColumns.get(i), concreteColumns[i]);
         }
         return new Entity(index, result);
     }

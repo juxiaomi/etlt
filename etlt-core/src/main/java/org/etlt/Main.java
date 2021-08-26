@@ -27,7 +27,8 @@ public class Main {
             throw new IllegalArgumentException("please set the etl config directory.");
         File jobDirectory = new File(args[0]);
         JobContext context = new JobContext(jobDirectory);
-        System.setProperty(JOB_INVENTORY, context.getConfigInventory().getAbsolutePath());
+        context.init();
+        System.setProperty(JOB_INVENTORY, context.getContextRoot().getAbsolutePath());
         runAsParallel(context);
     }
 

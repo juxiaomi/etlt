@@ -1,0 +1,13 @@
+{
+  "name": "T_PROPS_1",
+  "type": "FILE",
+  "usingBanner":"true",
+  "extractors":["T_PROPS"],
+  "columns": [
+    "PROP_SCOPE=T_PROPS.PROP_SCOPE",
+    "PROP_NAME=T_PROPS.PROP_NAME",
+    "PROP_VALUE=concat(concat(T_PROPS.PROP_SCOPE,'.', T_PROPS.PROP_NAME), '=', T_PROPS.PROP_VALUE)"
+  ],
+  "delim": ",",
+  "target": "h2-t_props.del"
+}

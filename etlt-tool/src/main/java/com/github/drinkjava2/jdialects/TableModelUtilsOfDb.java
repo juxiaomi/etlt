@@ -205,7 +205,7 @@ public abstract class TableModelUtilsOfDb {
 				Optional<IndexModel> result = results.stream().findFirst();
 				if(result.isPresent()){
 					result.get().addColumn(indexDesc.column, indexDesc.position);
-				}else{
+				}else if(indexDesc.indexName != null){
 					IndexModel indexModel = new IndexModel(indexDesc.indexName);
 					indexModel.addColumn(indexDesc.column, indexDesc.position);
 					indexModel.setUnique(indexDesc.unique);

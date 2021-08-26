@@ -8,7 +8,7 @@
     "*"
   ],
   "resources": [
-     {
+    {
       "name": "h2-datasource",
       "type": "DATA_BASE",
       "className": "org.h2.Driver",
@@ -16,10 +16,10 @@
       "user": "dept_user",
       "password": "dept_pass",
       "validationQuery": "SELECT 1",
-       "initialSize" : 1,
-       "minIdle": 2,
-       "maxIdle" :  10,
-       "maxActive" : 20
+      "initialSize": 1,
+      "minIdle": 2,
+      "maxIdle": 10,
+      "maxActive": 20
     },
     {
       "name": "pg-datasource",
@@ -29,10 +29,10 @@
       "user": "deptmgmt_user",
       "password": "DEPTMGMT_USER",
       "validationQuery": "SELECT 1",
-      "initialSize" : 1,
+      "initialSize": 1,
       "minIdle": 2,
-      "maxIdle" :  10,
-      "maxActive" : 20
+      "maxIdle": 10,
+      "maxActive": 20
     }
   ]
 }

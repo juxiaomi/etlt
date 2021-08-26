@@ -33,31 +33,25 @@ public class ParalleledJobExecutor {
             final JobContext jobContext = new JobContext(jobDirectory);
             execute(jobContext);
         } catch (IOException e) {
-            throw  new EtltRuntimeException(e);
+            throw new EtltRuntimeException(e);
         }
 
     }
 
     public void execute(JobContext jobContext) {
-        try {
-            log.info("job is initializing ...");
-            jobContext.init();
-            List<Loader> _loaders = jobContext.getAllLoader();
-            log.info("there are " + _loaders.size() + " loaders.");
-            log.info("now all loaders will be started in " + this.count + " threads.");
-            this.loaders.addAll(_loaders);
-            JobExecutor executor = new JobExecutor();
-            for (int i = 0; i < this.count; i++) {
-                Thread worker = new Thread(() -> {
-                    for (Loader taskLoader = getLoader(); taskLoader != null; taskLoader = getLoader()) {
-                        log.info("existing loaders need to be handled: " + this.loaders.size() + "/" + _loaders.size());
-                        executor.execute(jobContext, taskLoader);
-                    }
-                }, "job-worker-" + i);
-                worker.start();
-            }
-        } catch (IOException e) {
-            throw new EtltRuntimeException("job executing error.", e);
+        List<Loader> _loaders = jobContext.getAllLoader();
+        log.info("there are " + _loaders.size() + " loaders.");
+        log.info("now all loaders will be started in " + this.count + " threads.");
+        this.loaders.addAll(_loaders);
+        JobExecutor executor = new JobExecutor();
+        for (int i = 0; i < this.count; i++) {
+            Thread worker = new Thread(() -> {
+                for (Loader taskLoader = getLoader(); taskLoader != null; taskLoader = getLoader()) {
+                    log.info("existing loaders need to be handled: " + this.loaders.size() + "/" + _loaders.size());
+                    executor.execute(jobContext, taskLoader);
+                }
+            }, "job-worker-" + i);
+            worker.start();
         }
     }
 

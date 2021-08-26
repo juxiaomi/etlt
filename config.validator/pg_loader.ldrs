@@ -1,0 +1,19 @@
+{
+    "properties":{
+        "type":"DATA_BASE",
+        "autoResolve":"true",
+        "datasource":"pg-datasource",
+        "batch":200,
+        "parallel":2
+    },
+    "loaders":[
+        {
+            "name":"MY_BLOB_TEST",
+            "extractors":[
+                "MY_BLOB_TEST"
+            ],
+            "preDml":"TRUNCATE TABLE MY_BLOB_TEST",
+            "dml":"INSERT INTO MY_BLOB_TEST VALUES(?,?,?)"
+        }
+    ]
+}

@@ -13,6 +13,9 @@ import org.etlt.extract.ExtractorSetting;
 import org.etlt.load.BundleLoaderSetting;
 import org.etlt.load.Loader;
 import org.etlt.load.LoaderSetting;
+import org.etlt.validate.BundleValidatorSetting;
+import org.etlt.validate.Validator;
+import org.etlt.validate.ValidatorSetting;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +36,7 @@ public class JobContext implements VariableContext {
 
     public static final String EXTRACTOR_SUFFIX = ".ext";
     private static final String LOADER_SUFFIX = ".ldr";
+    private static final String VALIDATOR_SUFFIX = ".vld";
     /**
      * define many extractors
      */
@@ -41,6 +45,11 @@ public class JobContext implements VariableContext {
      * define many loaders
      */
     private static final String BUNDLE_LOADER_SUFFIX = ".ldrs";
+
+    /**
+     * define many loaders
+     */
+    private static final String BUNDLE_VALIDATOR_SUFFIX = ".vlds";
     /**
      *
      */
@@ -48,7 +57,7 @@ public class JobContext implements VariableContext {
 
     private final Map<String, Object> resourceContainer = new ConcurrentHashMap<>();
 
-    private File configInventory;
+    private File contextRoot;
 
     private JobSetting jobSetting;
 
@@ -58,23 +67,25 @@ public class JobContext implements VariableContext {
 
     private final Map<String, Loader> loaders = new HashMap<>();
 
+    private final Map<String, Validator> validators = new HashMap<>();
+
     private Map<String, Object> mapping = new HashMap<>();
 
-    public JobContext(File configInventory) throws IOException{
-        this.configInventory = configInventory;
-        this.jobSetting = this.reader.read(new File(this.configInventory, JOB_SETTING), JobSetting.class);
+    public JobContext(File contextRoot) throws IOException{
+        this.contextRoot = contextRoot;
+        this.jobSetting = this.reader.read(new File(this.contextRoot, JOB_SETTING), JobSetting.class);
     }
 
     private JobContext(){
-
     }
 
     public JobContext copy(){
         JobContext jobContext = new JobContext();
-        jobContext.configInventory = this.configInventory;
+        jobContext.contextRoot = this.contextRoot;
         jobContext.jobSetting = this.jobSetting;
         jobContext.extractors.putAll(this.extractors);
         jobContext.loaders.putAll(this.loaders);
+        jobContext.validators.putAll(this.validators);
         jobContext.mapping.putAll(this.mapping);
         jobContext.resourceContainer.putAll(this.resourceContainer);
         /**
@@ -88,8 +99,8 @@ public class JobContext implements VariableContext {
         return jobSetting;
     }
 
-    public File getConfigInventory() {
-        return configInventory;
+    public File getContextRoot() {
+        return contextRoot;
     }
 
     public boolean isExist(String entity) {
@@ -128,14 +139,25 @@ public class JobContext implements VariableContext {
     }
 
     /**
-     * read a job setting {@link JobSetting} from job.json file located in {@link #configInventory}
+     * read a job setting {@link JobSetting} from job.json file located in {@link #contextRoot}
      */
     public void init() throws IOException {
         initResources();
+        /**
+         * init all extractors
+         */
         initExtractors();
         initBundleExtractors();
+        /**
+         * init all loaders
+         */
         initLoaders();
         initBundleLoaders();
+        /**
+         * init all validators
+         */
+        initValidators();
+        initBundleValidators();
         initMapping();
     }
 
@@ -155,6 +177,14 @@ public class JobContext implements VariableContext {
             this.loaders.put(loader.getName(), loader);
     }
 
+    private void addValidator(Validator validator) {
+        if (this.validators.containsKey(validator.getName()))
+            throw new EtltRuntimeException("duplicated validator found: " + validator.getName());
+        List<String> validatorNames = this.jobSetting.getValidators();
+        if (validatorNames.contains(ALL) || validatorNames.contains(validator.getName()))
+            this.validators.put(validator.getName(), validator);
+    }
+
     /**
      * read all file with {@link #EXTRACTOR_SUFFIX}
      * <br>read all file with {@link #BUNDLE_EXTRACTOR_SUFFIX}
@@ -162,7 +192,7 @@ public class JobContext implements VariableContext {
      * @throws IOException
      */
     protected void initExtractors() throws IOException {
-        String[] exts = configInventory.list((dir, name) ->
+        String[] exts = getContextRoot().list((dir, name) ->
                 name.endsWith(EXTRACTOR_SUFFIX)
         );
         List<Extractor> allExtractors = readExtractors(exts);
@@ -170,7 +200,7 @@ public class JobContext implements VariableContext {
     }
 
     protected void initBundleExtractors() throws IOException {
-        String[] exts = configInventory.list((dir, name) ->
+        String[] exts = getContextRoot().list((dir, name) ->
                 name.endsWith(BUNDLE_EXTRACTOR_SUFFIX)
         );
         List<Extractor> allExtractors = readBundleExtractors(exts);
@@ -184,7 +214,7 @@ public class JobContext implements VariableContext {
      * @throws IOException
      */
     protected void initLoaders() throws IOException {
-        String[] loaders = configInventory.list((dir, name) ->
+        String[] loaders = getContextRoot().list((dir, name) ->
                 name.endsWith(LOADER_SUFFIX)
         );
         List<Loader> allLoaders = resolveLoaders(loaders);
@@ -192,16 +222,38 @@ public class JobContext implements VariableContext {
     }
 
     protected void initBundleLoaders() throws IOException {
-        String[] loaderSettings = configInventory.list((dir, name) ->
+        String[] loaderSettings = getContextRoot().list((dir, name) ->
                 name.endsWith(BUNDLE_LOADER_SUFFIX)
         );
         List<Loader> allLoaders = resolveBundleLoaders(loaderSettings);
         allLoaders.forEach(loader -> addLoader(loader));
     }
 
+    /**
+     * read all file with {@link #VALIDATOR_SUFFIX}
+     * <br>read all file with {@link #BUNDLE_VALIDATOR_SUFFIX}
+     *
+     * @throws IOException
+     */
+    protected void initValidators() throws IOException {
+        String[] validators = getContextRoot().list((dir, name) ->
+                name.endsWith(VALIDATOR_SUFFIX)
+        );
+        List<Validator> allValidators = resolveValidators(validators);
+        allValidators.forEach(validator -> addValidator(validator));
+    }
+
+    protected void initBundleValidators() throws IOException {
+        String[] validatorSettings = getContextRoot().list((dir, name) ->
+                name.endsWith(BUNDLE_VALIDATOR_SUFFIX)
+        );
+        List<Validator> allValidators = resolveBundleValidators(validatorSettings);
+        allValidators.forEach(validator -> addValidator(validator));
+    }
+
     protected void initMapping() throws IOException {
         if (!ObjectUtils.isEmpty(this.jobSetting.getMapping()))
-            this.mapping = reader.read(new File(this.configInventory, this.jobSetting.getMapping()), Map.class);
+            this.mapping = reader.read(new File(this.getContextRoot(), this.jobSetting.getMapping()), Map.class);
     }
 
     protected void initResources() {
@@ -232,7 +284,7 @@ public class JobContext implements VariableContext {
     }
 
     protected Extractor readExtractor(String extractSetting) throws IOException {
-        ExtractorSetting extractorSetting = this.reader.read(new File(this.configInventory, extractSetting), ExtractorSetting.class);
+        ExtractorSetting extractorSetting = this.reader.read(new File(this.getContextRoot(), extractSetting), ExtractorSetting.class);
         return Extractor.createExtractor(extractorSetting, this);
     }
 
@@ -244,7 +296,7 @@ public class JobContext implements VariableContext {
      * @throws IOException
      */
     protected List<Extractor> resolveBundleExtractor(String extractSetting) throws IOException {
-        BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.configInventory, extractSetting), BundleExtractorSetting.class);
+        BundleExtractorSetting extractorBundleSetting = this.reader.read(new File(this.getContextRoot(), extractSetting), BundleExtractorSetting.class);
         List<ExtractorSetting> extractorSettings = extractorBundleSetting.createExtractorSetting();
         List<Extractor> extractors = new ArrayList<>(extractorSettings.size());
         extractorSettings.forEach((setting) -> {
@@ -255,8 +307,8 @@ public class JobContext implements VariableContext {
 
     protected List<Loader> resolveLoaders(String[] loaderSettings) throws IOException {
         List<Loader> loaders = new ArrayList<>();
-        for (String ext : loaderSettings) {
-            loaders.add(resolveLoader(ext));
+        for (String loaderSetting : loaderSettings) {
+            loaders.add(resolveLoader(loaderSetting));
         }
         return loaders;
     }
@@ -270,16 +322,45 @@ public class JobContext implements VariableContext {
     }
 
     protected Loader resolveLoader(String loadSetting) throws IOException {
-        LoaderSetting loadSetting1 = this.reader.read(new File(this.configInventory, loadSetting), LoaderSetting.class);
+        LoaderSetting loadSetting1 = this.reader.read(new File(this.getContextRoot(), loadSetting), LoaderSetting.class);
         return Loader.createLoader(loadSetting1);
     }
 
     protected List<Loader> resolveBundleLoader(String loadSetting) throws IOException {
-        BundleLoaderSetting loadSetting1 = this.reader.read(new File(this.configInventory, loadSetting), BundleLoaderSetting.class);
+        BundleLoaderSetting loadSetting1 = this.reader.read(new File(this.getContextRoot(), loadSetting), BundleLoaderSetting.class);
         List<LoaderSetting> loaderSettings = loadSetting1.createLoaderSetting();
         List<Loader> loaders = new ArrayList<>(loaderSettings.size());
         loaderSettings.forEach(ls -> loaders.add(Loader.createLoader(ls)));
         return loaders;
+    }
+
+    protected Validator resolveValidator(String validatorSetting) throws IOException {
+        ValidatorSetting validatorSetting1 = this.reader.read(new File(this.getContextRoot(), validatorSetting), ValidatorSetting.class);
+        return Validator.createValidator(validatorSetting1);
+    }
+
+    protected List<Validator> resolveValidators(String[] validatorSettings) throws IOException {
+        List<Validator> validators = new ArrayList<>();
+        for (String setting: validatorSettings) {
+            validators.add(resolveValidator(setting));
+        }
+        return validators;
+    }
+
+    protected List<Validator> resolveBundleValidator(String validatorSetting) throws IOException {
+        BundleValidatorSetting validatorSetting1 = this.reader.read(new File(this.getContextRoot(), validatorSetting), BundleValidatorSetting.class);
+        List<ValidatorSetting> validatorSettings = validatorSetting1.createValidatorSetting();
+        List<Validator> validators = new ArrayList<>(validatorSettings.size());
+        validatorSettings.forEach(ls -> validators.add(Validator.createValidator(ls)));
+        return validators;
+    }
+
+    private List<Validator> resolveBundleValidators(String[] validatorSettings) throws IOException {
+        List<Validator> validators = new ArrayList<>();
+        for (String setting : validatorSettings) {
+            validators.addAll(resolveBundleValidator(setting));
+        }
+        return validators;
     }
 
     public Extractor getExtractor(String name) {
@@ -296,6 +377,11 @@ public class JobContext implements VariableContext {
     public List<Loader> getAllLoader() {
         List<Loader> loaders = new ArrayList<Loader>(this.loaders.values());
         return loaders;
+    }
+
+    public List<Validator> getAllValidators() {
+        List<Validator> validators = new ArrayList<Validator>(this.validators.values());
+        return validators;
     }
 
     public Object getParameter(String name) {

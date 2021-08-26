@@ -1,0 +1,7 @@
+{
+    "name":"t_props_validator",
+    "type":"FILE",
+    "source":"h2-t_props.del",
+    "target":"pg-t_props.del",
+    "result":"t_props.validation"
+}

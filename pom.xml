@@ -186,6 +186,11 @@
 				<artifactId>commons-collections4</artifactId>
 				<version>4.1</version>
 			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.15</version>
+			</dependency>
 			<!--apache commons-->
 			<dependency>
 				<groupId>org.codehaus.groovy</groupId>

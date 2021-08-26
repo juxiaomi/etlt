@@ -35,6 +35,6 @@ public class TestFileExtractor {
         Assert.assertNotNull(this.extractor);
         extractor.init(context);
         extractor.extract(context);
-        Assert.assertEquals("1001", context.getValue("client", "client_id"));
+        Assert.assertEquals("client_id", context.getValue("client", "client_id"));
     }
 }

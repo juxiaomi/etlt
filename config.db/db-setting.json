@@ -1,6 +1,6 @@
 {
-	"type": "h2",
-	"url": "jdbc:h2:tcp://localhost:9092/~/DEPT_DB",
-	"user": "dept_user",
-	"password": "dept_pass"
+	"type": "oracle",
+	"url": "jdbc:oracle:thin:@10.105.16.85:1521:CFCAPRE",
+	"user": "cfca_app",
+	"password": "Ghbkj4tybt_0403"
 }

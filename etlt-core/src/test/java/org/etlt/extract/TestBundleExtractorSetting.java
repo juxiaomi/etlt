@@ -18,7 +18,7 @@ public class TestBundleExtractorSetting {
         Map properties = new HashMap();
         properties.put("type", "DATA_BASE");
         properties.put("skip", new Integer(0));
-        properties.put("datasourceRef", "h2datasource");
+        properties.put("datasource", "h2datasource");
         extractorBundleSetting.setProperties(properties);
 
         List<Map> extractors = new ArrayList<>();

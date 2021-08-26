@@ -6,12 +6,11 @@
     },
     "extractors":[
         {
-            "name":"client_db_3",
-            "skip":1,
-            "dql":"SELECT * FROM T_PROPS"
+            "name":"MY_BLOB_TEST",
+            "dql":"SELECT * FROM MY_BLOB_TEST"
         },
         {
-            "name":"client_db_1",
+            "name":"T_PROPS",
             "dql":"SELECT * FROM T_PROPS"
         }
     ]
