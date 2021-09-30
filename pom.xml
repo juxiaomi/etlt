@@ -15,7 +15,8 @@
         <module>etlt-main</module>
 		<module>etlt-expression</module>
         <module>etlt-tool</module>
-        <!--<module>etlt-flow</module>-->
+		<module>etlt-gui</module>
+		<!--<module>etlt-flow</module>-->
     </modules>
 
 	<properties>

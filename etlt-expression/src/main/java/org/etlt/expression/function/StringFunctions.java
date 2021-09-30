@@ -59,7 +59,7 @@ public class StringFunctions {
      * @param str2
      * @return
      */
-    @FunctionEnabled("STARTSWITH")
+    @FunctionEnabled(value = "STARTSWITH", help = "return true: first string starts with second string.")
     public boolean startsWith(String str1, String str2) {
         return str1.startsWith(str2);
     }
@@ -70,7 +70,7 @@ public class StringFunctions {
      * @param str2
      * @return
      */
-    @FunctionEnabled("ENDSWITH")
+    @FunctionEnabled(value = "ENDSWITH", help = "return true: first string ends with second string.")
     public boolean endsWith(String str1, String str2) {
         return str1.endsWith(str2);
     }

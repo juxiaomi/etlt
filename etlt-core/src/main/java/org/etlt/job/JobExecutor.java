@@ -26,27 +26,28 @@ public class JobExecutor {
     }
 
     public void execute(JobContext context) {
+        log.info("start job executing.");
         /**
          * execute all loaders
          */
         List<Loader> loaders = context.getAllLoader();
         log.info("there are " + loaders.size() + " loaders.");
         for (int i = 0; i < loaders.size(); i++) {
+            log.info("executing loader: " + (i+1) + "/" + loaders.size());
             Loader loader = loaders.get(i);
-            log.info((i + 1) + "/" + loaders.size() + ", loader " + loader.getName() + " starting...");
-            loader.preLoad(context);
-            loader.load(context);
-            loader.doFinish();
-            log.info((i + 1) + "/" + loaders.size() + ", loader " + loader.getName() + " finished");
+            execute(context, loader);
         }
         /**
          * execute all validators
          */
         List<Validator> validators = context.getAllValidators();
         log.info("there are " + validators.size() + " validators.");
-        validators.forEach(validator -> {
-            validator.validate(context);
-        });
+        for(int i = 0; i < validators.size(); i++){
+            log.info("executing validator: " + (i+1) + "/" + validators.size());
+            Validator validator = validators.get(i);
+            execute(context, validator);
+        };
+        log.info("job executing finished.");
     }
 
     /**
@@ -60,5 +61,11 @@ public class JobExecutor {
         loader.load(jobContext);
         loader.doFinish();
         log.info("loader " + loader.getName() + " finished");
+    }
+
+    public void execute(JobContext context, Validator validator){
+        log.info("validator " + validator.getName() + " starting...");
+        validator.validate(context);
+        log.info("validator " + validator.getName() + " finished");
     }
 }

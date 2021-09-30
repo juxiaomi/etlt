@@ -1,0 +1,22 @@
+[
+  {
+    "name": "project",
+    "items": [
+      {
+        "name": "create",
+        "panel": "org.etlt.gui.panel.IRRPanel"
+      },
+      {
+        "name": "open"
+      }
+    ]
+  },
+  {
+    "name": "tools",
+    "items": [
+      {
+        "name": "functions"
+      }
+    ]
+  }
+]

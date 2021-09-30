@@ -1,2 +1,4 @@
-aa58a8ff955176fff72f77fa1d66b3c0
-aa58a8ff955176fff72f77fa1d66b3c0
+---validation result for t_props_validator---
+---MD5 for source file h2-t_props.del: da61c2b1bcd13395e78eb0fb3e89096e
+---MD5 for target file pg-t_props.del: da61c2b1bcd13395e78eb0fb3e89096e
+---conclusion: SAME

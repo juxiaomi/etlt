@@ -1,7 +1,14 @@
 package org.etlt.validate;
 
 import org.etlt.job.JobContext;
-
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ **/
 public abstract class Validator implements Comparable<Validator>{
 
     private final ValidatorSetting setting;
